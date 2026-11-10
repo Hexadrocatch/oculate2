@@ -53,9 +53,7 @@ zen-about-update-learn-more = 了解更多
 ## Links
 
 zen-about-release-notes = 新功能
-zen-about-donate = 贊助
 zen-about-report-issue = 問題回報
 zen-about-community = { -brand-short-name } 免費且開源，由<a data-l10n-name="github-link">社群貢獻者</a>基於{ -zen-engine-name }所打造。
 zen-about-license = 授權資訊
 zen-about-rights = 使用條款
-zen-about-privacy = 隱私權公告

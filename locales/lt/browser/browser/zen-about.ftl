@@ -53,9 +53,7 @@ zen-about-update-learn-more = Sužinoti daugiau
 ## Links
 
 zen-about-release-notes = Kas naujo
-zen-about-donate = Aukoti
 zen-about-report-issue = Pranešti apie problemą
 zen-about-community = „{ -brand-short-name }“ yra nemokama ir atvirojo kodo, sukurta „{ -zen-engine-name }“ pagrindu <a data-l10n-name="github-link">talkininkų bendruomenės</a>.
 zen-about-license = Licencija
 zen-about-rights = Jūsų teisės
-zen-about-privacy = Privatumas

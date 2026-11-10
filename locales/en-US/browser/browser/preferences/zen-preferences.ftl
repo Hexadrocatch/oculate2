@@ -165,11 +165,8 @@ zen-theme-disable-all-enabled =
     .title = Disable all mods
 zen-theme-disable-all-disabled =
     .title = Enable all mods
-zen-theme-marketplace-description = Find and install mods from the store.
 zen-theme-marketplace-remove-button =
     .label = Remove mod
-zen-theme-marketplace-check-for-updates-button =
-    .label = Check for Updates
 zen-theme-marketplace-import-button=
     .label = Import mods
 zen-theme-marketplace-export-button =
@@ -178,8 +175,6 @@ zen-theme-marketplace-import-success = Mods imported successfully
 zen-theme-marketplace-import-failure = There was an error importing the mods
 zen-theme-marketplace-export-success = Mods exported successfully
 zen-theme-marketplace-export-failure = There was an error exporting the mods
-zen-theme-marketplace-updates-success = Mods updated successfully
-zen-theme-marketplace-updates-failure = Couldn't find any updates!
 zen-theme-marketplace-toggle-enabled-button =
     .title = Disable mod
 zen-theme-marketplace-toggle-disabled-button =
@@ -193,13 +188,9 @@ zen-theme-marketplace-dropdown-default-label =
 zen-theme-marketplace-input-default-placeholder =
     .placeholder = Type something...
 pane-zen-marketplace-title = Zen Mods
-zen-themes-auto-update =
-   .label = Automatically update installed mods on startup
 
 zen-settings-workspaces-force-container-tabs-to-workspace =
     .label = Switch to workspace where container is set as default when opening container tabs
-
-zen-theme-marketplace-link = Visit Store
 
 zen-dark-theme-styles-header = Dark Theme Styles
 zen-dark-theme-styles-description = Customize the dark theme to your liking

@@ -85,14 +85,14 @@ add_task(async function test_new_route_form_adds_a_route() {
   const save = section.querySelector(".zen-library-routing-save");
   Assert.ok(save.disabled, "there is nothing to add before a link is given");
 
-  await fillReference(section, "zen-browser.app");
+  await fillReference(section, "example.com");
   Assert.ok(!save.disabled, "a link is all the form asks for");
   save.click();
   await section.updateComplete;
 
   const routes = gZenSpaceRoutingManager.getAllRoutes();
   Assert.equal(routes.length, 1, "the route was kept");
-  Assert.equal(routes[0].reference, "zen-browser.app", "with its link");
+  Assert.equal(routes[0].reference, "example.com", "with its link");
   Assert.equal(routes[0].matchType, "contains", "and the match it was given");
   Assert.ok(
     !section.querySelector(".zen-library-search-top[open]"),
@@ -150,7 +150,7 @@ add_task(async function test_a_pattern_that_cannot_be_read_is_not_saved() {
     .click();
   await section.updateComplete;
 
-  const input = await fillReference(section, "zen-browser.app[");
+  const input = await fillReference(section, "example.com[");
   Assert.ok(input.hasAttribute("invalid"), "the field says it is no pattern");
   Assert.ok(
     section.querySelector(".zen-library-routing-save").disabled,
@@ -169,7 +169,7 @@ add_task(async function test_a_pattern_that_cannot_be_read_is_not_saved() {
 add_task(async function test_a_route_can_be_changed_and_taken_away() {
   clearRoutes();
   const route = gZenSpaceRoutingManager.createNewRoute();
-  route.reference = "zen-browser.app";
+  route.reference = "example.com";
   gZenSpaceRoutingManager.updateRoute(route);
   gZenSpaceRoutingManager.saveRoutes();
 
@@ -178,11 +178,11 @@ add_task(async function test_a_route_can_be_changed_and_taken_away() {
   await section.updateComplete;
   Assert.equal(
     section.querySelector(".zen-library-routing-reference").value,
-    "zen-browser.app",
+    "example.com",
     "a row opens the form on its own route"
   );
 
-  await fillReference(section, "docs.zen-browser.app");
+  await fillReference(section, "docs.example.com");
   section.querySelector(".zen-library-routing-save").click();
   await section.updateComplete;
 
@@ -190,7 +190,7 @@ add_task(async function test_a_route_can_be_changed_and_taken_away() {
   Assert.equal(routes.length, 1, "the route was changed rather than added to");
   Assert.equal(
     routes[0].reference,
-    "docs.zen-browser.app",
+    "docs.example.com",
     "with its new link"
   );
 
@@ -273,7 +273,7 @@ add_task(async function test_closing_the_library_puts_the_form_away() {
   const section = await openRoutingSection();
   section.querySelector(".zen-library-filter-button").click();
   await section.updateComplete;
-  await fillReference(section, "zen-browser.app");
+  await fillReference(section, "example.com");
 
   await closeLibrary();
   await section.updateComplete;

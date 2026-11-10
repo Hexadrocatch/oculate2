@@ -53,9 +53,7 @@ zen-about-update-learn-more = Daha fazla bilgi alın
 ## Links
 
 zen-about-release-notes = Yenilikler
-zen-about-donate = Bağış yap
 zen-about-report-issue = Sorun bildir
 zen-about-community = { -brand-short-name }, <a data-l10n-name="github-link">katkıda bulunan topluluk</a> tarafından { -zen-engine-name } üzerinde oluşturulmuş, ücretsiz ve açık kaynaklı bir yazılımdır.
 zen-about-license = Lisans
 zen-about-rights = Haklarınız
-zen-about-privacy = Gizlilik

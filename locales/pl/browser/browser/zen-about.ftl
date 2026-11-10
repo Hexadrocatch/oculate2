@@ -53,9 +53,7 @@ zen-about-update-learn-more = Dowiedz się więcej
 ## Links
 
 zen-about-release-notes = Co nowego
-zen-about-donate = Wesprzyj
 zen-about-report-issue = Zgłoś problem
 zen-about-community = { -brand-short-name } jest darmowym i otwartym oprogramowaniem, zbudowany na { -zen-engine-name } przez <a data-l10n-name="github-link">społeczność twórców</a>.
 zen-about-license = Licencja
 zen-about-rights = Twoja prawa
-zen-about-privacy = Prywatność

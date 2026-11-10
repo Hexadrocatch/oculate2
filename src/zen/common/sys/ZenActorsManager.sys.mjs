@@ -30,10 +30,7 @@ let JSWINDOWACTORS = {
       },
     },
     safeForUntrustedWebProcess: true,
-    matches: [
-      ...Services.prefs.getStringPref("zen.injections.match-urls").split(","),
-      "about:preferences",
-    ],
+    matches: ["about:preferences"],
   },
   ZenGlance: {
     parent: {

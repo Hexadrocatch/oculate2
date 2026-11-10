@@ -53,9 +53,7 @@ zen-about-update-learn-more = 더 알아보기
 ## Links
 
 zen-about-release-notes = 새로운 것들
-zen-about-donate = 후원
 zen-about-report-issue = 버그 제보하기
 zen-about-community = { -brand-short-name }은 무료 오픈소스이며, <a data-l10n-name="github-link">기여자들의 커뮤니티</a>에 의해 { -zen-engine-name }를 기반으로 만들어졌습니다.
 zen-about-license = 라이선스
 zen-about-rights = 당신의 권리
-zen-about-privacy = 개인정보

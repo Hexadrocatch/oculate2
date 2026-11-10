@@ -81,11 +81,6 @@ add_task(async function test_about_links() {
   const doc = win.document;
 
   is(
-    doc.getElementById("zen-about-donate").href,
-    "https://www.zen-browser.app/donate",
-    "Donate link points at the donation page"
-  );
-  is(
     doc.getElementById("zen-about-issues").href,
     "https://github.com/zen-browser/desktop/issues",
     "Issues link points at the tracker"

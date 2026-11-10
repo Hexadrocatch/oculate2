@@ -10,10 +10,9 @@ const { nsZenMultiWindowFeature } = ChromeUtils.importESModule(
 
 var gZenMarketplaceManager = {
   async init() {
-    const checkForUpdates = document.getElementById("zenThemeMarketplaceCheckForUpdates");
     const header = document.getElementById("zenMarketplaceHeader");
 
-    if (!checkForUpdates || !header) {
+    if (!header) {
       return; // We haven't entered the settings page yet.
     }
 
@@ -42,39 +41,8 @@ var gZenMarketplaceManager = {
 
     await this._buildModsList();
 
-    const checkForUpdateClick = (event) => {
-      if (event.target === checkForUpdates) {
-        event.preventDefault();
-
-        this._checkForThemeUpdates(event);
-      }
-    };
-
-    checkForUpdates.addEventListener("click", checkForUpdateClick);
-
-    document.addEventListener("ZenModsMarketplace:CheckForUpdatesFinished", (event) => {
-      checkForUpdates.disabled = false;
-
-      const updates = event.detail.updates;
-      const success = document.getElementById("zenThemeMarketplaceUpdatesSuccess");
-      const error = document.getElementById("zenThemeMarketplaceUpdatesFailure");
-
-      if (updates) {
-        success.hidden = false;
-        error.hidden = true;
-      } else {
-        success.hidden = true;
-        error.hidden = false;
-      }
-    });
-
     window.addEventListener("unload", () => {
       this.__hasInitializedEvents = false;
-
-      document.removeEventListener("ZenModsMarketplace:CheckForUpdatesFinished", this);
-      document.removeEventListener("ZenCheckForModUpdates", this);
-
-      checkForUpdates.removeEventListener("click", checkForUpdateClick);
 
       this.modsList.innerHTML = "";
       this._doNotRebuildModsList = false;
@@ -128,13 +96,6 @@ var gZenMarketplaceManager = {
 
   async observe() {
     await this._buildModsList();
-  },
-
-  _checkForThemeUpdates(event) {
-    // Send a message to the child to check for theme updates.
-    event.target.disabled = true;
-    // send an event that will be listened by the child process.
-    document.dispatchEvent(new CustomEvent("ZenCheckForModUpdates"));
   },
 
   get modsList() {
@@ -219,7 +180,6 @@ var gZenMarketplaceManager = {
       const mods = JSON.parse(content);
 
       for (const mod of Object.values(mods)) {
-        mod.modId = mod.id;
         await window.ZenInstallMod(mod);
       }
     } catch (error) {
@@ -838,11 +798,6 @@ Preferences.addAll([
     id: "zen.workspaces.continue-where-left-off",
     type: "bool",
     default: false,
-  },
-  {
-    id: "zen.mods.auto-update",
-    type: "bool",
-    default: true,
   },
   {
     id: "zen.tabs.ctrl-tab.ignore-essential-tabs",

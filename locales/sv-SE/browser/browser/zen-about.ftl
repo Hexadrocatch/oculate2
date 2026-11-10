@@ -53,9 +53,7 @@ zen-about-update-learn-more = Läs mer
 ## Links
 
 zen-about-release-notes = Vad är nytt
-zen-about-donate = Donera
 zen-about-report-issue = Rapportera ett problem
 zen-about-community = { -brand-short-name } är fri och öppen källkod, byggd på { -zen-engine-name } av en <a data-l10n-name="github-link">gemenskap av bidragsgivare</a>.
 zen-about-license = Licens
 zen-about-rights = Dina rättigheter
-zen-about-privacy = Sekretess

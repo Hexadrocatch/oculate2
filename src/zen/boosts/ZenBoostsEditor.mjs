@@ -116,6 +116,7 @@ export class nsZenBoostEditor {
       .getElementById("zen-boost-code")
       .addEventListener("click", this.onCodeButtonPressed.bind(this));
     const shareButton = this.doc.getElementById("zen-boost-share");
+    shareButton.hidden = !this.openerWindow.gZenShareManager?.enabled;
     shareButton.addEventListener("click", this.onShareBoostPressed.bind(this));
     this.doc
       .getElementById("zen-boost-back")

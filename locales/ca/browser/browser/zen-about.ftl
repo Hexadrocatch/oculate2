@@ -53,9 +53,7 @@ zen-about-update-learn-more = Més informació
 ## Links
 
 zen-about-release-notes = Novetats
-zen-about-donate = Feu un donatiu
 zen-about-report-issue = Notifica un problema
 zen-about-community = { -brand-short-name } és programari lliure i de codi obert, construït sobre { -zen-engine-name } per una <a data-l10n-name="github-link">comunitat de col·laboradors</a>.
 zen-about-license = Llicència
 zen-about-rights = Els vostres drets
-zen-about-privacy = Privadesa

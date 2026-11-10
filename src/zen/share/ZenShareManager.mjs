@@ -46,7 +46,10 @@ class nsZenShareManager extends nsZenDOMOperatedFeature {
   }
 
   get enabled() {
-    return !gZenWorkspaces.privateWindowOrDisabled;
+    return (
+      !gZenWorkspaces.privateWindowOrDisabled &&
+      !!Services.prefs.getStringPref("zen.share.base-url", "").trim()
+    );
   }
 
   // Mark: sharing

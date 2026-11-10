@@ -8,8 +8,6 @@ zen-library-button =
 
 library-footer-close-button =
     .tooltiptext = Close library
-library-footer-donate-button =
-    .tooltiptext = Donate to Zen
 library-footer-customize-button =
     .tooltiptext = Choose tabs
 library-tab-remove-button =

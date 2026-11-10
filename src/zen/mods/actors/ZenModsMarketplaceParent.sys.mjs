@@ -2,67 +2,32 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-export class ZenModsMarketplaceParent extends JSWindowActorParent {
-  constructor() {
-    super();
-  }
+const MOD_ID_RE = /^[\w-]+$/;
 
+export class ZenModsMarketplaceParent extends JSWindowActorParent {
   get modsManager() {
     return this.browsingContext.topChromeWindow.gZenMods;
   }
 
   async receiveMessage(message) {
-    switch (message.name) {
-      case "ZenModsMarketplace:InstallMod": {
-        const modId = message.data.modId;
-        const mod = await this.modsManager.requestMod(modId);
-
-        console.warn(`[ZenModsMarketplaceParent]: Installing mod ${mod.id}`);
-
-        mod.enabled = true;
-
-        const mods = await this.modsManager.getMods();
-        mods[mod.id] = mod;
-
-        await this.modsManager.updateMods(mods);
-        await this.updateChildProcesses(mod.id);
-
-        break;
-      }
-      case "ZenModsMarketplace:UninstallMod": {
-        const modId = message.data.modId;
-        console.warn(`[ZenModsMarketplaceParent]: Uninstalling mod ${modId}`);
-
-        const mods = await this.modsManager.getMods();
-
-        delete mods[modId];
-
-        await this.modsManager.removeMod(modId);
-        await this.modsManager.updateMods(mods);
-
-        await this.updateChildProcesses(modId);
-
-        break;
-      }
-      case "ZenModsMarketplace:CheckForUpdates": {
-        const updates = await this.modsManager.checkForModsUpdates();
-        this.sendAsyncMessage("ZenModsMarketplace:CheckForUpdatesFinished", {
-          updates,
-        });
-        break;
-      }
-
-      case "ZenModsMarketplace:IsModInstalled": {
-        const themeId = message.data.themeId;
-        const themes = await this.modsManager.getMods();
-
-        return Boolean(themes?.[themeId]);
-      }
+    if (message.name !== "ZenModsMarketplace:InstallMod") {
+      return;
     }
-    return undefined;
-  }
+    const { mod } = message.data;
+    if (!MOD_ID_RE.test(mod?.id ?? "")) {
+      console.error(
+        "[ZenModsMarketplaceParent]: Refusing mod without a valid id"
+      );
+      return;
+    }
 
-  async updateChildProcesses(modId) {
-    this.sendAsyncMessage("ZenModsMarketplace:ModChanged", { modId });
+    console.warn(`[ZenModsMarketplaceParent]: Installing mod ${mod.id}`);
+
+    mod.enabled = true;
+
+    const mods = await this.modsManager.getMods();
+    mods[mod.id] = mod;
+
+    await this.modsManager.updateMods(mods);
   }
 }

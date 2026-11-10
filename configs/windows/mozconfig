@@ -9,8 +9,6 @@ if test "$ZEN_CROSS_COMPILING"; then
   export WINE="$(echo ~)/win-cross/wine/bin/wine"
   export WINEDEBUG=-all
 
-  export MOZ_STUB_INSTALLER=1
-
   export CROSS_BUILD=1
   CROSS_COMPILE=1
 

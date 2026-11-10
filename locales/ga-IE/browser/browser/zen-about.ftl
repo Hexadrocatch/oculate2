@@ -53,9 +53,7 @@ zen-about-update-learn-more = Faigh tuilleadh eolais
 ## Links
 
 zen-about-release-notes = Cad atá nua
-zen-about-donate = Tabhair Síntiús
 zen-about-report-issue = Tuairiscigh fadhb
 zen-about-community = Tá { -brand-short-name } saor in aisce agus foinse oscailte; tá sé tógtha ar { -zen-engine-name } ag <a data-l10n-name="github-link">pobal rannpháirtithe</a>.
 zen-about-license = Ceadúnas
 zen-about-rights = Do chearta
-zen-about-privacy = Príobháideachas

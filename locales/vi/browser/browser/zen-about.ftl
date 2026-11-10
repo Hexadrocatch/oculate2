@@ -53,9 +53,7 @@ zen-about-update-learn-more = Learn more
 ## Links
 
 zen-about-release-notes = What’s new
-zen-about-donate = Donate
 zen-about-report-issue = Report an issue
 zen-about-community = { -brand-short-name } is free and open source, built on { -zen-engine-name } by a <a data-l10n-name="github-link">community of contributors</a>.
 zen-about-license = License
 zen-about-rights = Your rights
-zen-about-privacy = Privacy

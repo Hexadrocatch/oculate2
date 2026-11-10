@@ -42,11 +42,3 @@ Zen is a firefox-based browser with the aim of pushing your productivity to a ne
 If you'd like to report a bug, please do so on our [GitHub Issues page](https://github.com/zen-browser/desktop/issues/) and for feature requests, you can use [GitHub Discussions](https://github.com/zen-browser/desktop/discussions).
 
 Zen is an open-source project, and we welcome contributions from the community! Please take a look at the [contribution guidelines](./docs/contribute.md) before getting started!
-
-#### Partners
-
-Thanks to all the [sponsors](https://zen-browser.app/#sponsors) of Zen for their support and contributions, including:
-
-<a href="https://blacksmith.sh">
-  <img src="./docs/assets/blacksmith-yellow.png" width="350px"/>
-</a>

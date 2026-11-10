@@ -37,7 +37,7 @@
   }
 
   :root[inDOMFullscreen] & {
-    /* See issue https://github.com/TinsmithRegister30/oculate1/issues/5229 */
+    /* See issue https://github.com/Hexadrocatch/oculate2/issues/5229 */
     visibility: visible;
   }
 

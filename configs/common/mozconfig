@@ -20,7 +20,7 @@ ac_add_options --with-distribution-id=app.oculate-browser
 # ac_add_options --enable-linker=gold
 
 # Misc
-export MOZ_SOURCE_REPO=https://github.com/TinsmithRegister30/oculate1
+export MOZ_SOURCE_REPO=https://github.com/Hexadrocatch/oculate2
 export MOZ_SOURCE_CHANGESET=${changeset}
 export MOZ_INCLUDE_SOURCE_INFO=1
 

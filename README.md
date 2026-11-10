@@ -19,6 +19,6 @@ The [contribution guidelines](./docs/contribute.md) describe how to set up a loc
 
 ### Contributing
 
-If you'd like to report a bug, please do so on our [GitHub Issues page](https://github.com/TinsmithRegister30/oculate1/issues/) and for feature requests, you can use [GitHub Discussions](https://github.com/TinsmithRegister30/oculate1/discussions).
+If you'd like to report a bug, please do so on our [GitHub Issues page](https://github.com/Hexadrocatch/oculate2/issues/) and for feature requests, you can use [GitHub Discussions](https://github.com/Hexadrocatch/oculate2/discussions).
 
 Oculate is an open-source project, and we welcome contributions from the community! Please take a look at the [contribution guidelines](./docs/contribute.md) before getting started!

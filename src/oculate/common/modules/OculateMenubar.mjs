@@ -98,7 +98,7 @@ export class nsOculateMenuBar {
         if (AppConstants.platform === "linux") {
           // On linux, there seems to be a bug where the menu freezes up and makes the browser
           // suppiciously unresponsive if we try to update the menu while it's opening.
-          // See https://github.com/TinsmithRegister30/oculate1/issues/12024
+          // See https://github.com/Hexadrocatch/oculate2/issues/12024
           return;
         }
         gOculateWorkspaces.updateWorkspacesChangeContextMenu();

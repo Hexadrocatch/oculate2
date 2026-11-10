@@ -97,7 +97,7 @@ class OculateStartup {
       await delayedStartupPromise;
       await SessionStore.promiseAllWindowsRestored;
       gOculateCompactModeManager.init();
-      // Fix for https://github.com/TinsmithRegister30/oculate1/issues/7605, specially in compact mode
+      // Fix for https://github.com/Hexadrocatch/oculate2/issues/7605, specially in compact mode
       if (gURLBar.hasAttribute("breakout-extend")) {
         gURLBar.focus();
       }

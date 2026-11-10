@@ -560,7 +560,7 @@ export class nsOculateSessionManager {
 
   onRestoringClosedWindow(aWinData) {
     // We only want to save all pinned tabs if the user preference allows it.
-    // See https://github.com/TinsmithRegister30/oculate1/issues/12307
+    // See https://github.com/Hexadrocatch/oculate2/issues/12307
     if (this.#shouldRestoreOnlyPinned && aWinData?.tabs?.length) {
       this.log("Restoring only pinned tabs for closed window");
       this.#filterUnpinnedTabs(aWinData);

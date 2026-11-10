@@ -578,7 +578,7 @@ window.gOculateCompactModeManager = {
   },
 
   _removeOpenStateOnUnifiedExtensions() {
-    // Fix for bug https://github.com/TinsmithRegister30/oculate1/issues/1925
+    // Fix for bug https://github.com/Hexadrocatch/oculate2/issues/1925
     const buttons = document.querySelectorAll(
       "toolbarbutton:is(#unified-extensions-button, .webextension-browser-action)"
     );
@@ -793,7 +793,7 @@ window.gOculateCompactModeManager = {
           }
         }
 
-        // See bug https://bugzilla.mozilla.org/show_bug.cgi?id=1979340 and issue https://github.com/TinsmithRegister30/oculate1/issues/7746.
+        // See bug https://bugzilla.mozilla.org/show_bug.cgi?id=1979340 and issue https://github.com/Hexadrocatch/oculate2/issues/7746.
         // If we want the toolbars to be draggable, we need to make sure to check the hover state after a short delay.
         // This is because the mouse is left to be handled natively so firefox thinks the mouse left the window for a split second.
         setTimeout(() => {

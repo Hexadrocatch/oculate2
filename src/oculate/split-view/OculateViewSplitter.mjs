@@ -1352,7 +1352,7 @@ class nsOculateViewSplitter extends nsOculateDOMOperatedFeature {
       this.updateSplitView(tab);
       tab.linkedBrowser.docShellIsActive = true;
       if (isGlanceTab) {
-        // See issues https://github.com/TinsmithRegister30/oculate1/issues/11641
+        // See issues https://github.com/Hexadrocatch/oculate2/issues/11641
         this.removeSplitters();
       }
     }

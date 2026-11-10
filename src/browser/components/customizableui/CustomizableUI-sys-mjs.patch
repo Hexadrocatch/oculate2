@@ -291,7 +291,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
        }
        case "mousedown": {
 -        if (aEvent.button != 0) {
-+        if (aEvent.button != 0 || this.#toolbar.id == "oculate-sidebar-top-buttons") { // Fix https://github.com/TinsmithRegister30/oculate1/issues/7718
++        if (aEvent.button != 0 || this.#toolbar.id == "oculate-sidebar-top-buttons") { // Fix https://github.com/Hexadrocatch/oculate2/issues/7718
            break;
          }
          if (aEvent.target == this.#defaultListButton) {

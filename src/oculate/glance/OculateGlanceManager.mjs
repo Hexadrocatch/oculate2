@@ -1700,7 +1700,7 @@ class nsOculateGlanceManager extends nsOculateDOMOperatedFeature {
       }
 
       // Only glance up links that are http(s) or file
-      // https://github.com/TinsmithRegister30/oculate1/issues/7173
+      // https://github.com/Hexadrocatch/oculate2/issues/7173
       const url2Spec = url2.spec;
       if (!this.#isValidGlanceUrl(url2Spec)) {
         return false;

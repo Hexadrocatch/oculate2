@@ -82,7 +82,7 @@ add_task(async function test_about_links() {
 
   is(
     doc.getElementById("oculate-about-issues").href,
-    "https://github.com/TinsmithRegister30/oculate1/issues",
+    "https://github.com/Hexadrocatch/oculate2/issues",
     "Issues link points at the tracker"
   );
   const releaseNotes = doc.getElementById("oculate-about-release-notes");

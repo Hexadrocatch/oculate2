@@ -226,7 +226,7 @@ class nsOculateWindowSync {
     // to avoid confusing the old private window behavior.
     let forcedSync = !aWindow.gOculateWorkspaces?.privateWindowOrDisabled;
     let hasUnsyncedArg = false;
-    // See issue https://github.com/TinsmithRegister30/oculate1/issues/12211
+    // See issue https://github.com/Hexadrocatch/oculate2/issues/12211
     if (lazy.PrivateBrowsingUtils.isWindowPrivate(aWindow)) {
       aWindow._oculateStartupSyncFlag = "synced";
     }

@@ -35,7 +35,7 @@
   overflow: hidden;
 
   & .dialogStack {
-    /* Fix for issue https://github.com/TinsmithRegister30/oculate1/issues/7564 */
+    /* Fix for issue https://github.com/Hexadrocatch/oculate2/issues/7564 */
     position: absolute;
   }
 

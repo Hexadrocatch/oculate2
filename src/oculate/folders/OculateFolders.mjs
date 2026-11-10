@@ -1507,7 +1507,7 @@ class nsOculateFolders extends nsOculateDOMOperatedFeature {
     if (tab.multiselected || tab.selected) {
       return true;
     }
-    // See https://github.com/TinsmithRegister30/oculate1/issues/12509.
+    // See https://github.com/Hexadrocatch/oculate2/issues/12509.
     // We can't just blindly check for the tab's active state
     // because it would mean that all tabs in a collapsed group that
     // are active means they should be active for contextGroup as well,

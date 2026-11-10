@@ -136,16 +136,16 @@ add_task(async function test_html_parsing_logic() {
       <body>
         <ul>
           <li class="ListItem-module__listItem__wBJcm">
-            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/TinsmithRegister30/oculate1/issues/101"><span><span>Fix the login bug</span></span></a></h4>
+            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/Hexadrocatch/oculate2/issues/101"><span><span>Fix the login bug</span></span></a></h4>
             <div class="Description-module__container__hpqJz">
-              <span>TinsmithRegister30/oculate1#101</span>
+              <span>Hexadrocatch/oculate2#101</span>
               <span> · <button data-testid="author-filter-link"><span class="prc-VisuallyHidden-VisuallyHidden-Q0qSB">Filter by author </span>UserA</button></span>
             </div>
           </li>
           <li class="ListItem-module__listItem__wBJcm">
-            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/TinsmithRegister30/oculate1/pull/102"><span><span>Add dark mode</span></span></a></h4>
+            <h4><a data-testid="issue-listitem-title-link" href="https://github.com/Hexadrocatch/oculate2/pull/102"><span><span>Add dark mode</span></span></a></h4>
             <div class="Description-module__container__hpqJz">
-              <span>TinsmithRegister30/oculate1#102</span>
+              <span>Hexadrocatch/oculate2#102</span>
               <span> · <button data-testid="author-filter-link"><span class="prc-VisuallyHidden-VisuallyHidden-Q0qSB">Filter by author </span>UserB</button></span>
             </div>
           </li>
@@ -165,16 +165,16 @@ add_task(async function test_html_parsing_logic() {
 
   Assert.equal(items[0].title, "Fix the login bug");
   Assert.equal(items[0].subtitle, "UserA");
-  Assert.equal(items[0].id, "TinsmithRegister30/oculate1#101");
+  Assert.equal(items[0].id, "Hexadrocatch/oculate2#101");
   Assert.equal(
     items[0].url,
-    "https://github.com/TinsmithRegister30/oculate1/issues/101"
+    "https://github.com/Hexadrocatch/oculate2/issues/101"
   );
 
   Assert.equal(items[1].title, "Add dark mode");
   Assert.equal(items[1].subtitle, "UserB");
-  Assert.equal(items[1].id, "TinsmithRegister30/oculate1#102");
-  Assert.equal(items[1].url, "https://github.com/TinsmithRegister30/oculate1/pull/102");
+  Assert.equal(items[1].id, "Hexadrocatch/oculate2#102");
+  Assert.equal(items[1].url, "https://github.com/Hexadrocatch/oculate2/pull/102");
 
   sandbox.restore();
 });
@@ -255,7 +255,7 @@ add_task(async function test_server_error_returns_failed_fetch() {
     type: "pull-requests",
     authorMe: true,
   });
-  instance.state.repos = new Set(["TinsmithRegister30/oculate1"]);
+  instance.state.repos = new Set(["Hexadrocatch/oculate2"]);
 
   for (const status of [429, 500, 503]) {
     instance.fetch.resolves({ status, text: "" });
@@ -269,7 +269,7 @@ add_task(async function test_server_error_returns_failed_fetch() {
     );
     Assert.deepEqual(
       [...instance.state.repos],
-      ["TinsmithRegister30/oculate1"],
+      ["Hexadrocatch/oculate2"],
       "Should keep the known repositories"
     );
   }
@@ -286,7 +286,7 @@ add_task(async function test_repo_excludes_emit_negative_repo_filters() {
     authorMe: true,
     assignedMe: false,
     reviewRequested: false,
-    repoExcludes: ["TinsmithRegister30/oculate1", "foo/bar"],
+    repoExcludes: ["Hexadrocatch/oculate2", "foo/bar"],
   });
 
   instance.fetch.resolves({ status: 200, text: "<html></html>" });
@@ -297,8 +297,8 @@ add_task(async function test_repo_excludes_emit_negative_repo_filters() {
   const query = fetchedUrl.searchParams.get("q");
 
   Assert.ok(
-    query.includes("-repo:TinsmithRegister30/oculate1"),
-    "Should exclude TinsmithRegister30/oculate1 from the query"
+    query.includes("-repo:Hexadrocatch/oculate2"),
+    "Should exclude Hexadrocatch/oculate2 from the query"
   );
   Assert.ok(
     query.includes("-repo:foo/bar"),
@@ -322,18 +322,18 @@ add_task(async function test_pull_requests_json_api_parsing() {
       pullsDashboardSurfaceContentRoute: {
         results: [
           {
-            repoNameWithOwner: "TinsmithRegister30/oculate1",
+            repoNameWithOwner: "Hexadrocatch/oculate2",
             number: 42,
             title: "Add live folders",
             author: { displayLogin: "alice" },
-            permalink: "https://github.com/TinsmithRegister30/oculate1/pull/42",
+            permalink: "https://github.com/Hexadrocatch/oculate2/pull/42",
           },
           {
-            repoNameWithOwner: "TinsmithRegister30/oculate1",
+            repoNameWithOwner: "Hexadrocatch/oculate2",
             number: 43,
             title: "Fix bug",
             author: { displayLogin: "bob" },
-            permalink: "https://github.com/TinsmithRegister30/oculate1/pull/43",
+            permalink: "https://github.com/Hexadrocatch/oculate2/pull/43",
           },
         ],
       },
@@ -345,11 +345,11 @@ add_task(async function test_pull_requests_json_api_parsing() {
   const items = await instance.fetchItems();
 
   Assert.equal(items.length, 2, "Should parse two PRs from the JSON payload");
-  Assert.equal(items[0].id, "TinsmithRegister30/oculate1#42");
+  Assert.equal(items[0].id, "Hexadrocatch/oculate2#42");
   Assert.equal(items[0].title, "Add live folders");
   Assert.equal(items[0].subtitle, "alice");
-  Assert.equal(items[0].url, "https://github.com/TinsmithRegister30/oculate1/pull/42");
-  Assert.equal(items[1].id, "TinsmithRegister30/oculate1#43");
+  Assert.equal(items[0].url, "https://github.com/Hexadrocatch/oculate2/pull/42");
+  Assert.equal(items[1].id, "Hexadrocatch/oculate2#43");
   Assert.ok(
     instance.state.isJsonApi,
     "Should mark the provider as using the JSON API"

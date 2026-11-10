@@ -58,21 +58,21 @@ modules:
 
     sources:
       - type: archive
-        url: https://github.com/TinsmithRegister30/oculate1/releases/download/{version}/oculate.linux-x86_64.tar.xz
+        url: https://github.com/Hexadrocatch/oculate2/releases/download/{version}/oculate.linux-x86_64.tar.xz
         sha256: {linux_sha256}
         strip-components: 0
         only-arches:
           - x86_64
 
       - type: archive
-        url: https://github.com/TinsmithRegister30/oculate1/releases/download/{version}/oculate.linux-aarch64.tar.xz
+        url: https://github.com/Hexadrocatch/oculate2/releases/download/{version}/oculate.linux-aarch64.tar.xz
         sha256: {linux_aarch64_sha256}
         strip-components: 0
         only-arches:
           - aarch64
 
       - type: archive
-        url: https://github.com/TinsmithRegister30/flatpak/releases/download/{version}/archive.tar
+        url: https://github.com/Hexadrocatch/flatpak/releases/download/{version}/archive.tar
         sha256: {flatpak_sha256}
         strip-components: 0
         dest: metadata

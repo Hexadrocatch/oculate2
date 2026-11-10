@@ -38,15 +38,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TinsmithRegister30/oculate1.git"
+    "url": "git+https://github.com/Hexadrocatch/oculate2.git"
   },
   "keywords": [],
   "author": "",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/TinsmithRegister30/oculate1/issues"
+    "url": "https://github.com/Hexadrocatch/oculate2/issues"
   },
-  "homepage": "https://github.com/TinsmithRegister30/oculate1#readme",
+  "homepage": "https://github.com/Hexadrocatch/oculate2#readme",
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.0",
     "@zen-browser/prettier": "^3.9.3",

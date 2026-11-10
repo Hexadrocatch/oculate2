@@ -22,7 +22,7 @@
       "release": {
         "displayVersion": "1.24.2b",
         "github": {
-          "repo": "TinsmithRegister30/oculate1"
+          "repo": "Hexadrocatch/oculate2"
         },
         "archives": {
           "windows": "windows.mar",
@@ -42,7 +42,7 @@
       "release": {
         "displayVersion": "1.25t",
         "github": {
-          "repo": "TinsmithRegister30/oculate1"
+          "repo": "Hexadrocatch/oculate2"
         }
       }
     }

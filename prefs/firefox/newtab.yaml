@@ -11,6 +11,12 @@
 - name: browser.topsites.contile.enabled
   value: false
 
+- name: browser.newtabpage.activity-stream.showSponsored
+  value: false
+
+- name: browser.newtabpage.activity-stream.showSponsoredTopSites
+  value: false
+
 - name: browser.newtabpage.activity-stream.system.showWeather
   value: false
 

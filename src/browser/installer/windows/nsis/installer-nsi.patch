@@ -1,8 +1,32 @@
 diff --git a/browser/installer/windows/nsis/installer.nsi b/browser/installer/windows/nsis/installer.nsi
-index 785e5ccfba55a98390652a61be9dbdef1e4815eb..cba2c3bb3b2e5bcbe8ba58a40bc9bc145df81fdd 100755
+index bdae08d33338d9ac65e626b3c5d393e205348fba..9de6caa5e3d5e851e1b336b52f4430043f6cb774 100755
 --- a/browser/installer/windows/nsis/installer.nsi
 +++ b/browser/installer/windows/nsis/installer.nsi
-@@ -845,7 +845,7 @@ Section "-InstallEndCleanup"
+@@ -547,16 +547,6 @@ Section "-Application" APP_IDX
+     ${SetAppLSPCategories} ${LSP_CATEGORIES}
+   ${EndIf}
+ 
+-!ifdef MOZ_LAUNCHER_PROCESS
+-  ; Launcher telemetry is opt-out, so we always enable it by default in new
+-  ; installs. We always use HKCU because this value is a reflection of a pref
+-  ; from the user profile. While this is not a perfect abstraction (given the
+-  ; possibility of multiple Firefox profiles owned by the same Windows user), it
+-  ; is more accurate than a machine-wide setting, and should be accurate in the
+-  ; majority of cases.
+-  WriteRegDWORD HKCU ${MOZ_LAUNCHER_SUBKEY} "$INSTDIR\${FileMainEXE}|Telemetry" 1
+-!endif
+-
+   ${WriteToastNotificationRegistration} $RegHive
+ 
+   ; Create shortcuts
+@@ -852,14 +842,12 @@ Section "-InstallEndCleanup"
+     ${EndIf}
+   ${EndIf}
+ 
+-  Call WriteInstallationTelemetryData
+-
+   StrCpy $InstallResult "success"
+ 
    ; When we're using the GUI, .onGUIEnd sends the ping, but of course that isn't
    ; invoked when we're running silently.
    ${If} ${Silent}
@@ -11,7 +35,7 @@ index 785e5ccfba55a98390652a61be9dbdef1e4815eb..cba2c3bb3b2e5bcbe8ba58a40bc9bc14
    ${EndIf}
  SectionEnd
  
-@@ -1800,5 +1800,5 @@ FunctionEnd
+@@ -1813,5 +1801,5 @@ FunctionEnd
  
  Function .onGUIEnd
    ${OnEndCommon}

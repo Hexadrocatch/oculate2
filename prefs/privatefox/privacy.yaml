@@ -77,6 +77,34 @@
 - name: browser.attribution.enabled
   value: false
 
+- name: datareporting.usage.uploadEnabled
+  value: false
+  locked: true
+
+- name: telemetry.fog.test.localhost_port
+  value: -1
+  locked: true
+
+- name: toolkit.telemetry.user_characteristics_ping.opt-out
+  value: true
+  locked: true
+
+- name: identity.fxaccounts.telemetry.clientAssociationPing.enabled
+  value: false
+  locked: true
+
+- name: browser.urlbar.quicksuggest.dataCollection.enabled
+  value: false
+  locked: true
+
+- name: captchadetection.actor.enabled
+  value: false
+
+- name: default-browser-agent.enabled
+  value: false
+  locked: true
+  condition: "defined(XP_WIN)"
+
 - name: toolkit.telemetry.pioneer-new-studies-available
   value: false
 
@@ -91,12 +119,21 @@
   value: ""
   locked: true
 
+- name: nimbus.rollouts.enabled
+  value: false
+
 # Crash Reports
 - name: browser.tabs.crashReporting.sendReport
   value: false
 
+- name: browser.crashReports.unsubmittedCheck.enabled
+  value: false
+
 - name: browser.crashReports.unsubmittedCheck.autoSubmit2
   value: false
+
+- name: breakpad.reportURL
+  value: ""
 
 # Privacy and Misc
 - name: extensions.getAddons.cache.enabled

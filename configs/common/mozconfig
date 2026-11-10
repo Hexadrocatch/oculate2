@@ -87,8 +87,6 @@ if test "$OCULATE_RELEASE"; then
   export AUTOCLOBBER=1
 
   export MOZ_PACKAGE_JSSHELL=1
-
-  ac_add_options --disable-crashreporter
 fi
 
 ac_add_options --with-unsigned-addon-scopes=app,system
@@ -99,6 +97,8 @@ mk_add_options MOZ_TELEMETRY_REPORTING=
 
 ac_add_options MOZ_DATA_REPORTING=
 ac_add_options MOZ_TELEMETRY_REPORTING=
+ac_add_options --disable-crashreporter
+ac_add_options --disable-default-browser-agent
 
 # Allow loading unsigned extensions
 export MOZ_REQUIRE_SIGNING=

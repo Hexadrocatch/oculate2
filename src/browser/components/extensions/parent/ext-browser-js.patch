@@ -6,7 +6,7 @@ index 6438045fc006da5bd11b257646fadf8139a57a00..614d2f77fa48b1cae840d9ba41ca9553
    }
  
    getId(nativeTab) {
-+    if (nativeTab.hasAttribute("zen-empty-tab")) return -1;
++    if (nativeTab.hasAttribute("oculate-empty-tab")) return -1;
      let id = this._tabs.get(nativeTab);
      if (id) {
        return id;
@@ -14,7 +14,7 @@ index 6438045fc006da5bd11b257646fadf8139a57a00..614d2f77fa48b1cae840d9ba41ca9553
      if (nativeTab.documentGlobal.closed) {
        throw new Error("Cannot attach ID to a tab in a closed window.");
      }
-+    if (nativeTab.hasAttribute("zen-empty-tab")) return;
++    if (nativeTab.hasAttribute("oculate-empty-tab")) return;
  
      this._tabs.set(nativeTab, id);
      this._tabIds.set(id, nativeTab);
@@ -23,7 +23,7 @@ index 6438045fc006da5bd11b257646fadf8139a57a00..614d2f77fa48b1cae840d9ba41ca9553
     */
    _handleWindowClose(window) {
 -    for (let nativeTab of window.gBrowser.tabs) {
-+    let tabs = window.gZenWorkspaces?.allStoredTabs ?? window.gBrowser.tabs;
++    let tabs = window.gOculateWorkspaces?.allStoredTabs ?? window.gBrowser.tabs;
 +    for (let nativeTab of tabs) {
        if (!this.adoptedTabs.has(nativeTab)) {
          this.emitRemoved(nativeTab, true);
@@ -32,7 +32,7 @@ index 6438045fc006da5bd11b257646fadf8139a57a00..614d2f77fa48b1cae840d9ba41ca9553
    }
  
    canAccessTab(nativeTab) {
-+    if (nativeTab.hasAttribute("zen-empty-tab")) {
++    if (nativeTab.hasAttribute("oculate-empty-tab")) {
 +      return false
 +    }
 +

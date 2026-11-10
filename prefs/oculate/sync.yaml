@@ -1,0 +1,74 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: services.sync.engine.spaces
+  value: "@cond"
+  condition: "@IS_TWILIGHT@"
+
+- name: oculate.spaces-sync.debug
+  value: false
+
+- name: oculate.spaces-sync.normal-tabs
+  value: false
+
+- name: services.sync.prefs.sync.oculate.spaces-sync.normal-tabs
+  value: true
+
+# Tabs
+- name: services.sync.prefs.sync.oculate.tabs.show-newtab-vertical
+  value: true
+
+- name: services.sync.prefs.sync.oculate.tabs.close-on-back-with-no-history
+  value: true
+
+- name: services.sync.prefs.sync.oculate.tabs.ctrl-tab.ignore-essential-tabs
+  value: true
+
+- name: services.sync.prefs.sync.oculate.tabs.ctrl-tab.ignore-pending-tabs
+  value: true
+
+- name: services.sync.prefs.sync.oculate.ctrlTab.show-pending-tabs
+  value: true
+
+# URL bar
+
+- name: services.sync.prefs.sync.oculate.urlbar.behavior
+  value: true
+
+- name: services.sync.prefs.sync.oculate.urlbar.suggestions.quick-actions
+  value: true
+
+- name: services.sync.prefs.sync.browser.urlbar.shortcuts.workspaces
+  value: true
+
+# Workspaces
+- name: services.sync.prefs.sync.oculate.workspaces.wrap-around-navigation
+  value: true
+
+- name: services.sync.prefs.sync.oculate.workspaces.separate-essentials
+  value: true
+
+# Glance
+- name: services.sync.prefs.sync.oculate.glance.enable-contextmenu-search
+  value: true
+
+- name: services.sync.prefs.sync.oculate.glance.open-essential-external-links
+  value: true
+
+# Browser view
+
+- name: services.sync.prefs.sync.oculate.view.show-newtab-button-top
+  value: true
+
+- name: services.sync.prefs.sync.oculate.view.show-scroll-to-selected-tab
+  value: true
+
+- name: services.sync.prefs.sync.oculate.view.drag-window-from-content
+  value: true
+
+- name: services.sync.prefs.sync.oculate.view.show-clear-tabs-button
+  value: true
+
+- name: services.sync.prefs.sync.oculate.view.enable-loading-indicator
+  value: true

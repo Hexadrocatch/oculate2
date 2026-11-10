@@ -1,0 +1,72 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+&:not([oculate-single-toolbar='true']) {
+  & #navigator-toolbox {
+    --oculate-toolbox-top-align: var(--oculate-element-separation);
+  }
+
+  @media -moz-pref('oculate.view.compact.hide-tabbar') {
+    & #titlebar {
+      margin-top: var(--oculate-element-separation) !important;
+    }
+  }
+
+  &[oculate-right-side='true'][oculate-window-buttons-reversed='true'] #titlebar,
+  &:not([oculate-right-side='true']):not([oculate-window-buttons-reversed='true']) #titlebar {
+    /* The same as the expression above */
+    margin-top: var(--oculate-element-separation) !important;
+  }
+
+  & #oculate-appcontent-wrapper {
+    z-index: 3 !important;
+  }
+
+  & #oculate-appcontent-navbar-wrapper {
+    & .oculate-toolbar-background {
+      display: flex;
+    }
+
+    height: var(--oculate-element-separation);
+    transition: height var(--oculate-hidden-toolbar-transition);
+    overflow: clip;
+    contain: layout paint;
+
+    & #urlbar:not([breakout-extend]) {
+      /* Sometimes, "opacity: 1" is forced elsewhere */
+      opacity: 0 !important;
+      pointer-events: none;
+      transition: opacity var(--oculate-hidden-toolbar-transition);
+    }
+
+%include windows-captions-fix-default.inc.css
+
+    & #oculate-appcontent-navbar-container {
+      opacity: 0;
+      transition: opacity var(--oculate-hidden-toolbar-transition);
+    }
+  }
+
+  & #oculate-appcontent-navbar-wrapper:is(
+    [oculate-has-hover],
+    [has-popup-menu],
+    [oculate-compact-mode-active]
+  ) {
+    height: var(--oculate-toolbar-height-with-bookmarks);
+    overflow: inherit;
+
+%include windows-captions-fix-active.inc.css
+
+    & #urlbar {
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+
+    & #oculate-appcontent-navbar-container {
+      opacity: 1;
+    }
+  }
+}

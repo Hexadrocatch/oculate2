@@ -6,7 +6,7 @@ index aba548880b3250818e7f7c0f14123a1ea3a2e32a..e10b49ba484cd324bbbd31e27e4b38d6
  #include "mozilla/layers/AnimationStorageData.h"
  #include "mozilla/layers/CompositorThread.h"
  #include "mozilla/layers/WebRenderLayerManager.h"
-+#include "mozilla/nsZenBoostsBackend.h"
++#include "mozilla/nsOculateBoostsBackend.h"
  #include "nsIContent.h"
  #include "nsLayoutUtils.h"
  #include "nsRefreshDriver.h"
@@ -18,7 +18,7 @@ index aba548880b3250818e7f7c0f14123a1ea3a2e32a..e10b49ba484cd324bbbd31e27e4b38d6
 +      nscolor resolved = aAnimationValue.GetColor(aFrame->StyleText()->mColor);
 +      aAnimatable = aAnimationValue.IsCurrentColor()
 +                        ? resolved
-+                        : zen::nsZenBoostsBackend::ResolveStyleColor(resolved,
++                        : oculate::nsOculateBoostsBackend::ResolveStyleColor(resolved,
 +                                                                     aFrame);
        break;
      }

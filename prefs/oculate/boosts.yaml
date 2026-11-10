@@ -1,0 +1,25 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.boosts.enabled
+  value: true
+
+- name: oculate.boosts.dissolve-on-zap
+  value: true
+
+- name: oculate.boosts.custom-fonts
+  value: false
+
+- name: oculate.boosts.invert-channel-floor
+  value: 15
+  cpptype: uint32_t
+  mirror: once
+  type: static
+
+- name: oculate.boosts.disable-on-anonymous-content
+  value: true
+  cpptype: bool
+  mirror: once
+  type: static
+

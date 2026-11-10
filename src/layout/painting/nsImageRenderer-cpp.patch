@@ -33,7 +33,7 @@ index 7ddc4f7e259272e7b905f44aff7316c1ba540c22..277a92e5d10e6a04b12373854ffe6791
        }
  
        SVGImageContext svgContext(Some(CSSSize::FromAppUnits(aDest.Size())));
-+      SVGImageContext::MaybeStoreZenBoosts(svgContext,
++      SVGImageContext::MaybeStoreOculateBoosts(svgContext,
 +                                           *mForFrame->PresContext());
        Maybe<ImageIntRegion> region;
  

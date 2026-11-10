@@ -6,7 +6,7 @@ index 8e0c6483d6edd587cc425abe16f4a756f88e492b..f19d2ad7e04e927445e60ff439be6ab6
    <link rel="stylesheet" href="chrome://browser/content/preferences/widgets/setting-control.css" />
    <link rel="stylesheet" href="chrome://browser/content/ipprotection/vpn-site-rules-list.css" />
  
-+#include zen-preferences-links.xhtml
++#include oculate-preferences-links.xhtml
 +
    <link rel="localization" href="branding/brand.ftl"/>
    <link rel="localization" href="browser/browser.ftl"/>
@@ -15,25 +15,25 @@ index 8e0c6483d6edd587cc425abe16f4a756f88e492b..f19d2ad7e04e927445e60ff439be6ab6
          iconsrc="chrome://browser/skin/preferences/category-general.svg"
          data-l10n-id="pane-general-title">
        </html:moz-page-nav-button>
-+      <html:moz-page-nav-button id="category-zen-looks"
-+        view="paneZenLooks"
++      <html:moz-page-nav-button id="category-oculate-looks"
++        view="paneOculateLooks"
 +        iconsrc="chrome://browser/skin/customize.svg"
-+        data-l10n-id="pane-zen-looks-title">
++        data-l10n-id="pane-oculate-looks-title">
 +      </html:moz-page-nav-button>
-+      <html:moz-page-nav-button id="category-zen-tabs-management"
-+        view="paneZenTabManagement"
++      <html:moz-page-nav-button id="category-oculate-tabs-management"
++        view="paneOculateTabManagement"
 +        iconsrc="chrome://browser/skin/window.svg"
-+        data-l10n-id="pane-zen-tabs-title">
++        data-l10n-id="pane-oculate-tabs-title">
 +      </html:moz-page-nav-button>
-+      <html:moz-page-nav-button id="category-zen-CKS"
++      <html:moz-page-nav-button id="category-oculate-CKS"
 +        href="about:keyboard"
 +        iconsrc="chrome://browser/skin/preferences/category-accessibility.svg"
-+        data-l10n-id="pane-zen-CKS-title">
++        data-l10n-id="pane-oculate-CKS-title">
 +      </html:moz-page-nav-button>
-+      <html:moz-page-nav-button id="category-zen-marketplace"
-+        view="paneZenMarketplace"
++      <html:moz-page-nav-button id="category-oculate-marketplace"
++        view="paneOculateMarketplace"
 +        iconsrc="chrome://mozapps/skin/extensions/category-themes.svg"
-+        data-l10n-id="pane-zen-marketplace-title">
++        data-l10n-id="pane-oculate-marketplace-title">
 +      </html:moz-page-nav-button>
        <html:moz-page-nav-button id="category-sync"
          hidden="true"
@@ -42,9 +42,9 @@ index 8e0c6483d6edd587cc425abe16f4a756f88e492b..f19d2ad7e04e927445e60ff439be6ab6
  #include privacy.inc.xhtml
  #include sync.inc.xhtml
  #include moreFromMozilla.inc.xhtml
-+#include zenLooksAndFeel.inc.xhtml
-+#include zenTabsManagement.inc.xhtml
-+#include zenMarketplace.inc.xhtml
++#include oculateLooksAndFeel.inc.xhtml
++#include oculateTabsManagement.inc.xhtml
++#include oculateMarketplace.inc.xhtml
          </vbox>
        </vbox>
      </vbox>

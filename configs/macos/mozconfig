@@ -7,21 +7,21 @@ unset MOZ_STDCXX_COMPAT
 ac_add_options --disable-dmd
 ac_add_options --enable-eme=widevine
 
-if test "$ZEN_CROSS_COMPILING"; then
-  ZEN_MAC_CROSS="$HOME/mac-cross"
+if test "$OCULATE_CROSS_COMPILING"; then
+  OCULATE_MAC_CROSS="$HOME/mac-cross"
 
-  mk_add_options "export PATH=$ZEN_MAC_CROSS/cctools/bin:$PATH"
+  mk_add_options "export PATH=$OCULATE_MAC_CROSS/cctools/bin:$PATH"
   mk_add_options "export LD_LIBRARY_PATH=$HOME/.mozbuild/clang/lib:$LD_LIBRARY_PATH"
 
-  export MKFSHFS=$ZEN_MAC_CROSS/hfsplus/newfs_hfs
-  export DMG_TOOL=$ZEN_MAC_CROSS/dmg/dmg
-  export HFS_TOOL=$ZEN_MAC_CROSS/dmg/hfsplus
+  export MKFSHFS=$OCULATE_MAC_CROSS/hfsplus/newfs_hfs
+  export DMG_TOOL=$OCULATE_MAC_CROSS/dmg/dmg
+  export HFS_TOOL=$OCULATE_MAC_CROSS/dmg/hfsplus
 
-  if test "$ZEN_RELEASE"; then
+  if test "$OCULATE_RELEASE"; then
     export MOZ_LD64_KNOWN_GOOD=1
     ac_add_options --enable-linker=ld64
   fi
-elif test "$ZEN_RELEASE"; then
+elif test "$OCULATE_RELEASE"; then
   ALLOWED_SDKS="26.5 26.4"
   for SDK in $ALLOWED_SDKS; do
     if [ -d "/Library/Developer/CommandLineTools/SDKs/MacOSX${SDK}.sdk" ]; then
@@ -31,9 +31,9 @@ elif test "$ZEN_RELEASE"; then
   done
 fi
 
-if test "$ZEN_RELEASE"; then
-  if ! test "$ZEN_GA_DISABLE_PGO"; then
-    if test "$ZEN_GA_GENERATE_PROFILE"; then
+if test "$OCULATE_RELEASE"; then
+  if ! test "$OCULATE_GA_DISABLE_PGO"; then
+    if test "$OCULATE_GA_GENERATE_PROFILE"; then
       mk_add_options "export MOZ_AUTOMATION_PACKAGE_GENERATED_SOURCES=0"
       ac_add_options --enable-profile-generate=cross
     else
@@ -47,7 +47,7 @@ fi
 if test "$SURFER_COMPAT" = "x86_64"; then
   ac_add_options --target=x86_64-apple-darwin
 
-  if test "$ZEN_RELEASE"; then
+  if test "$OCULATE_RELEASE"; then
     # override LTO settings
     export MOZ_LTO=cross,thin
     ac_add_options --enable-lto=cross,thin
@@ -55,7 +55,7 @@ if test "$SURFER_COMPAT" = "x86_64"; then
 else
   ac_add_options --target=aarch64-apple-darwin
 
-  if test "$ZEN_RELEASE"; then
+  if test "$OCULATE_RELEASE"; then
     # As of Clang 13, the default is -mcpu=apple-m1 when using a aarch64-apple-macos target,
     # but we're using apple64-apple-darwin, which defaults to -mcpu=apple-a7, which disables
     # a bunch of # performance-enabling CPU features.

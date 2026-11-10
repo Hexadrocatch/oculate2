@@ -24,8 +24,8 @@ index e48f0295d803ba9eac5ab9d01ebb3b3dacbc9d4b..cb78b74230f63a47479404767b5ab588
     */
    let rootGroup = {
      children: [
-+      { children: [{ group: lazy.UrlbarShared.RESULT_GROUP.ZEN_ACTION }] },
-+      { children: [{ group: lazy.UrlbarShared.RESULT_GROUP.ZEN_WORKSPACE }] },
++      { children: [{ group: lazy.UrlbarShared.RESULT_GROUP.OCULATE_ACTION }] },
++      { children: [{ group: lazy.UrlbarShared.RESULT_GROUP.OCULATE_WORKSPACE }] },
        // heuristic
        {
          maxResultCount: 1,

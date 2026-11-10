@@ -6,10 +6,10 @@ index 5ad1e3b3d3e3abb0026439b4b21c457d5960ddf9..61b8dc2ebbc4589521fc5c8adbdbcd5a
          {.mTopOnly = true, .mCanSet = CanSet::Unrestricted})                   \
    FIELD(SessionStoreEpoch, uint32_t,                                           \
          {.mTopOnly = true, .mCanSet = CanSet::ParentOnly})                     \
-+  FIELD(ZenBoostsData, nscolor, {.mCanSet = CanSet::Unrestricted})             \
-+  FIELD(ZenBoostsComplementaryRotation, float,                                 \
++  FIELD(OculateBoostsData, nscolor, {.mCanSet = CanSet::Unrestricted})             \
++  FIELD(OculateBoostsComplementaryRotation, float,                                 \
 +        {.mCanSet = CanSet::Unrestricted})                                     \
-+  FIELD(IsZenBoostsInverted, bool, {.mCanSet = CanSet::Unrestricted})          \
++  FIELD(IsOculateBoostsInverted, bool, {.mCanSet = CanSet::Unrestricted})          \
    /* Whether we can execute scripts in this BrowsingContext. Has no effect     \
     * unless scripts are also allowed in the parent WindowContext. */           \
    FIELD(AllowJavascript, bool,                                                 \
@@ -17,11 +17,11 @@ index 5ad1e3b3d3e3abb0026439b4b21c457d5960ddf9..61b8dc2ebbc4589521fc5c8adbdbcd5a
  
    bool FullscreenAllowed() const;
  
-+  auto ZenBoostsData() const { return GetZenBoostsData(); }
-+  auto ZenBoostsComplementaryRotation() const {
-+    return GetZenBoostsComplementaryRotation();
++  auto OculateBoostsData() const { return GetOculateBoostsData(); }
++  auto OculateBoostsComplementaryRotation() const {
++    return GetOculateBoostsComplementaryRotation();
 +  }
-+  auto IsZenBoostsInverted() const { return GetIsZenBoostsInverted(); }
++  auto IsOculateBoostsInverted() const { return GetIsOculateBoostsInverted(); }
    float FullZoom() const { return GetFullZoom(); }
    float TextZoom() const { return GetTextZoom(); }
  
@@ -29,9 +29,9 @@ index 5ad1e3b3d3e3abb0026439b4b21c457d5960ddf9..61b8dc2ebbc4589521fc5c8adbdbcd5a
    void DidSet(FieldIndex<I>, T&& aOldValue) {}
  
    void DidSet(FieldIndex<IDX_SessionStoreEpoch>, uint32_t aOldValue);
-+  void DidSet(FieldIndex<IDX_ZenBoostsData>, nscolor aOldValue);
-+  void DidSet(FieldIndex<IDX_ZenBoostsComplementaryRotation>, float aOldValue);
-+  void DidSet(FieldIndex<IDX_IsZenBoostsInverted>, bool aOldValue);
++  void DidSet(FieldIndex<IDX_OculateBoostsData>, nscolor aOldValue);
++  void DidSet(FieldIndex<IDX_OculateBoostsComplementaryRotation>, float aOldValue);
++  void DidSet(FieldIndex<IDX_IsOculateBoostsInverted>, bool aOldValue);
  
    // Ensure that opener is in the same BrowsingContextGroup.
    bool CanSet(FieldIndex<IDX_OpenerId>, const uint64_t& aValue,

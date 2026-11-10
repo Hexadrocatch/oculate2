@@ -1,0 +1,19 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.share.base-url
+  value: ""
+
+- name: oculate.share.secret-key
+  value: ""
+
+- name: oculate.share.display-name
+  value: ""
+
+# Allow oculate.share.display-name to be synced across devices.
+- name: services.sync.prefs.sync.oculate.share.display-name
+  value: true
+
+- name: oculate.share.dont-ask-before-sharing
+  value: false

@@ -1,0 +1,54 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.tabs.vertical
+  value: true
+
+- name: oculate.tabs.vertical.right-side
+  value: false
+
+- name: oculate.tabs.rename-tabs
+  value: true
+
+- name: oculate.tabs.essentials.max
+  value: 12
+
+- name: oculate.tabs.show-newtab-vertical
+  value: true
+
+- name: oculate.tabs.close-window-with-empty
+  value: true
+
+- name: oculate.tabs.select-recently-used-on-close
+  value: true
+
+- name: oculate.tabs.folder-dragover-threshold-percent
+  value: 20 # Percentage of folder height to trigger dragover
+
+- name: oculate.tabs.dnd-switch-space-delay
+  value: 500 # milliseconds
+
+- name: oculate.ctrlTab.show-pending-tabs
+  value: false
+
+- name: oculate.mediacontrols.enabled
+  value: true
+
+- name: oculate.haptic-feedback.enabled
+  value: true
+
+- name: oculate.startup.smooth-scroll-in-tabs
+  value: true
+
+- name: oculate.tabs.open-pinned-in-new-tab
+  value: true
+
+- name: oculate.tabs.close-on-back-with-no-history
+  value: true
+
+- name: oculate.tabs.ctrl-tab.ignore-essential-tabs
+  value: false
+
+- name: oculate.tabs.ctrl-tab.ignore-pending-tabs
+  value: false

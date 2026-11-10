@@ -6,10 +6,10 @@ index 5770a1b7503795f12c4fb6c099f71f21116d07ae..07a837f91d90548101ce67e7c01b72c5
  
  ifdef ZIP_IN
  installer:: $(CONFIG_DIR)/setup.exe $(ZIP_IN)
-+ifneq ("$(ZEN_SETUP_EXE_PATH)","")
-+	@echo 'setup-zen.exe exists, moving it to setup.exe ($(ZEN_SETUP_EXE_PATH))'
++ifneq ("$(OCULATE_SETUP_EXE_PATH)","")
++	@echo 'setup-oculate.exe exists, moving it to setup.exe ($(OCULATE_SETUP_EXE_PATH))'
 +	rm $(CONFIG_DIR)/setup.exe
-+	cp $(ZEN_SETUP_EXE_PATH) $(CONFIG_DIR)/setup.exe
++	cp $(OCULATE_SETUP_EXE_PATH) $(CONFIG_DIR)/setup.exe
 +endif
  # In automation, the installers are created by repackage tasks, from setup.exe
  # and the package, so don't spend time creating them in the build.

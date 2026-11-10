@@ -6,7 +6,7 @@ index f922f7fdacc7e1a14beb8da77b48aef3f6ae0b2b..47d19242baaf2a1f25ee07c6e210c839
  #include "mozilla/StyleColorInlines.h"
  #include "nsIFrame.h"
  #include "nsStyleStruct.h"
-+#include "mozilla/nsZenBoostsBackend.h"
++#include "mozilla/nsOculateBoostsBackend.h"
  #include "nsStyleUtil.h"
  
  namespace mozilla {
@@ -58,7 +58,7 @@ index f922f7fdacc7e1a14beb8da77b48aef3f6ae0b2b..47d19242baaf2a1f25ee07c6e210c839
 -      nsStyleUtil::FloatToColorComponent(translatedColor.components._1),
 -      nsStyleUtil::FloatToColorComponent(translatedColor.components._2),
 -      nsStyleUtil::FloatToColorComponent(translatedColor.alpha));
-+  return zen::nsZenBoostsBackend::ResolveStyleColor(
++  return oculate::nsOculateBoostsBackend::ResolveStyleColor(
 +      NS_RGBA(
 +          nsStyleUtil::FloatToColorComponent(translatedColor.components._0),
 +          nsStyleUtil::FloatToColorComponent(translatedColor.components._1),

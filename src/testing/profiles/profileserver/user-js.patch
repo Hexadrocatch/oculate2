@@ -7,11 +7,11 @@ index 19ff7d474f6d22d2d386764e2e6942ce6a324470..1ebee9ead3c73f74ab73a5303a98ec17
  // Turn off update
  user_pref("app.update.disabledForTesting", true);
 +
-+// zen:
-+// Disable some of zen's features to better match the default Firefox experience
-+user_pref("zen.welcome-screen.seen", true);
-+user_pref("zen.watermark.enabled", false);
-+user_pref("zen.urlbar.replace-newtab", false);
-+user_pref("zen.testing.enabled", true);
-+user_pref("zen.window-sync.enabled", true);
-+user_pref("zen.testing.profiling.enabled", true);
++// oculate:
++// Disable some of oculate's features to better match the default Firefox experience
++user_pref("oculate.welcome-screen.seen", true);
++user_pref("oculate.watermark.enabled", false);
++user_pref("oculate.urlbar.replace-newtab", false);
++user_pref("oculate.testing.enabled", true);
++user_pref("oculate.window-sync.enabled", true);
++user_pref("oculate.testing.profiling.enabled", true);

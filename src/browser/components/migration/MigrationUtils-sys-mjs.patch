@@ -6,7 +6,7 @@ index 1289865805d2d6cbb7813da5fabf000284d7ac4c..af374fd0f194c3ba270a1dfa4e52eef4
    setTimeout: "resource://gre/modules/Timer.sys.mjs",
    MigrationWizardConstants:
      "chrome://browser/content/migration/migration-wizard-constants.mjs",
-+  ZenMigrationUtils: "resource:///modules/zen/ZenMigrationUtils.sys.mjs",
++  OculateMigrationUtils: "resource:///modules/oculate/OculateMigrationUtils.sys.mjs",
  });
  
  ChromeUtils.defineLazyGetter(
@@ -15,7 +15,7 @@ index 1289865805d2d6cbb7813da5fabf000284d7ac4c..af374fd0f194c3ba270a1dfa4e52eef4
    },
  
 +  DiaProfileMigrator: {
-+    moduleURI: "resource:///modules/zen/ZenProfileMigrators.sys.mjs",
++    moduleURI: "resource:///modules/oculate/OculateProfileMigrators.sys.mjs",
 +    platforms: ["macosx"],
 +  },
 +
@@ -26,7 +26,7 @@ index 1289865805d2d6cbb7813da5fabf000284d7ac4c..af374fd0f194c3ba270a1dfa4e52eef4
      SESSION: 0x0080,
      PAYMENT_METHODS: 0x0100,
      EXTENSIONS: 0x0200,
-+    ZEN_SPACES: 0x0400,
++    OCULATE_SPACES: 0x0400,
    });
  
    /**
@@ -43,7 +43,7 @@ index 1289865805d2d6cbb7813da5fabf000284d7ac4c..af374fd0f194c3ba270a1dfa4e52eef4
              true /* aForceVisible */
            ).catch(console.error);
          }
-+        return lazy.ZenMigrationUtils.onBookmarksImported(bookmarks);
++        return lazy.OculateMigrationUtils.onBookmarksImported(bookmarks);
        },
        ex => console.error(ex)
      );

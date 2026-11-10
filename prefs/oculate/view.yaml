@@ -1,0 +1,74 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.view.sidebar-expanded.max-width
+  value: 500
+
+- name: oculate.view.mac.show-three-dot-menu
+  value: false
+  condition: "defined(XP_MACOSX)"
+
+- name: oculate.widget.mac.mono-window-controls
+  value: true
+  condition: "defined(XP_MACOSX)"
+
+- name: oculate.view.use-single-toolbar
+  value: true
+
+- name: oculate.view.sidebar-expanded
+  value: true
+
+- name: oculate.view.experimental-force-window-controls-left
+  value: false
+
+- name: oculate.view.hide-window-controls
+  value: true
+
+- name: oculate.view.experimental-no-window-controls
+  value: false
+
+- name: oculate.view.grey-out-inactive-windows
+  cpptype: bool
+  value: true
+  mirror: always
+  type: static
+
+- name: oculate.view.show-newtab-button-top
+  value: true
+
+- name: oculate.view.show-scroll-to-selected-tab
+  value: true
+
+- name: oculate.view.window.scheme
+  value: 2
+
+- name: oculate.view.context-menu.refresh
+  value: "@IS_TWILIGHT@"
+
+- name: oculate.view.drag-window-from-content
+  value: true
+
+- name: oculate.view.drag-window-from-content.height-percentage
+  value: 5
+
+- name: oculate.view.borderless-fullscreen
+  value: true
+
+- name: oculate.view.shift-down-site-on-hover
+  value: false
+
+- name: oculate.view.show-clear-tabs-button
+  value: true
+
+- name: oculate.view.draggable-sidebar
+  value: true
+
+- name: oculate.view.overflow-webext-toolbar
+  value: true
+
+- name: oculate.view.overflow-webext-toolbar-threshold
+  value: 55
+
+- name: oculate.view.enable-loading-indicator
+  value: true

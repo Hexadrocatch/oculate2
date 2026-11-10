@@ -13,6 +13,6 @@ index fee0448688de0c2cf17cbd4926749728f5f5ed34..6246d62a0c8dc3202401bf83453bb68b
 +*.min.mjs
 +*.inc
 +**/mochitests/**
-+**/zen/tests/performance/**
++**/oculate/tests/performance/**
 +*.svg
 +

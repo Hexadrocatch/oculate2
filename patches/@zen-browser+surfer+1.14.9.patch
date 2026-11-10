@@ -1,0 +1,119 @@
+diff --git a/node_modules/@zen-browser/surfer/dist/commands/package.js b/node_modules/@zen-browser/surfer/dist/commands/package.js
+index 1b02b72..b991d0a 100644
+--- a/node_modules/@zen-browser/surfer/dist/commands/package.js
++++ b/node_modules/@zen-browser/surfer/dist/commands/package.js
+@@ -104,9 +104,15 @@ const surferPackage = async () => {
+             }
+         }
+     }
+-    const marPath = await createMarFile(version, channel, brandingDetails.release.github);
+-    utils_1.dynamicConfig.set('marPath', marPath);
+-    await (0, browser_1.generateBrowserUpdateFiles)();
++    const marTool = (0, node_path_1.join)(constants_1.OBJ_DIR, 'dist/host/bin', process.platform == 'win32' ? 'mar.exe' : 'mar');
++    if (process.env.MAR || (0, node_fs_1.existsSync)(marTool)) {
++        const marPath = await createMarFile(version, channel, brandingDetails.release.github);
++        utils_1.dynamicConfig.set('marPath', marPath);
++        await (0, browser_1.generateBrowserUpdateFiles)();
++    }
++    else {
++        log_1.log.info('The updater is not part of this build, skipping the update archive');
++    }
+     log_1.log.info();
+     log_1.log.info(`Output written to ${constants_1.DIST_DIR}`);
+     log_1.log.success('Packaging complected!');
+diff --git a/node_modules/@zen-browser/surfer/dist/commands/patches/branding-patch.js b/node_modules/@zen-browser/surfer/dist/commands/patches/branding-patch.js
+index e1ad7b8..2bf32eb 100644
+--- a/node_modules/@zen-browser/surfer/dist/commands/patches/branding-patch.js
++++ b/node_modules/@zen-browser/surfer/dist/commands/patches/branding-patch.js
+@@ -163,6 +163,7 @@ async function apply(name) {
+ }
+ exports.apply = apply;
+ function configureBrandingNsis(brandingNsis, brandingConfig) {
++    const projectUrl = `https://github.com/${brandingConfig.release.github.repo}`;
+     (0, node_fs_1.writeFileSync)(brandingNsis, `
+ # This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+@@ -177,9 +178,9 @@ function configureBrandingNsis(brandingNsis, brandingConfig) {
+ !define BrandFullNameInternal "${brandingConfig.brandFullName}"
+ !define BrandFullName         "${brandingConfig.brandFullName}"
+ !define CompanyName           "${brandingConfig.brandingVendor}"
+-!define URLInfoAbout          "https://zen-browser.app"
+-!define URLUpdateInfo         "https://zen-browser.app/release-notes/\${AppVersion}"
+-!define HelpLink              "https://github.com/zen-browser/desktop/issues"
++!define URLInfoAbout          "${projectUrl}"
++!define URLUpdateInfo         "${projectUrl}/releases"
++!define HelpLink              "${projectUrl}/issues"
+ 
+ 
+ ; The OFFICIAL define is a workaround to support different urls for Release and
+@@ -189,7 +190,7 @@ function configureBrandingNsis(brandingNsis, brandingConfig) {
+ !define URLStubDownloadX86 "https://download.mozilla.org/?os=win&lang=\${AB_CD}&product=firefox-latest"
+ !define URLStubDownloadAMD64 "https://download.mozilla.org/?os=win64&lang=\${AB_CD}&product=firefox-latest"
+ !define URLStubDownloadAArch64 "https://download.mozilla.org/?os=win64-aarch64&lang=\${AB_CD}&product=firefox-latest"
+-!define URLManualDownload "https://zen-browser.app/download"
++!define URLManualDownload "${projectUrl}/releases"
+ !define URLSystemRequirements "https://www.mozilla.org/firefox/system-requirements/"
+ !define Channel "stable"
+ 
+@@ -255,14 +256,15 @@ function addOptionalIcons(brandingPath, outputPath) {
+     }
+ }
+ function configureProfileBranding(brandingPath, brandingConfig) {
++    const releasesUrl = `https://github.com/${brandingConfig.release.github.repo}/releases`;
+     (0, node_fs_1.writeFileSync)(brandingPath, `
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+-pref("startup.homepage_override_url", "https://zen-browser.app/whatsnew?v=%VERSION%");
+-pref("startup.homepage_welcome_url", "https://zen-browser.app/welcome/");
+-pref("startup.homepage_welcome_url.additional", "https://zen-browser.app/privacy-policy/");
++pref("startup.homepage_override_url", "");
++pref("startup.homepage_welcome_url", "");
++pref("startup.homepage_welcome_url.additional", "");
+ 
+ // Give the user x seconds to react before showing the big UI. default=192 hours
+ pref("app.update.promptWaitTime", 691200);
+@@ -271,11 +273,11 @@ pref("app.update.promptWaitTime", 691200);
+ // app.update.url.details: a default value for the "More information about this
+ // update" link supplied in the "An update is available" page of the update
+ // wizard.
+-pref("app.update.url.manual", "https://zen-browser.app/download/");
+-pref("app.update.url.details", "https://zen-browser.app/release-notes/latest/");
+-pref("app.releaseNotesURL", "https://zen-browser.app/whatsnew/");
+-pref("app.releaseNotesURL.aboutDialog", "https://www.zen-browser.app/release-notes/%VERSION%/");
+-pref("app.releaseNotesURL.prompt", "https://zen-browser.app/release-notes/%VERSION%/");
++pref("app.update.url.manual", "${releasesUrl}");
++pref("app.update.url.details", "${releasesUrl}");
++pref("app.releaseNotesURL", "${releasesUrl}");
++pref("app.releaseNotesURL.aboutDialog", "${releasesUrl}");
++pref("app.releaseNotesURL.prompt", "${releasesUrl}");
+ 
+ // Number of usages of the web console.
+ // If this is less than 5, then pasting code into the web console is disabled
+diff --git a/node_modules/@zen-browser/surfer/dist/commands/patches/copy-patches.js b/node_modules/@zen-browser/surfer/dist/commands/patches/copy-patches.js
+index 5ead026..c693aa1 100644
+--- a/node_modules/@zen-browser/surfer/dist/commands/patches/copy-patches.js
++++ b/node_modules/@zen-browser/surfer/dist/commands/patches/copy-patches.js
+@@ -22,7 +22,7 @@ const getChunked = (location) => location.replace(/\\/g, '/').split('/');
+ const copyManual = async (name, patchName) => {
+     let dest = constants_1.ENGINE_DIR;
+     if (patchName === 'tests') {
+-        dest = (0, node_path_1.resolve)(dest, 'browser', 'base', 'zen-components');
++        dest = (0, node_path_1.resolve)(dest, 'browser', 'base', 'oculate-components');
+     }
+     const placeToCheck = patchName === 'tests' ? constants_1.CURRENT_DIR : constants_1.SRC_DIR;
+     // If the file exists and is not a symlink, we want to replace it with a
+diff --git a/node_modules/@zen-browser/surfer/dist/constants/mozconfig.js b/node_modules/@zen-browser/surfer/dist/constants/mozconfig.js
+index 8b6571f..d337a5f 100644
+--- a/node_modules/@zen-browser/surfer/dist/constants/mozconfig.js
++++ b/node_modules/@zen-browser/surfer/dist/constants/mozconfig.js
+@@ -49,7 +49,7 @@ export MAR_CHANNEL_ID=${brand}
+ 
+ mk_add_options ACCEPTED_MAR_CHANNEL_IDS=${brand}
+ 
+-export ZEN_FIREFOX_VERSION=${(0, utils_1.getFFVersionOrCandidate)()}
++export OCULATE_FIREFOX_VERSION=${(0, utils_1.getFFVersionOrCandidate)()}
+ export MOZ_APPUPDATE_HOST=${__1.config.updateHostname || 'localhost:7648 # This should not resolve'}
+ ` +
+         (process.surferPlatform === 'darwin'

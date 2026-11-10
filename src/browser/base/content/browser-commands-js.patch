@@ -6,7 +6,7 @@ index 757c5b16612c96f327798f9e47c83144668074f0..1b843dc5aeb942e4d108110b18e67fdd
      const where = BrowserUtils.whereToOpenLink(aEvent, false, true);
  
      if (where == "current") {
-+      if (!gBrowser.webNavigation.canGoBack && gZenCommonActions.shouldCloseTabOnBack()) {
++      if (!gBrowser.webNavigation.canGoBack && gOculateCommonActions.shouldCloseTabOnBack()) {
 +        gBrowser.removeTab(gBrowser.selectedTab, { animate: true });
 +        return;
 +      }
@@ -17,7 +17,7 @@ index 757c5b16612c96f327798f9e47c83144668074f0..1b843dc5aeb942e4d108110b18e67fdd
        event?.button == 1 &&
        Services.prefs.getBoolPref("middlemouse.paste") &&
        gMiddleClickNewTabUsesPasteboard;
-+    searchClipboard ||= gZenUIManager.newTabButtonWantsClipboard(event);
++    searchClipboard ||= gOculateUIManager.newTabButtonWantsClipboard(event);
  
      let relatedToCurrent = false;
      let where = "tab";
@@ -25,7 +25,7 @@ index 757c5b16612c96f327798f9e47c83144668074f0..1b843dc5aeb942e4d108110b18e67fdd
        }
      }
  
-+    if (gZenUIManager.handleNewTab(werePassedURL, searchClipboard, where)) {
++    if (gOculateUIManager.handleNewTab(werePassedURL, searchClipboard, where)) {
 +      return;
 +    }
 +
@@ -36,11 +36,11 @@ index 757c5b16612c96f327798f9e47c83144668074f0..1b843dc5aeb942e4d108110b18e67fdd
        return;
      }
  
-+    if (gBrowser.selectedTab.hasAttribute("zen-empty-tab")) {
++    if (gBrowser.selectedTab.hasAttribute("oculate-empty-tab")) {
 +      if (gBrowser.selectedTab.hasAttribute("split-view")) {
 +        return;
 +      }
-+      gZenWorkspaces.handleTabCloseWindow();
++      gOculateWorkspaces.handleTabCloseWindow();
 +      return;
 +    }
 +

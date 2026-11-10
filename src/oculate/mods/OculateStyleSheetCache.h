@@ -1,0 +1,58 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+#ifndef mozilla_OculateStyleSheetCache_h_
+#define mozilla_OculateStyleSheetCache_h_
+
+#include "mozilla/css/Loader.h"
+#include "mozilla/StaticPtr.h"
+
+#ifndef OCULATE_MODS_FILENAME
+#  define OCULATE_MODS_FILENAME u"oculate-themes.css"_ns
+#endif
+
+namespace oculate {
+
+class OculateStyleSheetCache final : public nsISupports {
+  using StyleSheet = mozilla::StyleSheet;
+
+ public:
+  NS_DECL_ISUPPORTS
+
+  /**
+   * @brief Get the mods stylesheet.
+   * This is called when we need to get the mods stylesheets.
+   * @returns The mods stylesheet.
+   */
+  auto GetModsSheet() -> StyleSheet*;
+
+  /**
+   * @brief Rebuild the mods stylesheets.
+   * This is re-parses the mods stylesheet and applies it to all
+   * the connected documents.
+   * @param aContents The contents of the mods stylesheet.
+   * @returns NS_OK on success, or an error code on failure.
+   */
+  nsresult RebuildModsStylesheets(const nsACString& aContents);
+
+  static auto Singleton() -> OculateStyleSheetCache*;
+
+ private:
+  OculateStyleSheetCache() = default;
+  ~OculateStyleSheetCache() = default;
+
+  /**
+   * @brief Load the stylesheet from the given file.
+   * @param aFile The file to load the stylesheet from.
+   */
+  auto LoadSheetFile(nsIFile* aFile, mozilla::StyleOrigin aOrigin) -> void;
+
+  static mozilla::StaticRefPtr<OculateStyleSheetCache> gOculateModsCache;
+
+  RefPtr<StyleSheet> mModsSheet;
+};
+
+}  // namespace oculate
+
+#endif

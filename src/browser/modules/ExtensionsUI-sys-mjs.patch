@@ -7,7 +7,7 @@ index 73ef024602cb4554a024de4ddef83f492adc33ef..959c3403a48a3e4294ad5d2f72bad0e5
          autofocus: true,
          popupOptions: {
 -          position: "bottomright topright",
-+          position: window.gZenUIManager.panelUIPosition(),
++          position: window.gOculateUIManager.panelUIPosition(),
          },
          // Pass additional options used internally by the
          // addon-webext-permissions-notification custom element

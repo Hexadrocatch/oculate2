@@ -1,0 +1,38 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+        content/browser/oculateThemeModifier.js                                     (../../oculate/common/oculateThemeModifier.js)
+        content/browser/OculatePreloadedScripts.js                                  (../../oculate/common/OculatePreloadedScripts.js)
+        content/browser/oculate-sets.js                                             (../../oculate/common/oculate-sets.js)
+
+        content/browser/OculateStartup.mjs                                          (../../oculate/common/modules/OculateStartup.mjs)
+        content/browser/OculateUpdates.mjs                                          (../../oculate/common/modules/OculateUpdates.mjs)
+        content/browser/OculateUIManager.mjs                                        (../../oculate/common/modules/OculateUIManager.mjs)
+        content/browser/oculate-components/OculateCommonUtils.mjs                       (../../oculate/common/modules/OculateCommonUtils.mjs)
+        content/browser/oculate-components/OculateSessionStore.mjs                      (../../oculate/common/modules/OculateSessionStore.mjs)
+        content/browser/oculate-components/OculateHasPolyfill.mjs                       (../../oculate/common/modules/OculateHasPolyfill.mjs)
+        content/browser/oculate-components/OculateSidebarNotification.mjs               (../../oculate/common/modules/OculateSidebarNotification.mjs)
+        content/browser/oculate-components/OculateMenubar.mjs                           (../../oculate/common/modules/OculateMenubar.mjs)
+
+        content/browser/oculate-components/OculateEmojisData.min.mjs                    (../../oculate/common/emojis/OculateEmojisData.min.mjs)
+        content/browser/oculate-components/OculateEmojiPicker.mjs                       (../../oculate/common/emojis/OculateEmojiPicker.mjs)
+
+*       content/browser/oculate-styles/oculate-theme.css                                (../../oculate/common/styles/oculate-theme.css)
+        content/browser/oculate-styles/oculate-buttons.css                              (../../oculate/common/styles/oculate-buttons.css)
+        content/browser/oculate-styles/oculate-browser-ui.css                           (../../oculate/common/styles/oculate-browser-ui.css)
+        content/browser/oculate-styles/oculate-animations.css                           (../../oculate/common/styles/oculate-animations.css)
+        content/browser/oculate-styles/oculate-panel-ui.css                             (../../oculate/common/styles/oculate-panel-ui.css)
+*       content/browser/oculate-styles/oculate-single-components.css                    (../../oculate/common/styles/oculate-single-components.css)
+        content/browser/oculate-styles/oculate-sidebar.css                              (../../oculate/common/styles/oculate-sidebar.css)
+*       content/browser/oculate-styles/oculate-toolbar.css                              (../../oculate/common/styles/oculate-toolbar.css)
+        content/browser/oculate-styles/oculate-browser-container.css                    (../../oculate/common/styles/oculate-browser-container.css)
+        content/browser/oculate-styles/oculate-omnibox.css                              (../../oculate/common/styles/oculate-omnibox.css)
+        content/browser/oculate-styles/oculate-popup.css                                (../../oculate/common/styles/oculate-popup.css)
+        content/browser/oculate-styles/oculate-branding.css                             (../../oculate/common/styles/oculate-branding.css)
+        content/browser/oculate-styles/oculate-sidebar-notification.css                 (../../oculate/common/styles/oculate-sidebar-notification.css)
+*       content/browser/oculate-styles/oculate-backdrop-filters.svg                     (../../oculate/common/styles/oculate-backdrop-filters.svg)
+
+        content/browser/oculate-styles/oculate-panels/bookmarks.css                     (../../oculate/common/styles/oculate-panels/bookmarks.css)
+        content/browser/oculate-styles/oculate-panels/print.css                         (../../oculate/common/styles/oculate-panels/print.css)
+        content/browser/oculate-styles/oculate-panels/dialog.css                        (../../oculate/common/styles/oculate-panels/dialog.css)

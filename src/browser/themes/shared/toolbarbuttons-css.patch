@@ -38,7 +38,7 @@ index 2de4cfbb51e29108cdd92a2c0a80cbf6ef0ae4af..a1d4b9d173dc86672210161e7356302b
  toolbar .toolbarbutton-1 {
    /* horizontal padding + actual icon width */
 -  --toolbarbutton-icon-size: calc(2 * var(--toolbarbutton-padding-inner) + 16px);
-+  --toolbarbutton-icon-size: calc(2 * var(--toolbarbutton-padding-inner) + var(--zen-toolbar-button-size, 16px));
++  --toolbarbutton-icon-size: calc(2 * var(--toolbarbutton-padding-inner) + var(--oculate-toolbar-button-size, 16px));
  
    appearance: none;
    margin: 0;
@@ -47,7 +47,7 @@ index 2de4cfbb51e29108cdd92a2c0a80cbf6ef0ae4af..a1d4b9d173dc86672210161e7356302b
       * because otherwise an increase in text sizes would break things.
       */
 -    min-height: calc(16px + 2 * var(--toolbarbutton-padding-inner));
-+    min-height: calc(var(--zen-toolbar-button-size, 16px) + 2 * var(--toolbarbutton-padding-inner));
++    min-height: calc(var(--oculate-toolbar-button-size, 16px) + 2 * var(--toolbarbutton-padding-inner));
  
      @media (-moz-platform: macos) {
        padding-top: calc(var(--toolbarbutton-padding-inner) + 1px);
@@ -74,7 +74,7 @@ index 2de4cfbb51e29108cdd92a2c0a80cbf6ef0ae4af..a1d4b9d173dc86672210161e7356302b
  }
  
 -#nav-bar:not([customizing]) toolbarspring:not(#vertical-spacer) {
-+:is(#nav-bar, #zen-sidebar-top-buttons):not([customizing]) toolbarspring:not(#vertical-spacer) {
++:is(#nav-bar, #oculate-sidebar-top-buttons):not([customizing]) toolbarspring:not(#vertical-spacer) {
    /* Allow flexible spacers to shrink further outside of customize mode. */
    min-width: 1px;
  }

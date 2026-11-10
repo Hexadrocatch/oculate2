@@ -7,7 +7,7 @@ index b01fd4bb163ad53139fcbd8e79e12ef994d1fa13..7e3c2f6852b77192b4505bb3d5a7b585
    { id: "services.sync.engine.addons", type: "bool" },
    { id: "services.sync.engine.prefs", type: "bool" },
 +  { id: "services.sync.engine.spaces", type: "bool" },
-+  { id: "zen.spaces-sync.normal-tabs", type: "bool" },
++  { id: "oculate.spaces-sync.normal-tabs", type: "bool" },
  ]);
  
  /**
@@ -23,16 +23,16 @@ index b01fd4bb163ad53139fcbd8e79e12ef994d1fa13..7e3c2f6852b77192b4505bb3d5a7b585
    Preferences.addSetting({ id, pref });
  });
  
-+Preferences.addSetting({ id: "zenSyncWorkspacesGroup" });
++Preferences.addSetting({ id: "oculateSyncWorkspacesGroup" });
 +Preferences.addSetting({
-+  id: "zenSyncWorkspaces",
++  id: "oculateSyncWorkspaces",
 +  pref: "services.sync.engine.spaces",
 +});
 +Preferences.addSetting({
-+  id: "zenSyncNormalTabs",
-+  pref: "zen.spaces-sync.normal-tabs",
-+  deps: ["zenSyncWorkspaces"],
-+  visible: deps => !!deps.zenSyncWorkspaces.value,
++  id: "oculateSyncNormalTabs",
++  pref: "oculate.spaces-sync.normal-tabs",
++  deps: ["oculateSyncWorkspaces"],
++  visible: deps => !!deps.oculateSyncWorkspaces.value,
 +});
 +
  Preferences.addSetting({
@@ -43,20 +43,20 @@ index b01fd4bb163ad53139fcbd8e79e12ef994d1fa13..7e3c2f6852b77192b4505bb3d5a7b585
              control: "sync-engines-list",
            },
 +          {
-+            id: "zenSyncWorkspacesGroup",
++            id: "oculateSyncWorkspacesGroup",
 +            control: "moz-box-item",
 +            items: [
 +              {
-+                id: "zenSyncWorkspaces",
-+                l10nId: "zen-settings-workspaces-sync",
++                id: "oculateSyncWorkspaces",
++                l10nId: "oculate-settings-workspaces-sync",
 +                control: "moz-toggle",
 +                controlAttrs: {
 +                  inputlayout: "inline-end",
 +                },
 +                items: [
 +                  {
-+                    id: "zenSyncNormalTabs",
-+                    l10nId: "zen-settings-normal-tabs-sync",
++                    id: "oculateSyncNormalTabs",
++                    l10nId: "oculate-settings-normal-tabs-sync",
 +                    control: "moz-checkbox",
 +                  },
 +                ],

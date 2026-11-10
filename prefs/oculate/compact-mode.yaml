@@ -1,0 +1,46 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.view.compact.hide-tabbar
+  value: true
+
+- name: oculate.view.compact.hide-toolbar
+  value: false
+
+- name: oculate.view.compact.toolbar-flash-popup
+  value: false
+
+- name: oculate.view.compact.toolbar-flash-popup.duration
+  value: 800
+
+- name: oculate.view.compact.toolbar-hide-after-hover.duration
+  value: 1000
+
+- name: oculate.view.compact.sidebar-keep-hover.duration
+  value: 150
+
+# How far (in CSS pixels) the mouse may travel past the window bounds after
+# leaving the window before the hovered sidebar/toolbar is collapsed
+- name: oculate.view.compact.outside-window-edge-offset.horizontal
+  value: 200
+
+- name: oculate.view.compact.outside-window-edge-offset.vertical
+  value: 100
+
+- name: oculate.view.compact.animate-sidebar
+  value: true
+
+- name: oculate.view.compact.show-sidebar-and-toolbar-on-hover
+  value: true
+
+- name: oculate.view.compact.show-background-tab-toast
+  value: true
+
+- name: oculate.view.compact.debug
+  value: false
+
+# Do not edit manually
+- name: oculate.view.compact.enable-at-startup
+  hidden: true
+  value: false

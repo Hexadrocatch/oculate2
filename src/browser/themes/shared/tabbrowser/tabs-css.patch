@@ -72,7 +72,7 @@ index 793a763908b4aa133f79c164f9d3cdfbec616273..ee72b9466b8d7c240a221acb9bf3adbf
    }
  
 -  &[pinned]:is([soundplaying], [muted], [activemedia-blocked]),
-+  &[zen-essential]:is([soundplaying], [muted], [activemedia-blocked]),
++  &[oculate-essential]:is([soundplaying], [muted], [activemedia-blocked]),
    &[crashed] {
      display: revert;
    }
@@ -81,7 +81,7 @@ index 793a763908b4aa133f79c164f9d3cdfbec616273..ee72b9466b8d7c240a221acb9bf3adbf
        removed from root such as when toggling the sidebar to expand with the toolbar button. */
      #tabbrowser-tabs[orient="horizontal"] &:not([pinned]):not([crashed]),
 -    :root:not([sidebar-expand-on-hover]) #tabbrowser-tabs[orient="vertical"][expanded] &:not([pinned]):not([crashed]) {
-+    :root:not([sidebar-expand-on-hover]) #tabbrowser-tabs[orient="vertical"][expanded] &:not([zen-essential]):not([crashed]) {
++    :root:not([sidebar-expand-on-hover]) #tabbrowser-tabs[orient="vertical"][expanded] &:not([oculate-essential]):not([crashed]) {
        &:is([soundplaying], [muted], [activemedia-blocked]) {
          display: flex;
        }

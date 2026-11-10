@@ -1,0 +1,7 @@
+% This Source Code Form is subject to the terms of the Mozilla Public
+% License, v. 2.0. If a copy of the MPL was not distributed with this
+% file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+color-scheme: dark;
+--oculate-backdrop-underlay: url("chrome://browser/content/oculate-styles/oculate-backdrop-filters.svg#underlay-dark");
+--oculate-urlbar-outline-offset: -1px;

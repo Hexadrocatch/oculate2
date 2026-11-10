@@ -6,7 +6,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
    BrowserUsageTelemetry: "resource:///modules/BrowserUsageTelemetry.sys.mjs",
    CustomizableWidgets:
      "moz-src:///browser/components/customizableui/CustomizableWidgets.sys.mjs",
-+  ZenCustomizableUI: "resource:///modules/ZenCustomizableUI.sys.mjs",
++  OculateCustomizableUI: "resource:///modules/OculateCustomizableUI.sys.mjs",
    HomePage: "resource:///modules/HomePage.sys.mjs",
    PanelMultiView:
      "moz-src:///browser/components/customizableui/PanelMultiView.sys.mjs",
@@ -15,7 +15,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
          type: CustomizableUI.TYPE_PANEL,
          defaultPlacements: [],
 -        anchor: "unified-extensions-button",
-+        anchor: "zen-site-data-icon-button",
++        anchor: "oculate-site-data-icon-button",
        },
        false
      );
@@ -38,7 +38,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
        lazy.fireButtonEnabled ? "fire-button" : null,
      ].filter(name => name);
 -
-+    lazy.ZenCustomizableUI.startup(this);
++    lazy.OculateCustomizableUI.startup(this);
      this.registerArea(
        CustomizableUI.AREA_NAVBAR,
        {
@@ -68,7 +68,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
        CustomizableUI.AREA_NAVBAR,
        CustomizableUI.AREA_BOOKMARKS,
        CustomizableUI.AREA_TABSTRIP,
-+      "zen-sidebar-top-buttons",
++      "oculate-sidebar-top-buttons",
      ]);
      if (AppConstants.platform != "macosx") {
        toolbars.add(CustomizableUI.AREA_MENUBAR);
@@ -76,8 +76,8 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
          placements = gPlacements.get(area);
        }
  
-+      // remove "zen-sidebar-top-buttons" from the placements
-+      placements = placements.filter(p => p != "zen-sidebar-top-buttons");
++      // remove "oculate-sidebar-top-buttons" from the placements
++      placements = placements.filter(p => p != "oculate-sidebar-top-buttons");
 +
        // For toolbars that need it, mark as dirty.
        let defaultPlacements = areaProperties.get("defaultPlacements");
@@ -104,18 +104,18 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
        }
      }
 -
-+    lazy.ZenCustomizableUI.init(aWindow);
++    lazy.OculateCustomizableUI.init(aWindow);
      // Now register all the toolbars
      for (let area of CustomizableUI.areas) {
        let type = CustomizableUI.getAreaType(area);
 -      if (type == CustomizableUI.TYPE_TOOLBAR) {
-+      if (type == CustomizableUI.TYPE_TOOLBAR && !area.startsWith("zen-")) {
++      if (type == CustomizableUI.TYPE_TOOLBAR && !area.startsWith("oculate-")) {
          let node = document.getElementById(area);
          this.registerToolbarNode(node);
        }
      }
 -
-+    lazy.ZenCustomizableUI.registerToolbarNodes(aWindow);
++    lazy.OculateCustomizableUI.registerToolbarNodes(aWindow);
      // Handle initial state of vertical tabs.
      if (isVerticalTabs) {
        // Show the vertical tabs toolbar
@@ -123,9 +123,9 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
     *   The identifier string of the area that aNode is being inserted into.
     */
    insertWidgetBefore(aNode, aNextNode, aContainer, aAreaId) {
-+    if (aAreaId === CustomizableUI.AREA_NAVBAR && aNode.documentGlobal.gZenVerticalTabsManager._hasSetSingleToolbar) {
-+      aContainer = aNode.ownerDocument.getElementById("zen-sidebar-top-buttons-customization-target");
-+      aAreaId = "zen-sidebar-top-buttons";
++    if (aAreaId === CustomizableUI.AREA_NAVBAR && aNode.documentGlobal.gOculateVerticalTabsManager._hasSetSingleToolbar) {
++      aContainer = aNode.ownerDocument.getElementById("oculate-sidebar-top-buttons-customization-target");
++      aAreaId = "oculate-sidebar-top-buttons";
 +    }
      this.notifyDOMChange(aNode, aNextNode, aContainer, false, () => {
        this.setLocationAttributes(aNode, aAreaId);
@@ -135,7 +135,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
     * placement state of all widgets.
     */
 -  _rebuildRegisteredAreas() {
-+  _rebuildRegisteredAreas(zenDontRebuildCollapsed = false) {
++  _rebuildRegisteredAreas(oculateDontRebuildCollapsed = false) {
      for (let [areaId, areaNodes] of gBuildAreas) {
        let placements = gPlacements.get(areaId);
        let isFirstChangedToolbar = true;
@@ -144,7 +144,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
            let defaultCollapsed = area.get("defaultCollapsed");
            let win = areaNode.documentGlobal;
 -          if (defaultCollapsed !== null) {
-+          if (defaultCollapsed !== null && !zenDontRebuildCollapsed) {
++          if (defaultCollapsed !== null && !oculateDontRebuildCollapsed) {
              win.setToolbarVisibility(
                areaNode,
                typeof defaultCollapsed == "string"
@@ -152,7 +152,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
    unregisterArea(aName, aDestroyPlacements) {
      CustomizableUIInternal.unregisterArea(aName, aDestroyPlacements);
    },
-+  get zenInternalCU() { return CustomizableUIInternal; },
++  get oculateInternalCU() { return CustomizableUIInternal; },
    /**
     * Add a widget to an area.
     * If the area to which you try to add is not known to CustomizableUI,
@@ -160,7 +160,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
          );
  
          if (webExtList && CustomizableUI.isWebExtensionWidget(child.id)) {
-+          if (webExtList.id !== "zen-overflow-extensions-list") {
++          if (webExtList.id !== "oculate-overflow-extensions-list") {
            child.setAttribute("cui-anchorid", webExtButtonID);
 +          }
            webExtList.insertBefore(child, webExtList.firstElementChild);
@@ -179,8 +179,8 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
            continue;
          }
 -        sum += parseFloat(style.marginLeft) + parseFloat(style.marginRight);
-+        sum += parseFloat(style.marginLeft) + (win.gZenVerticalTabsManager._hasSetSingleToolbar ? Math.max(0, parseFloat(style.marginRight)) : parseFloat(style.marginRight));
-+        if (toolbar.id == 'zen-sidebar-top-buttons' && toolbar.hasAttribute("overflowing")) {
++        sum += parseFloat(style.marginLeft) + (win.gOculateVerticalTabsManager._hasSetSingleToolbar ? Math.max(0, parseFloat(style.marginRight)) : parseFloat(style.marginRight));
++        if (toolbar.id == 'oculate-sidebar-top-buttons' && toolbar.hasAttribute("overflowing")) {
 +          sum += 2; // Add extra padding that we remove from the CSS
 +        }
          if (child != aExceptChild) {
@@ -191,12 +191,12 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
          parseFloat(style.paddingRight) -
          toolbarChildrenWidth;
 -      targetWidth = getInlineSize(this.#target);
-+      targetWidth = getInlineSize(this.#target) - ((win.gZenVerticalTabsManager._hasSetSingleToolbar && this.#target.id == 'zen-sidebar-top-buttons-customization-target') ? win.gZenVerticalTabsManager._topButtonsSeparatorElement.getBoundingClientRect().width : 0);
++      targetWidth = getInlineSize(this.#target) - ((win.gOculateVerticalTabsManager._hasSetSingleToolbar && this.#target.id == 'oculate-sidebar-top-buttons-customization-target') ? win.gOculateVerticalTabsManager._topButtonsSeparatorElement.getBoundingClientRect().width : 0);
        targetChildrenWidth =
          this.#target == this.#toolbar
            ? toolbarChildrenWidth
 -          : sumChildrenInlineSize(this.#target);
-+          : sumChildrenInlineSize((win.gZenVerticalTabsManager._hasSetSingleToolbar && this.#target.id == 'nav-bar-customization-target') ? win.document.getElementById("zen-sidebar-top-buttons-customization-target") : this.#target, win.gZenVerticalTabsManager._topButtonsSeparatorElement);
++          : sumChildrenInlineSize((win.gOculateVerticalTabsManager._hasSetSingleToolbar && this.#target.id == 'nav-bar-customization-target') ? win.document.getElementById("oculate-sidebar-top-buttons-customization-target") : this.#target, win.gOculateVerticalTabsManager._topButtonsSeparatorElement);
      });
  
      lazy.log.debug(
@@ -205,18 +205,18 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
      );
      totalAvailWidth = Math.ceil(totalAvailWidth);
 +    if (this.#target.id == 'nav-bar-customization-target' && 
-+        win.gZenVerticalTabsManager._hasSetSingleToolbar &&
-+        Services.prefs.getBoolPref("zen.view.overflow-webext-toolbar", true) &&
-+       !win.document.documentElement.hasAttribute("zen-creating-workspace") &&
++        win.gOculateVerticalTabsManager._hasSetSingleToolbar &&
++        Services.prefs.getBoolPref("oculate.view.overflow-webext-toolbar", true) &&
++       !win.document.documentElement.hasAttribute("oculate-creating-workspace") &&
 +       !win.document.documentElement.hasAttribute("inDOMFullscreen") &&
 +       !win.gURLBar.hasAttribute("breakout-extend")) {
-+      const availSelectors = ":is(#page-action-buttons, #zen-copy-url-button, .unified-extensions-item, .urlbar-addon-page-action)";
++      const availSelectors = ":is(#page-action-buttons, #oculate-copy-url-button, .unified-extensions-item, .urlbar-addon-page-action)";
 +      const width = [
 +        ...win.gURLBar._inputContainer.querySelectorAll(availSelectors),
-+        ...win.document.getElementById("zen-overflow-extensions-list").querySelectorAll(availSelectors)
++        ...win.document.getElementById("oculate-overflow-extensions-list").querySelectorAll(availSelectors)
 +      ].length * 26;
 +      const urlbarWidth = win.document.getElementById("urlbar-container").getBoundingClientRect().width;
-+      let overflowing = width > urlbarWidth * (Services.prefs.getIntPref("zen.view.overflow-webext-toolbar-threshold", 60) / 100);
++      let overflowing = width > urlbarWidth * (Services.prefs.getIntPref("oculate.view.overflow-webext-toolbar-threshold", 60) / 100);
 +      let wasOverflowing = win.gURLBar._isOverflowingItems;
 +      win.gURLBar._isOverflowingItems = overflowing;
 +      if (wasOverflowing !== overflowing) {
@@ -225,7 +225,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
 +          try {
 +            let [, node] = CustomizableUIInternal.getWidgetNode(item, win);
 +            if (node?.hasAttribute("data-extensionid")) {
-+              win.gZenVerticalTabsManager.appendCustomizableItem(win.document.getElementById("zen-sidebar-top-buttons-customization-target"), node);
++              win.gOculateVerticalTabsManager.appendCustomizableItem(win.document.getElementById("oculate-sidebar-top-buttons-customization-target"), node);
 +            }
 +          } catch (e) {
 +            console.error(e);
@@ -233,10 +233,10 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
 +        }
 +      }
 +    }
-+    if (win.gZenVerticalTabsManager._hasSetSingleToolbar && this.#toolbar.id == 'nav-bar') return { isOverflowing: false, targetContentWidth, totalAvailWidth };
++    if (win.gOculateVerticalTabsManager._hasSetSingleToolbar && this.#toolbar.id == 'nav-bar') return { isOverflowing: false, targetContentWidth, totalAvailWidth };
      let isOverflowing = targetContentWidth > totalAvailWidth;
-+    if (win.gZenVerticalTabsManager._hasSetSingleToolbar &&
-+      this.#target.id == 'zen-sidebar-top-buttons-customization-target' &&
++    if (win.gOculateVerticalTabsManager._hasSetSingleToolbar &&
++      this.#target.id == 'oculate-sidebar-top-buttons-customization-target' &&
 +      Array.from(this.#target.children).filter(child => child.getAttribute("overflows") != "false").length == 1 &&
 +      this.#overflowedInfo.size == 0) {
 +      isOverflowing = false;
@@ -249,8 +249,8 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
            }
          }
 -        if (totalAvailWidth <= minSize) {
-+        let isLastItem = win.gZenVerticalTabsManager._hasSetSingleToolbar && 
-+          this.#target.id == 'zen-sidebar-top-buttons-customization-target' && 
++        let isLastItem = win.gOculateVerticalTabsManager._hasSetSingleToolbar && 
++          this.#target.id == 'oculate-sidebar-top-buttons-customization-target' && 
 +          this.#overflowedInfo.size == 1 && 
 +          !child.classList.contains('unified-extensions-item');
 +        if (totalAvailWidth <= minSize && !isLastItem) {
@@ -262,7 +262,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
        }
        if (!inserted) {
 -        this.#target.appendChild(child);
-+        win.gZenVerticalTabsManager.appendCustomizableItem(this.#target, child, gPlacements.get(this.#toolbar.id));
++        win.gOculateVerticalTabsManager.appendCustomizableItem(this.#target, child, gPlacements.get(this.#toolbar.id));
        }
        child.removeAttribute("cui-anchorid");
        child.removeAttribute("overflowedItem");
@@ -291,7 +291,7 @@ index 93be435e7b7ebfb1cfc80c6532701740a2d50b29..aaaeac10c45d72b8f8b24961e780c255
        }
        case "mousedown": {
 -        if (aEvent.button != 0) {
-+        if (aEvent.button != 0 || this.#toolbar.id == "zen-sidebar-top-buttons") { // Fix https://github.com/zen-browser/desktop/issues/7718
++        if (aEvent.button != 0 || this.#toolbar.id == "oculate-sidebar-top-buttons") { // Fix https://github.com/TinsmithRegister30/oculate1/issues/7718
            break;
          }
          if (aEvent.target == this.#defaultListButton) {

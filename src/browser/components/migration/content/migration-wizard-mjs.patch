@@ -6,8 +6,8 @@ index cadf7a21603f37d16bc2d48f8d83f85fc7292f0a..341f3db4a0ee77b70bd411e01953c67e
                  <label id="payment-methods" class="resource-type-label" data-resource-type="PAYMENT_METHODS">
                    <input type="checkbox"/><span data-l10n-id="migration-payment-methods-option-label"></span>
                  </label>
-+                <label id="zen-spaces" class="resource-type-label" data-resource-type="ZEN_SPACES">
-+                  <input type="checkbox"/><span data-l10n-id="migration-zen-spaces-option-label"></span>
++                <label id="oculate-spaces" class="resource-type-label" data-resource-type="OCULATE_SPACES">
++                  <input type="checkbox"/><span data-l10n-id="migration-oculate-spaces-option-label"></span>
 +                </label>
                </fieldset>
              </details>
@@ -16,9 +16,9 @@ index cadf7a21603f37d16bc2d48f8d83f85fc7292f0a..341f3db4a0ee77b70bd411e01953c67e
                  <a class="support-text text-deemphasized"></a>
                </div>
  
-+              <div data-resource-type="ZEN_SPACES" class="resource-progress-group">
++              <div data-resource-type="OCULATE_SPACES" class="resource-progress-group">
 +                <span class="progress-icon-parent"><span class="progress-icon" role="img"></span></span>
-+                <span data-l10n-id="migration-zen-spaces-option-label"></span>
++                <span data-l10n-id="migration-oculate-spaces-option-label"></span>
 +                <span class="message-text text-deemphasized">&nbsp;</span>
 +                <a class="support-text text-deemphasized"></a>
 +              </div>
@@ -30,7 +30,7 @@ index cadf7a21603f37d16bc2d48f8d83f85fc7292f0a..341f3db4a0ee77b70bd411e01953c67e
      if (window.MozXULElement) {
        window.MozXULElement.insertFTLIfNeeded("branding/brand.ftl");
        window.MozXULElement.insertFTLIfNeeded("browser/migrationWizard.ftl");
-+      window.MozXULElement.insertFTLIfNeeded("browser/zen-migration.ftl");
++      window.MozXULElement.insertFTLIfNeeded("browser/oculate-migration.ftl");
      }
      document.l10n.connectRoot(shadow);
  
@@ -71,8 +71,8 @@ index cadf7a21603f37d16bc2d48f8d83f85fc7292f0a..341f3db4a0ee77b70bd411e01953c67e
          "migration-list-autofill-label",
        [MigrationWizardConstants.DISPLAYED_RESOURCE_TYPES.PAYMENT_METHODS]:
          "migration-list-payment-methods-label",
-+      [MigrationWizardConstants.DISPLAYED_RESOURCE_TYPES.ZEN_SPACES]:
-+        "migration-list-zen-spaces-label",
++      [MigrationWizardConstants.DISPLAYED_RESOURCE_TYPES.OCULATE_SPACES]:
++        "migration-list-oculate-spaces-label",
      };
  
      if (MigrationWizardConstants.USES_FAVORITES.includes(key)) {

@@ -6,12 +6,12 @@ index b3ce915315a6c3009a2fa6a4c134db8c70e569a0..22c31730934eb2402b735ae26ec3fbbe
      this._closingPromise = new Promise(resolve => {
        this._resolveClosePromise = resolve;
      });
-+    if (!this._zenAnimateClose(() => this._zenFinishClose(aEvent))) {
-+      this._zenFinishClose(aEvent);
++    if (!this._oculateAnimateClose(() => this._oculateFinishClose(aEvent))) {
++      this._oculateFinishClose(aEvent);
 +    }
 +  },
 +
-+  _zenAnimateClose(aDone) {
++  _oculateAnimateClose(aDone) {
 +    let box = this._box;
 +    if (
 +      !box?.classList.contains("dialogBox") ||
@@ -35,12 +35,12 @@ index b3ce915315a6c3009a2fa6a4c134db8c70e569a0..22c31730934eb2402b735ae26ec3fbbe
 +      aDone();
 +    };
 +    box.addEventListener("animationend", onAnimationEnd);
-+    box.setAttribute("zen-closing", "true");
++    box.setAttribute("oculate-closing", "true");
 +    this._window.setTimeout(finish, 400);
 +    return true;
 +  },
  
-+  _zenFinishClose(aEvent) {
++  _oculateFinishClose(aEvent) {
      if (this._closingCallback) {
        try {
          this._closingCallback.call(null, aEvent);

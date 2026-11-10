@@ -4,28 +4,19 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/.
    -->
 
-# Branch Structure
-
-The repository is structured as follows:
-
-```
-dev (main branch)
- | |
- | \--->-- stable (release branch)
- |   ^
- ^   |
- |   \-<- Hotfix (hotfixes directly from stable)
- |
- \-<- (features branches)
-```
-
-The `dev` branch is the main branch of the repository, and it is the default branch for the repository. The `twilight` branch is the feature branch, and it is branched off from the `dev` branch. The `stable` branch is the release branch, and it is branched off from the `dev` branch.
-
-The `stable` branch may have hotfixes directly from the `stable` branch, and the `twilight` branch may have feature branches branched off from the `twilight` branch. This is done so that we can apply hotfixes like security patches directly to the `stable` branch without having to merge the changes from the `twilight` branch.
-
 # Local Development Setup
 
-Before you set up your local development environment, **read our [Building Guidelines](https://docs.zen-browser.app/guides/building)**. Skipping them can lead to avoidable build errors.
+Oculate is a set of patches and additional sources applied on top of the Firefox source tree. Node.js, Python 3, Rust and the usual Firefox build prerequisites are required.
+
+```
+npm ci
+npm run init
+python3 scripts/update_en_US_packs.py
+npm run build
+npm start
+```
+
+`npm run init` downloads the Firefox source into `engine/`, applies the contents of `src/` to it and bootstraps the Firefox toolchain. Run `npm run import` again after changing anything under `src/`.
 
 # Code Of Conduct
 

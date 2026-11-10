@@ -23,7 +23,7 @@ index c584ece50d19bbbf0922a84e94227e0402b210eb..bf0d32e3c678d3bb897d7462db47ccb1
        usedLimits.maxResultCount++;
      }
  
-+    if (!(result.heuristic && result.source == lazy.UrlbarShared.RESULT_SOURCE.ZEN_ACTIONS)) {
++    if (!(result.heuristic && result.source == lazy.UrlbarShared.RESULT_SOURCE.OCULATE_ACTIONS)) {
      state.usedResultSpan += span;
 +    }
      this._updateStatePostAdd(result, state);

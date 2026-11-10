@@ -1,0 +1,32 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+<html:template id="template-paneOculateMarketplace">
+<hbox id="OculateMarketplaceCategory"
+      class="subcategory"
+      hidden="true"
+      data-category="paneOculateMarketplace">
+<html:h1 data-l10n-id="pane-oculate-marketplace-title"/>
+</hbox>
+
+<groupbox id="oculateMarketplaceGroup" data-category="paneOculateMarketplace" hidden="true" class="highlighting-group">
+
+      <hbox id="oculateMarketplaceHeader">
+        <html:h2 data-l10n-id="oculate-theme-marketplace-header"/>
+      </hbox>
+      <hbox class="indent">
+            <button id="oculateThemeMarketplaceImport" data-l10n-id="oculate-theme-marketplace-import-button" />
+            <button id="oculateThemeMarketplaceExport" data-l10n-id="oculate-theme-marketplace-export-button" />
+      </hbox>
+
+      <description class="description-deemphasized" data-l10n-id="oculate-theme-marketplace-import-success" hidden="true" id="oculateThemeMarketplaceImportSuccess" />
+      <description class="description-deemphasized" data-l10n-id="oculate-theme-marketplace-import-failure" hidden="true" id="oculateThemeMarketplaceImportFailure" />
+
+      <description class="description-deemphasized" data-l10n-id="oculate-theme-marketplace-export-success" hidden="true" id="oculateThemeMarketplaceExportSuccess" />
+      <description class="description-deemphasized" data-l10n-id="oculate-theme-marketplace-export-failure" hidden="true" id="oculateThemeMarketplaceExportFailure" />
+
+      <vbox id="oculateThemeMarketplaceList"></vbox>
+</groupbox>
+
+</html:template>

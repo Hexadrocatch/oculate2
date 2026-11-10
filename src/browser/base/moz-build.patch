@@ -7,4 +7,4 @@ index 3ca8d96f564ef19872d8d02516bd7bf2fcc0d0aa..89b047d28da3b95b852f6ec3d4f82cfe
  
  JAR_MANIFESTS += ["jar.mn"]
 +
-+DIRS += ["../../zen"]
++DIRS += ["../../oculate"]

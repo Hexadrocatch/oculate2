@@ -14,9 +14,9 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
                                       nsISVGPaintContext* aPaintContext,
                                       imgIContainer* aImgContainer);
  
-+  // Carry the host document's Zen boost into the image context so the image
++  // Carry the host document's Oculate boost into the image context so the image
 +  // renders with the same accent/inversion as the page.
-+  static void MaybeStoreZenBoosts(SVGImageContext& aContext,
++  static void MaybeStoreOculateBoosts(SVGImageContext& aContext,
 +                                  const nsPresContext& aPresContext);
 +
    const Maybe<CSSSize>& GetViewportSize() const { return mViewportSize; }
@@ -26,20 +26,20 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
      mColorScheme = aScheme;
    }
  
-+  // Zen boosts state carried from the host document so the image renders with
++  // Oculate boosts state carried from the host document so the image renders with
 +  // the same boost. Part of the cache key below so boosted and unboosted
 +  // renderings don't collide.
-+  void SetZenBoosts(nscolor aAccent, float aComplementaryRotation,
++  void SetOculateBoosts(nscolor aAccent, float aComplementaryRotation,
 +                    bool aInverted) {
-+    mZenBoostsAccent = aAccent;
-+    mZenBoostsComplementaryRotation = aComplementaryRotation;
-+    mZenBoostsInverted = aInverted;
++    mOculateBoostsAccent = aAccent;
++    mOculateBoostsComplementaryRotation = aComplementaryRotation;
++    mOculateBoostsInverted = aInverted;
 +  }
-+  nscolor GetZenBoostsAccent() const { return mZenBoostsAccent; }
-+  float GetZenBoostsComplementaryRotation() const {
-+    return mZenBoostsComplementaryRotation;
++  nscolor GetOculateBoostsAccent() const { return mOculateBoostsAccent; }
++  float GetOculateBoostsComplementaryRotation() const {
++    return mOculateBoostsComplementaryRotation;
 +  }
-+  bool GetZenBoostsInverted() const { return mZenBoostsInverted; }
++  bool GetOculateBoostsInverted() const { return mOculateBoostsInverted; }
 +
    const Maybe<SVGPreserveAspectRatio>& GetPreserveAspectRatio() const {
      return mPreserveAspectRatio;
@@ -50,10 +50,10 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
             mColorScheme == aOther.mColorScheme &&
 -           mLinkParameters == aOther.mLinkParameters;
 +           mLinkParameters == aOther.mLinkParameters &&
-+           mZenBoostsAccent == aOther.mZenBoostsAccent &&
-+           mZenBoostsComplementaryRotation ==
-+               aOther.mZenBoostsComplementaryRotation &&
-+           mZenBoostsInverted == aOther.mZenBoostsInverted;
++           mOculateBoostsAccent == aOther.mOculateBoostsAccent &&
++           mOculateBoostsComplementaryRotation ==
++               aOther.mOculateBoostsComplementaryRotation &&
++           mOculateBoostsInverted == aOther.mOculateBoostsInverted;
    }
  
    PLDHashNumber Hash() const {
@@ -62,8 +62,8 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
                       mPreserveAspectRatio.map(HashPAR).valueOr(0),
                       mColorScheme.map(HashColorScheme).valueOr(0),
 -                     HashLinkParameters(mLinkParameters));
-+                     HashLinkParameters(mLinkParameters), mZenBoostsAccent,
-+                     mZenBoostsComplementaryRotation, mZenBoostsInverted);
++                     HashLinkParameters(mLinkParameters), mOculateBoostsAccent,
++                     mOculateBoostsComplementaryRotation, mOculateBoostsInverted);
    }
  
   private:
@@ -71,9 +71,9 @@ index 63f3c4926cfdb8b12e9e4a38016fc66f50cf3129..5ba3f2c07f521905a086ee6eea87975d
    Maybe<SVGPreserveAspectRatio> mPreserveAspectRatio;
    Maybe<ColorScheme> mColorScheme;
    StyleLinkParameters mLinkParameters;
-+  nscolor mZenBoostsAccent = 0;
-+  float mZenBoostsComplementaryRotation = 0.0f;
-+  bool mZenBoostsInverted = false;
++  nscolor mOculateBoostsAccent = 0;
++  float mOculateBoostsComplementaryRotation = 0.0f;
++  bool mOculateBoostsInverted = false;
  };
  
  }  // namespace mozilla

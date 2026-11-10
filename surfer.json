@@ -1,8 +1,8 @@
 {
-  "name": "Zen Browser",
-  "vendor": "Zen OSS Team",
-  "appId": "zen",
-  "binaryName": "zen",
+  "name": "Oculate Browser",
+  "vendor": "Oculate OSS Team",
+  "appId": "oculate",
+  "binaryName": "oculate",
   "version": {
     "product": "firefox",
     "version": "159.0.1",
@@ -16,13 +16,13 @@
   "brands": {
     "release": {
       "backgroundColor": "#282A33",
-      "brandShorterName": "Zen",
-      "brandShortName": "Zen",
-      "brandFullName": "Zen Browser",
+      "brandShorterName": "Oculate",
+      "brandShortName": "Oculate",
+      "brandFullName": "Oculate Browser",
       "release": {
         "displayVersion": "1.24.2b",
         "github": {
-          "repo": "zen-browser/desktop"
+          "repo": "TinsmithRegister30/oculate1"
         },
         "archives": {
           "windows": "windows.mar",
@@ -36,13 +36,13 @@
     },
     "twilight": {
       "backgroundColor": "#282A33",
-      "brandShorterName": "Zen",
+      "brandShorterName": "Oculate",
       "brandShortName": "Twilight",
-      "brandFullName": "Zen Twilight",
+      "brandFullName": "Oculate Twilight",
       "release": {
         "displayVersion": "1.25t",
         "github": {
-          "repo": "zen-browser/desktop"
+          "repo": "TinsmithRegister30/oculate1"
         }
       }
     }

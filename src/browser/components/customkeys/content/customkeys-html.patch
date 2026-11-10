@@ -8,7 +8,7 @@ index 309101962aae7a5fed6d0686bee512d72bfacf1e..bef4e92e45f409c6f4d37e9a7173bf04
      <link rel="stylesheet" href="chrome://global/skin/in-content/common.css" />
 +    <link
 +      rel="stylesheet"
-+      href="chrome://browser/skin/preferences/zen-preferences.css"
++      href="chrome://browser/skin/preferences/oculate-preferences.css"
 +    />
      <link
        rel="icon"

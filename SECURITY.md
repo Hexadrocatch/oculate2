@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities [here](https://github.com/zen-browser/desktop/security/advisories/new)
+Please report security vulnerabilities [here](https://github.com/TinsmithRegister30/oculate1/security/advisories/new)

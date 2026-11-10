@@ -1,0 +1,57 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+/* All overrides for compact mode go here */
+
+.oculate-toolbar-background {
+  display: none;
+  pointer-events: none;
+
+  overflow: clip;
+  z-index: -1;
+  background: light-dark(#e9e9e9, #131313);
+  box-shadow: var(--oculate-big-shadow);
+
+  &::before,
+  &::after {
+    outline: 1px solid rgba(255, 255, 255, .15);
+    outline-offset: -1px;
+    background-attachment: fixed !important;
+  }
+
+  &,
+  &::before,
+  &::after {
+    border-radius: calc((var(--oculate-native-inner-radius) - var(--oculate-compact-mode-no-padding-radius-fix, 0px)));
+  }
+}
+
+/* Keep the sidebar and its space previews on the same acrylic paint path. */
+@media -moz-pref('oculate.theme.acrylic-sidebar') and (not (prefers-reduced-transparency: reduce)) {
+  :is(#navigator-toolbox, .oculate-library-space) .oculate-toolbar-background:not(:-moz-window-inactive) {
+    /* Limit backdrop bleed so toolbar text stays readable over bright pages. */
+    background: light-dark(rgb(233 233 233 / 80%), rgb(19 19 19 / 80%));
+    /* Generic backgrounds otherwise follow the window's scheme directly. */
+    color-scheme: inherit;
+    backdrop-filter: blur(42px) !important;
+  }
+}
+
+:root[oculate-compact-mode='true']:not([customizing]):not([inDOMFullscreen='true']) {
+
+%include ../tabs/oculate-tabs/vertical-tabs-topbuttons-fix.css
+
+  & #urlbar {
+    visibility: visible;
+  }
+
+  @media -moz-pref('oculate.view.compact.hide-tabbar') or -moz-pref('oculate.view.use-single-toolbar') {
+%include sidebar.inc.css
+  }
+
+  @media -moz-pref('oculate.view.compact.hide-toolbar') {
+%include toolbar.inc.css
+  }
+}

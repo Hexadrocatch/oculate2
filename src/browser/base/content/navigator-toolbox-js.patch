@@ -15,7 +15,7 @@ index 10faff18ca0c6df472de81b5dbdba83309fa2eb8..b675df9ad22150f5a1060dedbabf6cb2
          #forward-button,
          #reload-button ,
          #reader-mode-button,
-+        #zen-tabs-wrapper,
++        #oculate-tabs-wrapper,
          #picture-in-picture-button,
          #urlbar-zoom-button,
          #star-button-box,
@@ -23,7 +23,7 @@ index 10faff18ca0c6df472de81b5dbdba83309fa2eb8..b675df9ad22150f5a1060dedbabf6cb2
            gBrowser.handleNewTabMiddleClick(element, event);
            break;
  
-+        case "zen-tabs-wrapper":
++        case "oculate-tabs-wrapper":
 +          if (event.button == 1) {
 +            BrowserCommands.openTab();
 +            // Stop the propagation of the click event, to prevent the event from being
@@ -41,7 +41,7 @@ index 10faff18ca0c6df472de81b5dbdba83309fa2eb8..b675df9ad22150f5a1060dedbabf6cb2
          #downloads-button,
          #fxa-toolbar-menu-button,
          #unified-extensions-button,
-+        #zen-site-data-icon-button,
++        #oculate-site-data-icon-button,
          #library-button,
          #ipprotection-button,
          #split-view-button,
@@ -49,13 +49,13 @@ index 10faff18ca0c6df472de81b5dbdba83309fa2eb8..b675df9ad22150f5a1060dedbabf6cb2
            gUnifiedExtensions.togglePanel(event);
            break;
  
-+        case "zen-site-data-icon-button":
++        case "oculate-site-data-icon-button":
 +          gUnifiedExtensions.togglePanel(
 +            event,
 +            null,
-+            window.gZenSiteDataPanel.unifiedPanel,
-+            window.gZenSiteDataPanel.unifiedPanelView,
-+            window.gZenSiteDataPanel.anchor,
++            window.gOculateSiteDataPanel.unifiedPanel,
++            window.gOculateSiteDataPanel.unifiedPanelView,
++            window.gOculateSiteDataPanel.anchor,
 +          );
 +          break;
 +

@@ -1,0 +1,130 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+@import url('chrome://browser/content/oculate-styles/oculate-tabs/vertical-tabs.css');
+
+#oculate-tabbox-wrapper {
+  position: relative;
+  z-index: 0;
+}
+
+@media -moz-pref('oculate.workspaces.hide-default-container-indicator') {
+  .tabbrowser-tab[oculateDefaultUserContextId='true'] .tab-context-line {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Single Toolbar Mode - Top Bar Handling (Includes External CSS)
+   ========================================================================== */
+:root[oculate-single-toolbar='true']:not([customizing]) {
+  #oculate-appcontent-navbar-wrapper {
+    display: flex;
+    -moz-window-dragging: drag; /* Allow dragging the window via this bar */
+    min-height: var(--oculate-element-separation);
+    height: var(--oculate-element-separation);
+
+    /* Ensure Personal Toolbar takes available width */
+    & #PersonalToolbar {
+      width: -moz-available;
+    }
+
+    /* Include styles for the top bar under certain conditions:
+      * - Bookmarks toolbar is visible OR
+      * - The container is explicitly marked to hide controls (e.g., on Linux with reversed controls)
+      */
+    :root[oculate-has-bookmarks] &,
+    &[should-hide='true'] {
+%include oculate-tabs/vertical-tabs-topbar.inc.css
+    }
+
+    /* Hide the top bar completely in fullscreen mode */
+    :root[inDOMFullscreen='true'] & {
+      max-height: 0 !important;
+      min-height: unset !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  }
+}
+
+
+/* ==========================================================================
+  Very Special Occasions - Complex Layout Fixes
+  ========================================================================== */
+
+/* Exclude these complex fixes if in compact mode */
+:root:not([oculate-compact-mode='true']) {
+
+  /* --- Fix: Right Sidebar + Collapsed + Standard Window Buttons --- */
+  &[oculate-right-side='true']:not([oculate-sidebar-expanded='true']):not([oculate-window-buttons-reversed='true']) {
+    /* Push toolbox down below the top toolbar */
+    & #navigator-toolbox {
+      margin-top: var(--oculate-toolbar-height) !important;
+    }
+    /* Pull window buttons container leftwards over the collapsed sidebar */
+    & .titlebar-buttonbox-container {
+      margin-right: calc(-1 * var(--oculate-toolbox-max-width)) !important;
+    }
+    /* Allow overflow for the button box */
+    & #oculate-appcontent-wrapper {
+      overflow-x: visible;
+    }
+    /* Reset padding for top buttons */
+    & #oculate-sidebar-top-buttons-customization-target {
+      padding-top: 0;
+    }
+    /* Include common fixes for this top-button scenario */
+%include oculate-tabs/vertical-tabs-topbuttons-fix.css
+  }
+
+  /* --- Fix: Left Sidebar + Collapsed + Reversed Window Buttons --- */
+  &:not([oculate-right-side='true']):not([oculate-sidebar-expanded='true'])[oculate-window-buttons-reversed='true'] {
+    /* Push toolbox down below the top toolbar */
+    & #navigator-toolbox {
+      margin-top: var(--oculate-toolbar-height) !important;
+    }
+    /* Pull window buttons container rightwards over the collapsed sidebar */
+    & .titlebar-buttonbox-container {
+      margin-left: calc(-1 * var(--oculate-toolbox-max-width) + var(--oculate-toolbox-padding)) !important;
+    }
+    /* Allow overflow for the button box */
+    & #oculate-appcontent-wrapper {
+      overflow-x: visible;
+    }
+    /* Reset padding for top buttons */
+    & #oculate-sidebar-top-buttons-customization-target {
+      padding-top: 0;
+    }
+    /* Add padding to the right of the nav container */
+    & #oculate-appcontent-navbar-container {
+      padding-right: var(--oculate-element-separation);
+    }
+    /* Include common fixes for this top-button scenario */
+%include oculate-tabs/vertical-tabs-topbuttons-fix.css
+  }
+
+  &:not([oculate-right-side='true']):not([oculate-sidebar-expanded='true']):not([oculate-window-buttons-reversed='true']),
+  &[oculate-right-side='true']:not([oculate-sidebar-expanded='true'])[oculate-window-buttons-reversed='true'] {
+    & #titlebar {
+      padding-top: var(--oculate-toolbar-height);
+    }
+
+    & #nav-bar {
+      width: calc(100% + var(--oculate-toolbox-max-width) - var(--oculate-element-separation));
+
+      /**
+       * We only want it when the window buttons are on the left side, in other
+       * words, the first of the two selectors above.
+       */
+      :root:not([oculate-window-buttons-reversed='true']) & {
+        margin-left: calc(-1 * var(--oculate-toolbox-max-width) + var(--oculate-element-separation) + 4px);
+      }
+    }
+  }
+}
+
+%include oculate-essentials-promo.css

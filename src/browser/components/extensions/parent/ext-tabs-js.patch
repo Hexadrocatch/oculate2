@@ -14,7 +14,7 @@ index f342748d4b680a5de3a8b7c90df79f7c380b9e1c..65091cf370e00a580ae2cb1fad9cde76
                });
              }
  
-+            window.gZenCompactModeManager._nextTimeWillBeActive = active;
++            window.gOculateCompactModeManager._nextTimeWillBeActive = active;
              let nativeTab = window.gBrowser.addTab(url, options);
              tabTracker.addTabReadyBlocker(nativeTab);
  

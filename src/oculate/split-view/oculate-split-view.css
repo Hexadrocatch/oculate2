@@ -1,0 +1,266 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/** Oculate Decks - ONLY USED FOR SPLIT VIEWS, DO NOT USE THIS CLASS FOR ANY OTHER PURPOSE **/
+
+%include oculate-split-group.inc.css
+
+#tabbrowser-tabpanels[oculate-split-view="true"] {
+  display: flex;
+  flex-direction: row;
+  margin-top: calc(var(--oculate-split-column-gap) * -1);
+}
+
+#tabbrowser-tabpanels[oculate-split-view="true"] > *:not([oculate-split="true"]) {
+  flex: 0;
+  margin: 0;
+}
+
+#oculate-splitview-dropzone {
+  border-radius: var(--oculate-native-inner-radius);
+  transition: inset ease-out 0.08s;
+  display: none;
+  background-color: color-mix(in srgb, var(--oculate-colors-secondary) 30%, transparent 70%);
+}
+#oculate-splitview-dropzone[enabled="true"] {
+  display: initial;
+}
+
+#tabbrowser-tabpanels[oculate-split-view="true"] > [oculate-split="true"],
+#oculate-splitview-dropzone {
+  flex: 1;
+  overflow: hidden;
+
+  & .dialogStack {
+    /* Fix for issue https://github.com/TinsmithRegister30/oculate1/issues/7564 */
+    position: absolute;
+  }
+
+  :root[inDOMFullscreen="true"] & {
+    &:not(.deck-selected) {
+      -moz-subtree-hidden-only-visually: 1 !important;
+    }
+
+    &.deck-selected {
+      inset: 0 !important;
+    }
+  }
+}
+
+.browserSidebarContainer[is-oculate-split="true"],
+#oculate-splitview-dropzone {
+  position: absolute !important;
+
+  margin: var(--oculate-split-column-gap) var(--oculate-split-row-gap);
+  margin-bottom: 0;
+  margin-left: 0;
+
+  &.browserSidebarContainer:not([oculate-split="true"]) {
+    margin-top: 0;
+    visibility: hidden;
+  }
+}
+
+#oculate-splitview-dropzone {
+  margin-top: 0 !important;
+}
+
+#tabbrowser-tabpanels[oculate-split-view="true"]:not(.oculate-split-view-no-transition):not([oculate-split-resizing]) > [oculate-split="true"] {
+  --oculate-active-split-outline-color: light-dark(hsl(from var(--oculate-primary-color) h s calc(l - 20)), var(--button-background-color-primary));
+
+  transition: inset 0.09s ease-out !important;
+  & browser {
+    transition: opacity 0.2s ease-out !important;
+  }
+}
+
+:root:not([inDOMFullscreen="true"]) #tabbrowser-tabpanels[oculate-split-view="true"] .browserSidebarContainer.deck-selected {
+  &:not(.oculate-glance-overlay) {
+    outline: 2px solid var(--oculate-active-split-outline-color) !important;
+  }
+
+  &.oculate-glance-overlay {
+    flex: 1;
+    margin-top: calc(var(--oculate-element-separation) / 2);
+    z-index: 1;
+  }
+}
+
+#tabbrowser-tabbox {
+  --oculate-split-row-gap: var(--oculate-element-separation);
+  --oculate-split-column-gap: calc(var(--oculate-element-separation) + 1px);
+}
+
+#tabbrowser-tabbox[oculate-split-view="true"] {
+  :root[oculate-no-padding="true"] & {
+    --oculate-element-separation: 8px;
+  }
+  margin-right: calc(-1 * var(--oculate-split-column-gap));
+}
+
+:root:not([customizing]) #oculate-splitview-overlay {
+  margin-top: calc(var(--oculate-split-column-gap) * -1);
+}
+
+#tabbrowser-tabpanels[oculate-split-view] {
+  .oculate-split-view-splitter {
+    display: inherit;
+  }
+}
+
+#oculate-splitview-overlay-wrapper {
+  position: absolute;
+  pointer-events: none;
+  padding: inherit;
+  inset: 0;
+}
+
+#oculate-splitview-overlay {
+  position: relative;
+  flex: 1;
+  z-index: 2;
+}
+
+.oculate-split-view-splitter {
+  visibility: inherit;
+  -moz-subtree-hidden-only-visually: 0;
+  position: absolute;
+  pointer-events: all;
+}
+
+.oculate-split-view-splitter[orient="horizontal"] {
+  height: var(--oculate-split-column-gap);
+  cursor: ns-resize;
+}
+
+.oculate-view-splitter-header-container {
+  position: absolute;
+  top: calc(var(--oculate-split-column-gap) / -2);
+  left: 50%;
+  opacity: 0;
+  transition: opacity 0.1s;
+  z-index: 100;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.oculate-view-splitter-header {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  padding: 0.4rem 0.6rem 0.2rem 0.6rem;
+  border-radius: 6px;
+  background-color: var(--oculate-active-split-outline-color);
+  box-shadow: 0 0 0 1px var(--button-primary-border-color);
+  gap: 0.8rem;
+  transform: translateX(-50%);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+:root:not([inDOMFullscreen="true"]) .browserSidebarContainer:hover .oculate-view-splitter-header-container,
+.oculate-view-splitter-header-container:hover {
+  pointer-events: all;
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+.oculate-view-splitter-header-container toolbarbutton {
+  display: flex;
+  -moz-context-properties: fill, fill-opacity;
+  border-radius: var(--tab-border-radius);
+  color: contrast-color(var(--oculate-active-split-outline-color));
+  opacity: 0.8;
+  fill: currentColor;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  & image {
+    width: 14px;
+    height: 14px;
+  }
+
+  &.oculate-tab-unsplit-button image {
+    height: 10px;
+    width: 10px;
+  }
+
+  &.oculate-tab-rearrange-button {
+    cursor: move;
+
+    & image {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+#oculate-split-view-fake-browser {
+  position: absolute;
+  height: 100%;
+  border: 2px solid var(--oculate-primary-color);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--oculate-native-inner-radius);
+  box-shadow: var(--oculate-big-shadow);
+  overflow: hidden;
+
+  &[side="top"],
+  &[side="bottom"] {
+    width: 100%;
+
+    &[has-split-view="true"] {
+      width: calc(100% - var(--oculate-element-separation));
+    }
+  }
+
+  &[side="right"] {
+    right: 0;
+
+    &[has-split-view="true"] {
+      right: var(--oculate-element-separation);
+    }
+  }
+
+  &[side="bottom"] {
+    bottom: 0;
+  }
+}
+
+#oculate-split-view-drag-image {
+  width: 200px;
+  height: 250px;
+  border-radius: 16px;
+  background: light-dark(white, black);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  position: relative;
+
+  & image {
+    width: 24px;
+    height: 24px;
+  }
+
+  & label {
+    color: light-dark(black, white);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+oculate-split-fake-tab {
+  border-radius: var(--border-radius-medium);
+  background-color: color-mix(in srgb, var(--button-background-color-primary), transparent 40%);
+  margin: var(--tab-margin-block);
+  flex: 1;
+}

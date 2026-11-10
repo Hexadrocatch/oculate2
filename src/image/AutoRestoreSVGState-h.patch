@@ -6,9 +6,9 @@ index b3b63acd813d310c1ce63c761f361d07782b149f..4ec4b74fff0fde2af793cc821353783c
          }
          return dom::PrefersColorSchemeOverride::None;
        }());
-+      pc->SetZenBoostsOverride(aSVGContext.GetZenBoostsAccent(),
-+                               aSVGContext.GetZenBoostsComplementaryRotation(),
-+                               aSVGContext.GetZenBoostsInverted());
++      pc->SetOculateBoostsOverride(aSVGContext.GetOculateBoostsAccent(),
++                               aSVGContext.GetOculateBoostsComplementaryRotation(),
++                               aSVGContext.GetOculateBoostsInverted());
      }
  
      // Set context paint (if specified) on the document:

@@ -1,5 +1,5 @@
 {
-  "name": "zen-desktop",
+  "name": "oculate-desktop",
   "version": "1.0.0",
   "description": "",
   "lint-staged": {
@@ -7,6 +7,7 @@
   },
   "type": "module",
   "scripts": {
+    "postinstall": "patch-package",
     "build": "surfer build",
     "build:ui": "surfer build --ui",
     "start": "cd engine && python3 ./mach run --noprofile",
@@ -22,13 +23,13 @@
     "sync:raw": "surfer update",
     "sync:rc": "python3 scripts/update_ff.py --rc",
     "sync:l10n": "python3 scripts/update_ff.py --just-l10n",
-    "lint": "cd engine && ./mach lint zen",
+    "lint": "cd engine && ./mach lint oculate",
     "lint:fix": "npm run lint -- --fix",
     "reset-ff": "surfer reset",
     "surfer": "surfer",
     "test": "python3 scripts/run_tests.py",
     "test:dbg": "python3 scripts/run_tests.py --jsdebugger --debug-on-failure",
-    "test:gtest": "cd engine && ./mach gtest Zen*",
+    "test:gtest": "cd engine && ./mach gtest Oculate*",
     "ffprefs": "cd tools/ffprefs && cargo run --bin ffprefs -- ../../",
     "lc": "surfer license-check",
     "lc:fix": "surfer license-check --fix",
@@ -37,15 +38,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zen-browser/desktop.git"
+    "url": "git+https://github.com/TinsmithRegister30/oculate1.git"
   },
   "keywords": [],
   "author": "",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/zen-browser/desktop/issues"
+    "url": "https://github.com/TinsmithRegister30/oculate1/issues"
   },
-  "homepage": "https://github.com/zen-browser/desktop#readme",
+  "homepage": "https://github.com/TinsmithRegister30/oculate1#readme",
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.0",
     "@zen-browser/prettier": "^3.9.3",
@@ -54,6 +55,7 @@
     "globals": "^16.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
+    "patch-package": "^8.0.1",
     "typescript": "^5.9.3"
   },
   "notes(private)": "We don't want to publish to npm, so this is marked as private",

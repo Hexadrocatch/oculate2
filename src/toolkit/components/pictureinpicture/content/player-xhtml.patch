@@ -6,7 +6,7 @@ index 4ee12ce69e1184b39d4a5ab566ecfe4f25be45be..36bf5d2388806bec4936a8d9b7078bbd
      <link rel="localization" href="browser/browserSets.ftl"/>
      <script src="chrome://global/content/pictureinpicture/player.js"></script>
      <title data-l10n-id="pictureinpicture-player-title"></title>
-+    <link rel="localization" href="browser/zen-general.ftl"/>
++    <link rel="localization" href="browser/oculate-general.ftl"/>
    </head>
  
    <body>

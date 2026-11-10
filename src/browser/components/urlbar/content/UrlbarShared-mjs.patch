@@ -22,7 +22,7 @@ index 47a65042c26ead0b2715c0b11699be2e242f6bd0..b194fc9c798e44cfc35f289d0e39411f
      OTHER_NETWORK: 6,
      ADDON: 7,
      ACTIONS: 8,
-+    ZEN_ACTIONS: 9,
++    OCULATE_ACTIONS: 9,
 +    WORKSPACES: 10,
    }),
  
@@ -31,8 +31,8 @@ index 47a65042c26ead0b2715c0b11699be2e242f6bd0..b194fc9c798e44cfc35f289d0e39411f
      SEMANTIC_HISTORY: "semanticHistory",
      SUGGESTED_INDEX: "suggestedIndex",
      TAIL_SUGGESTION: "tailSuggestion",
-+    ZEN_ACTION: "zenAction",
-+    ZEN_WORKSPACE: "zenWorkspace",
++    OCULATE_ACTION: "oculateAction",
++    OCULATE_WORKSPACE: "oculateWorkspace",
    }),
  
    // Defines provider types.
@@ -43,7 +43,7 @@ index 47a65042c26ead0b2715c0b11699be2e242f6bd0..b194fc9c798e44cfc35f289d0e39411f
 +      {
 +        source: this.RESULT_SOURCE.WORKSPACES,
 +        restrict: this.RESTRICT_TOKENS.WORKSPACE,
-+        icon: "chrome://browser/skin/zen-icons/selectable/layers.svg",
++        icon: "chrome://browser/skin/oculate-icons/selectable/layers.svg",
 +        pref: "shortcuts.workspaces",
 +        telemetryLabel: "workspaces",
 +        uiLabel: "urlbar-search-mode-workspaces",
@@ -63,11 +63,11 @@ index 47a65042c26ead0b2715c0b11699be2e242f6bd0..b194fc9c798e44cfc35f289d0e39411f
            return UrlbarShared.RESULT_GROUP.HEURISTIC_FALLBACK;
          case "UrlbarProviderHistoryUrlHeuristic":
            return UrlbarShared.RESULT_GROUP.HEURISTIC_HISTORY_URL;
-+        case "ZenUrlbarProviderGlobalActions":
++        case "OculateUrlbarProviderGlobalActions":
 +          if (result.source == UrlbarShared.RESULT_SOURCE.WORKSPACES) {
-+            return UrlbarShared.RESULT_GROUP.ZEN_WORKSPACE;
++            return UrlbarShared.RESULT_GROUP.OCULATE_WORKSPACE;
 +          }
-+          return UrlbarShared.RESULT_GROUP.ZEN_ACTION;
++          return UrlbarShared.RESULT_GROUP.OCULATE_ACTION;
          case "UrlbarProviderOmnibox":
            return UrlbarShared.RESULT_GROUP.HEURISTIC_OMNIBOX;
          case "UrlbarProviderRestrictKeywordsAutofill":
@@ -75,7 +75,7 @@ index 47a65042c26ead0b2715c0b11699be2e242f6bd0..b194fc9c798e44cfc35f289d0e39411f
        case "UrlbarProviderAboutPages":
          return UrlbarShared.RESULT_GROUP.ABOUT_PAGES;
        case "UrlbarProviderInputHistory":
-+      case "ZenUrlbarProviderSidebar":
++      case "OculateUrlbarProviderSidebar":
          return UrlbarShared.RESULT_GROUP.INPUT_HISTORY;
        case "UrlbarProviderQuickSuggest":
          return UrlbarShared.RESULT_GROUP.GENERAL_PARENT;

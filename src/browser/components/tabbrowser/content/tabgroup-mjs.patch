@@ -12,7 +12,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
      </vbox>
 -    <html:slot/>
 +    <html:div class="tab-group-container">
-+      <html:div class="zen-tab-group-start"/>
++      <html:div class="oculate-tab-group-start"/>
 +    </html:div>
      <vbox class="tab-group-overflow-count-container" pack="center">
        <label class="tab-group-overflow-count" role="button" />
@@ -71,7 +71,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
 +    this.appendChild = function (child) {
 +      this.groupContainer.appendChild(child);
 +      for (let tab of this.tabs) {
-+        if (tab.hasAttribute("zen-empty-tab") && tab.group === this) {
++        if (tab.hasAttribute("oculate-empty-tab") && tab.group === this) {
 +          this.groupStartElement.after(tab);
 +        }
 +      }
@@ -105,7 +105,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
      if (!this.#tabChangeObserver) {
        this.#tabChangeObserver = new window.MutationObserver(mutations => {
          if (!this.tabs.length) {
-+          if (this.tagName === "zen-workspace-collapsible-pins") {
++          if (this.tagName === "oculate-workspace-collapsible-pins") {
 +            return;
 +          }
            this.dispatchEvent(
@@ -115,7 +115,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
              })
            );
 -          this.remove();
-+          gZenVerticalTabsManager.animateItemClose(this).then(() => {
++          gOculateVerticalTabsManager.animateItemClose(this).then(() => {
 +            this.dispatchEvent(
 +              new CustomEvent("TabGroupRemovedFromDOM", { bubbles: true })
 +            );
@@ -150,7 +150,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
      const eventName = val ? "TabGroupCollapse" : "TabGroupExpand";
      this.dispatchEvent(new CustomEvent(eventName, { bubbles: true }));
  
-+    if (this.isZenFolder) {
++    if (this.isOculateFolder) {
 +      return;
 +    }
 +
@@ -216,7 +216,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
 +  }
 +
 +  get groupStartElement() {
-+    return this.querySelector(".zen-tab-group-start");
++    return this.querySelector(".oculate-tab-group-start");
 +  }
 +
 +  get childGroupsAndTabs() {
@@ -246,7 +246,7 @@ index 885fe2f53d84e364a4edc4000e96087707aac9c5..61f00575a80678c73202d82a4b4e5955
 +        return false;
 +      }
 +    }
-+    if (this.pinned && gZenWorkspaces.activeWorkspaceElement?.hasCollapsedPinnedTabs) {
++    if (this.pinned && gOculateWorkspaces.activeWorkspaceElement?.hasCollapsedPinnedTabs) {
 +      return false;
 +    }
 +    return true;

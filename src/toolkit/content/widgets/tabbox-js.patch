@@ -9,17 +9,17 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
 +  const { XPCOMUtils } = ChromeUtils.importESModule(
 +    "resource://gre/modules/XPCOMUtils.sys.mjs"
 +  );
-+  const lazyZenPrefs = {};
++  const lazyOculatePrefs = {};
 +  XPCOMUtils.defineLazyPreferenceGetter(
-+    lazyZenPrefs,
++    lazyOculatePrefs,
 +    "cycleByAttribute",
-+    "zen.tabs.ctrl-tab.ignore-essential-tabs",
++    "oculate.tabs.ctrl-tab.ignore-essential-tabs",
 +    false
 +  );
 +  XPCOMUtils.defineLazyPreferenceGetter(
-+    lazyZenPrefs,
++    lazyOculatePrefs,
 +    "ignorePendingTabs",
-+    "zen.tabs.ctrl-tab.ignore-pending-tabs",
++    "oculate.tabs.ctrl-tab.ignore-pending-tabs",
 +    false
 +  );
 +
@@ -31,7 +31,7 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
        this._inAsyncOperation = false;
        if (oldPanel != this._selectedPanel) {
 -        oldPanel?.classList.remove("deck-selected");
-+        if (!(window.gZenGlanceManager && gZenGlanceManager.shouldShowDeckSelected(this._selectedPanel, oldPanel))) oldPanel?.classList.remove("deck-selected");
++        if (!(window.gOculateGlanceManager && gOculateGlanceManager.shouldShowDeckSelected(this._selectedPanel, oldPanel))) oldPanel?.classList.remove("deck-selected");
          this._selectedPanel?.classList.add("deck-selected");
        }
        this.setAttribute("selectedIndex", val);
@@ -40,7 +40,7 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
          return;
        }
 -      for (let otherTab of this.allTabs) {
-+      for (let otherTab of window.gZenWorkspaces?.allStoredTabs ?? this.allTabs) {
++      for (let otherTab of window.gOculateWorkspaces?.allStoredTabs ?? this.allTabs) {
          if (otherTab != tab && otherTab.selected) {
            otherTab._selected = false;
          }
@@ -48,7 +48,7 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
       * @param {MozTab|null} [val]
       */
      set selectedItem(val) {
-+      val = window.gZenGlanceManager?.getTabOrGlanceChild(val) || val;
++      val = window.gOculateGlanceManager?.getTabOrGlanceChild(val) || val;
        if (val && !val.selected) {
          // The selectedIndex setter ignores invalid values
          // such as -1 if |val| isn't one of our child nodes.
@@ -57,7 +57,7 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
            return null;
          }
 -        if (filter(tab)) {
-+        if (filter(tab) && !tab.hasAttribute("zen-glance-tab") && !tab.hasAttribute("zen-empty-tab")) {
++        if (filter(tab) && !tab.hasAttribute("oculate-glance-tab") && !tab.hasAttribute("oculate-empty-tab")) {
            return tab;
          }
        }
@@ -65,12 +65,12 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
       */
      // eslint-disable-next-line no-unused-vars
      advanceSelectedTab(aDir, aWrap, aEvent) {
-+      if (window?.gZenGlanceManager?._animating) return;
++      if (window?.gOculateGlanceManager?._animating) return;
        let { ariaFocusedItem } = this;
        let startTab = ariaFocusedItem;
        if (!ariaFocusedItem || !this.allTabs.includes(ariaFocusedItem)) {
 -        startTab = this.selectedItem;
-+        startTab = gZenGlanceManager.getFocusedTab(aDir) || this.selectedItem;
++        startTab = gOculateGlanceManager.getFocusedTab(aDir) || this.selectedItem;
        }
        let newTab = null;
  
@@ -78,16 +78,16 @@ index 402fe6a74b5327a30199667de18f053ad75fe910..9bcbc827d18db2f996d964f7c7e3439e
 +        if (!tab.visible) {
 +          return false
 +        }
-+        if (lazyZenPrefs.ignorePendingTabs && tab.hasAttribute("pending")) {
++        if (lazyOculatePrefs.ignorePendingTabs && tab.hasAttribute("pending")) {
 +          return false
 +        }
-+        if (!lazyZenPrefs.cycleByAttribute) {
++        if (!lazyOculatePrefs.cycleByAttribute) {
 +          return true
 +        }
-+        if (startTab.hasAttribute("zen-essential")) {
-+          return tab.hasAttribute("zen-essential")
++        if (startTab.hasAttribute("oculate-essential")) {
++          return tab.hasAttribute("oculate-essential")
 +        }
-+        return !tab.hasAttribute("zen-essential")
++        return !tab.hasAttribute("oculate-essential")
 +      }
 +
        // Handle keyboard navigation for a hidden tab that can be selected, like the Firefox View tab,

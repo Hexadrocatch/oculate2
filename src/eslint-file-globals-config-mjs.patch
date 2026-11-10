@@ -6,7 +6,7 @@ index c15744aeaf940cea9e438e7b9924a328d2615b9f..df5c6c3f36e78537e0a54fb89dfd5b3d
  
  import globals from "globals";
  import mozilla from "eslint-plugin-mozilla";
-+import zenGlobals from "./zen/zen.globals.mjs";
++import oculateGlobals from "./oculate/oculate.globals.mjs";
  
  export default [
    {
@@ -15,8 +15,8 @@ index c15744aeaf940cea9e438e7b9924a328d2615b9f..df5c6c3f36e78537e0a54fb89dfd5b3d
      },
    },
 +  {
-+    name: "zen-globals",
-+    files: ["zen/**/!(*.sys).mjs", "zen/**/*.js"],
-+    languageOptions: { globals: zenGlobals.reduce((acc, name) => ({ ...acc, [name]: "readonly" }), {}) },
++    name: "oculate-globals",
++    files: ["oculate/**/!(*.sys).mjs", "oculate/**/*.js"],
++    languageOptions: { globals: oculateGlobals.reduce((acc, name) => ({ ...acc, [name]: "readonly" }), {}) },
 +  }
  ];

@@ -18,7 +18,7 @@ mkdir windsign-temp -ErrorAction SilentlyContinue
 #Start-Job -Name "DownloadGitObjectsRepo" -ScriptBlock {
 #    param($PWD)
 #    echo "Downloading git objects repo to $PWD\windsign-temp\windows-binaries"
-#    git clone https://github.com/zen-browser/windows-binaries.git $PWD\windsign-temp\windows-binaries
+#    git clone https://github.com/TinsmithRegister30/windows-binaries.git $PWD\windsign-temp\windows-binaries
 #    echo "Downloaded git objects repo to"
 #} -Verbose -ArgumentList $PWD -Debug
 
@@ -35,7 +35,7 @@ get-content "$PSScriptRoot/../.env" | foreach {
 Start-Job -Name "DownloadGitl10n" -ScriptBlock {
     param($PWD)
     cd $PWD
-    $env:ZEN_L10N_CURR_DIR=[regex]::replace($PWD, "^([A-Z]):", { "/" + $args.value.Substring(0, 1).toLower() }) -replace "\\", "/"
+    $env:OCULATE_L10N_CURR_DIR=[regex]::replace($PWD, "^([A-Z]):", { "/" + $args.value.Substring(0, 1).toLower() }) -replace "\\", "/"
     C:\mozilla-build\start-shell.bat $PWD\scripts\download-language-packs.sh
     echo "Fetched l10n and Firefox's one"
 } -Verbose -ArgumentList $PWD -Debug
@@ -47,7 +47,7 @@ npm run import -- --verbose
 npm run build
 
 echo "Downloading artifacts info"
-$artifactsInfo=gh api repos/zen-browser/desktop/actions/runs/$GithubRunId/artifacts
+$artifactsInfo=gh api repos/TinsmithRegister30/oculate1/actions/runs/$GithubRunId/artifacts
 
 function New-TemporaryDirectory {
     $tmp = [System.IO.Path]::GetTempPath() # Not $env:TEMP, see https://stackoverflow.com/a/946017
@@ -122,7 +122,7 @@ $files += Get-ChildItem windsign-temp\windows-x64-obj-arm64\ -Recurse -Include *
 
 signtool.exe sign /n "$SignIdentity" /t http://time.certum.pl/ /fd sha256 /v $files
 
-$env:ZEN_RELEASE="true"
+$env:OCULATE_RELEASE="true"
 $env:SURFER_SIGNING_MODE="true"
 $env:SCCACHE_GHA_ENABLED="false"
 Wait-Job -Name "DownloadGitl10n"
@@ -144,7 +144,7 @@ function SignAndPackage($name) {
     cp windsign-temp\windows-x64-obj-$name engine\obj-$objName-pc-windows-msvc\ -Recurse
 
     echo "Copying setup.exe into obj dir"
-    $env:ZEN_SETUP_EXE_PATH="$PWD\windsign-temp\windows-x64-obj-$name\browser\installer\windows\instgen\setup.exe"
+    $env:OCULATE_SETUP_EXE_PATH="$PWD\windsign-temp\windows-x64-obj-$name\browser\installer\windows\instgen\setup.exe"
 
     if ($name -eq "arm64") {
         $env:WIN32_REDIST_DIR="$PWD\win-cross\vs2026\VC\Redist\MSVC\14.51.36231\arm64\Microsoft.VC145.CRT"
@@ -179,7 +179,7 @@ function SignAndPackage($name) {
     # Inside the bundle we need:
     #  - update_manifest/*
     #  - windows.mar
-    #  - zen.installer.exe
+    #  - oculate.installer.exe
     echo "Preparing signed bundle for $name"
     rm .\windsign-temp\windows-x64-signed-$name -Recurse -ErrorAction SilentlyContinue
     mkdir windsign-temp\windows-x64-signed-$name
@@ -195,9 +195,9 @@ function SignAndPackage($name) {
     # Move the installer
     echo "Moving installer for $name"
     if ($name -eq "arm64") {
-        mv .\dist\zen.installer.exe windsign-temp\windows-x64-signed-$name\zen.installer-$name.exe
+        mv .\dist\oculate.installer.exe windsign-temp\windows-x64-signed-$name\oculate.installer-$name.exe
     } else {
-        mv .\dist\zen.installer.exe windsign-temp\windows-x64-signed-$name\zen.installer.exe
+        mv .\dist\oculate.installer.exe windsign-temp\windows-x64-signed-$name\oculate.installer.exe
     }
 
     # Move the manifest
@@ -216,7 +216,7 @@ SignAndPackage x86_64
 $files = Get-ChildItem .\windsign-temp\windows-x64-signed-x86_64, .\windsign-temp\windows-x64-signed-arm64 -Recurse -Include *.exe
 signtool.exe sign /n "$SignIdentity" /t http://time.certum.pl/ /fd sha256 /v $files
 
-$binariesRepo = "zen-browser/windows-binaries"
+$binariesRepo = "TinsmithRegister30/windows-binaries"
 $stagingTag = "windows-signed-$GithubRunId"
 echo "Ensuring staging release $stagingTag exists on $binariesRepo"
 gh release create $stagingTag --repo $binariesRepo --prerelease --title "Windows signed bundles ($GithubRunId)" --notes "Signed Windows bundles for run $GithubRunId, consumed by the release workflow. Safe to delete."

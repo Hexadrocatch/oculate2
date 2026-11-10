@@ -1,0 +1,430 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+#oculate-media-controls-toolbar {
+  --progress-height: 4px;
+  --button-spacing: 2px;
+  --oculate-media-stack-peek: 8px;
+  --oculate-media-stack-gap: 6px;
+  --oculate-media-stack-easing: cubic-bezier(0.25, 1, 0.5, 1);
+
+  display: flex;
+  min-width: 0;
+  justify-content: space-between;
+  background: transparent;
+  container-type: inline-size;
+
+  .toolbarbutton-1 {
+    border-radius: 5px;
+  }
+
+  .oculate-media-buttons-hbox {
+    align-items: start;
+    margin-top: -4px;
+    --toolbarbutton-padding-outer: 2px;
+  }
+
+  .media-device-buttons {
+    gap: 2px;
+  }
+
+  image.toolbarbutton-icon {
+    padding: 5px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .oculate-media-progress-bar {
+    appearance: none;
+    width: 100%;
+    height: var(--progress-height);
+    margin: 0 8px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: height 0.15s ease-out;
+
+    &::-moz-range-track {
+      background: var(--oculate-toolbar-element-bg);
+      border-radius: 999px;
+      height: var(--progress-height);
+    }
+
+    &::-moz-range-progress {
+      background: color-mix(in srgb, var(--oculate-primary-color) 70%, light-dark(black, white) 30%);
+      border-radius: 999px;
+      height: var(--progress-height);
+    }
+
+    &::-moz-range-thumb {
+      background: color-mix(in srgb, var(--oculate-primary-color) 70%, light-dark(black, white) 30%);
+      border: none;
+      width: calc(var(--progress-height) * 2);
+      height: calc(var(--progress-height) * 2);
+      border-radius: 50%;
+      cursor: pointer;
+      transform: scale(0);
+      transition: transform 0.15s ease-out;
+    }
+
+    &:hover::-moz-range-thumb {
+      transform: scale(1);
+    }
+  }
+
+  &:hover {
+    .show-on-hover {
+      max-height: 50px;
+      padding: 5px;
+      margin-bottom: 0;
+      opacity: 1;
+      transform: translateY(0) !important;
+      pointer-events: auto;
+    }
+
+    & .oculate-media-info-vbox label[overflow] {
+      animation: oculate-back-and-forth-text 10s infinite ease-in-out;
+    }
+
+    & .oculate-media-card:not([oculate-removing], [oculate-hiding]) {
+      transform: none;
+      opacity: 1;
+    }
+
+    & .oculate-media-notes {
+      display: none;
+      transition: none;
+    }
+
+    & .oculate-media-card::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: calc(var(--oculate-media-stack-gap) + var(--oculate-media-stack-peek));
+    }
+  }
+
+  .show-on-hover {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(1rem);
+    padding: 0 6px;
+    pointer-events: none;
+    transition:
+      max-height 0.3s var(--oculate-media-stack-easing),
+      opacity 0.3s var(--oculate-media-stack-easing),
+      transform 0.3s var(--oculate-media-stack-easing),
+      padding 0.3s var(--oculate-media-stack-easing);
+  }
+
+  .oculate-media-current-time,
+  .oculate-media-duration {
+    margin: 0 0 0 1px;
+    font-size: x-small;
+    opacity: 0.7;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.oculate-media-card {
+  position: relative;
+  flex-shrink: 0;
+  order: var(--oculate-media-card-index, 0);
+  width: 100%;
+  padding: 4px 6px;
+  border-radius: var(--border-radius-medium);
+  @media (-moz-platform: macos) {
+    border-radius: calc(var(--border-radius-medium) - 2px);
+  }
+  outline: var(--oculate-sidebar-notification-outline);
+  outline-offset: -1.5px;
+  box-shadow: var(--oculate-sidebar-notification-shadow);
+  background-color: var(--oculate-sidebar-notification-bg);
+  transform-origin: top center;
+  transform: translateY(
+      calc(
+        var(--oculate-media-card-index, 0) * (100% + var(--oculate-media-stack-gap)) -
+          var(--oculate-media-stack-peek) * var(--oculate-media-card-peek-level, 0)
+      )
+    )
+    scale(calc(1 - 0.04 * var(--oculate-media-card-peek-level, 0)));
+  opacity: calc(1 - 0.3 * var(--oculate-media-card-peek-level, 0));
+  filter: blur(0);
+  transition:
+    transform 0.35s var(--oculate-media-stack-easing),
+    opacity 0.3s var(--oculate-media-stack-easing),
+    filter 0.3s var(--oculate-media-stack-easing),
+    padding 0.3s ease-out;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(0.5rem);
+    filter: blur(4px);
+  }
+
+  &[oculate-reindexing] {
+    transition: none;
+  }
+
+  /* Removed and hiding cards sink down behind the stack while fading out */
+  &[oculate-removing],
+  &[oculate-hiding] {
+    translate: 0 0.5rem;
+    opacity: 0;
+    filter: blur(2px);
+    pointer-events: none;
+    transition:
+      translate 0.3s var(--oculate-media-stack-easing),
+      opacity 0.3s var(--oculate-media-stack-easing),
+      filter 0.3s var(--oculate-media-stack-easing);
+  }
+
+  /* Removed cards additionally leave the flex flow instantly (bottom is
+     set inline to where the card was), so only translate/opacity/filter
+     animate; hiding cards stay in flow until the animation finishes. */
+  &[oculate-removing] {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  &[stack-overflow] {
+    display: none;
+  }
+
+  &:not([media-sharing]) .media-device-buttons {
+    display: none;
+  }
+
+  &[media-sharing] :is(.oculate-media-playback-buttons, .oculate-media-mute-button) {
+    display: none;
+  }
+
+  &:not([can-pip]) {
+    .oculate-media-info-vbox {
+      width: calc(100% - 26px);
+      flex-shrink: 0;
+    }
+
+    .oculate-media-pip-button {
+      display: none;
+    }
+  }
+
+  &[can-pip] {
+    .oculate-media-info-vbox {
+      flex-shrink: 1;
+    }
+
+    .oculate-media-pip-button {
+      display: flex;
+    }
+  }
+
+  & .oculate-media-notes {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    --oculate-media-notes-animation: oculate-note-sprite;
+    transition:
+      opacity 0.8s ease,
+      visibility 0s 0.8s;
+  }
+
+  /* Background cards never show the floating notes — only their top sliver
+     is visible and the notes would poke through it */
+  &.playing:not([muted], [oculate-removing], [oculate-hiding], [stacked-behind]) .oculate-media-notes {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease;
+  }
+
+  .oculate-media-focus-button {
+    align-self: center;
+    overflow: visible;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+    position: relative;
+
+    & image {
+      &:-moz-broken {
+        content: url("chrome://browser/skin/oculate-icons/blank.svg") !important;
+        background: color-mix(in srgb, var(--oculate-primary-color) 70%, transparent 30%);
+      }
+    }
+  }
+}
+
+#oculate-media-controls-toolbar {
+  display: none;
+  animation: none;
+  transition: none;
+
+  &:not([hidden]) {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--oculate-media-stack-gap);
+    /* The toolbar keeps its collapsed height even while expanded: the
+       cards' flow positions overflow above the box, so the expanded stack
+       floats over the sidebar instead of pushing it around. The collapsed
+       height includes the room for the peeking stacked cards. */
+    height: calc(
+      var(--oculate-media-collapsed-height, 2.5rem) + var(--oculate-media-stack-peek) *
+        var(--oculate-media-stack-behind, 0)
+    );
+    overflow: visible;
+    position: relative;
+    z-index: 2;
+    transition: height 0.3s var(--oculate-media-stack-easing);
+  }
+}
+
+.oculate-media-title,
+.oculate-media-artist {
+  align-self: start;
+}
+
+.oculate-media-artist {
+  opacity: 0.7;
+  font-size: smaller;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.oculate-media-title {
+  height: var(--size-item-small);
+  font-size: math;
+}
+
+.oculate-media-main-vbox,
+.oculate-media-info-vbox,
+.oculate-media-progress-hbox {
+  width: 100%;
+}
+
+.oculate-media-info-vbox {
+  .oculate-media-card:not([media-position-hidden]) & {
+    transition-delay: 0.01s !important;
+  }
+  overflow-x: hidden;
+  overflow-x: visible;
+  white-space: nowrap;
+  /* Overflow inner box shadow from the left to simulate overflow */
+  mask-image: linear-gradient(to left, transparent, var(--oculate-sidebar-notification-bg) 0.6em);
+  min-width: 1px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0.6em;
+    background: linear-gradient(to right, var(--oculate-sidebar-notification-bg) 0%, transparent 100%);
+    pointer-events: none;
+    top: 6px;
+    left: 0;
+    height: calc(100% - 6px);
+    z-index: 1;
+  }
+
+  & label {
+    min-height: var(--size-item-small);
+    margin-left: 0;
+    font-weight: 500;
+    position: relative; /* For the animation */
+  }
+}
+
+.oculate-media-main-vbox {
+  height: 100%;
+  justify-content: space-between;
+}
+
+.oculate-media-progress-hbox {
+  flex-grow: 1;
+  height: var(--size-item-large);
+  align-items: center;
+  padding-top: 0 !important;
+
+  .oculate-media-card[media-position-hidden] & {
+    display: none;
+  }
+}
+
+.oculate-media-controls-hbox {
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: 100%;
+  --toolbarbutton-padding-outer: 0;
+  container: media-controls / inline-size;
+  gap: 0.7rem;
+}
+
+.oculate-media-playback-buttons {
+  justify-content: space-between;
+  max-width: 10em;
+  width: 100%;
+}
+
+/* Hide .oculate-media-focus-button if it doesn't fit in the toolbar */
+@container media-controls (max-width: 165px) {
+  .oculate-media-card:not([media-sharing]) .oculate-media-focus-button {
+    display: none;
+  }
+}
+
+.oculate-media-info-container {
+  padding-right: 0 !important;
+}
+
+:root:not([oculate-sidebar-expanded="true"]) {
+  #oculate-media-controls-toolbar {
+    display: none;
+  }
+}
+
+.oculate-media-notes {
+  display: none;
+  position: absolute;
+  z-index: 0;
+  top: -70%;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: clip;
+  pointer-events: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none !important;
+  }
+}
+
+.oculate-media-notes::before {
+  content: "";
+  display: block;
+  width: calc(90 * 100%);
+  height: 100%;
+  background-image: url("chrome://browser/content/oculate-images/note-indicator.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-context-properties: fill;
+  fill: currentColor;
+  animation: var(--oculate-media-notes-animation, none) 3s steps(90, jump-none) infinite;
+}
+
+@keyframes oculate-note-sprite {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-89 / 90 * 100%));
+  }
+}

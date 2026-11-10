@@ -7,7 +7,7 @@ index a17e636ecf2881bc4146587f8a55c4d3c685cead..5a372678c2870459275bb563b1b0ed05
    static flushWindow(window) {
      let promises = [];
 -    for (let browser of window.gBrowser.browsers) {
-+    for (let browser of window.gZenWorkspaces.allUsedBrowsers) {
++    for (let browser of window.gOculateWorkspaces.allUsedBrowsers) {
        if (window.gBrowser.getTabForBrowser(browser).linkedPanel) {
          promises.push(TabStateFlusher.flush(browser));
        }

@@ -6,7 +6,7 @@ index cea5d6b33c8f23c73afb799e5ebc7076b61de26c..2ac8960ad94f91bcc01a50569dce6d98
    return new Localization([
      "branding/brand.ftl",
      "browser/migrationWizard.ftl",
-+    "browser/zen-migration.ftl",
++    "browser/oculate-migration.ftl",
    ]);
  });
  
@@ -14,7 +14,7 @@ index cea5d6b33c8f23c73afb799e5ebc7076b61de26c..2ac8960ad94f91bcc01a50569dce6d98
      "chrome://browser/content/migration/migration-wizard-constants.mjs",
    PasswordFileMigrator:
      "moz-src:///browser/components/migration/FileMigrators.sys.mjs",
-+  ZenMigrationUtils: "resource:///modules/zen/ZenMigrationUtils.sys.mjs",
++  OculateMigrationUtils: "resource:///modules/oculate/OculateMigrationUtils.sys.mjs",
  });
  
  if (AppConstants.platform == "macosx") {
@@ -22,11 +22,11 @@ index cea5d6b33c8f23c73afb799e5ebc7076b61de26c..2ac8960ad94f91bcc01a50569dce6d98
            }
          );
        }
-+      case lazy.MigrationWizardConstants.DISPLAYED_RESOURCE_TYPES.ZEN_SPACES: {
++      case lazy.MigrationWizardConstants.DISPLAYED_RESOURCE_TYPES.OCULATE_SPACES: {
 +        return lazy.gFluentStrings.formatValue(
-+          "migration-wizard-progress-success-zen-spaces",
++          "migration-wizard-progress-success-oculate-spaces",
 +          {
-+            quantity: lazy.ZenMigrationUtils.lastImportedSpaceCount,
++            quantity: lazy.OculateMigrationUtils.lastImportedSpaceCount,
 +          }
 +        );
 +      }

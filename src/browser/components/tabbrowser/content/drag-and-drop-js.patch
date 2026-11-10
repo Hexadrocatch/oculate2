@@ -17,7 +17,7 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
  
        let draggedTab = event.dataTransfer.mozGetDataAt(TAB_DROP_TYPE, 0);
 +      if (draggedTab && dropEffect === "move") {
-+        gZenViewSplitter.onBrowserDragEndToSplit(event);
++        gOculateViewSplitter.onBrowserDragEndToSplit(event);
 +      }
        if (
          (dropEffect == "move" || dropEffect == "copy") &&
@@ -26,7 +26,7 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
          ) {
            draggedTab.group.collapsedByDrag = true;
            draggedTab.group.collapsed = true;
-+          gZenFolders.animateGroupMove(draggedTab.group);
++          gOculateFolders.animateGroupMove(draggedTab.group);
          }
  
          if (dropEffect == "move") {
@@ -47,7 +47,7 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
        event.stopPropagation();
 +      if (draggedTab && dropEffect == "move") {
 +        this.handle_drop_transition?.(draggedTab._dragData.dropElement, draggedTab, movingTabs, draggedTab._dragData.dropBefore);
-+        [draggedTab, movingTabs] = gZenPinnedTabManager.moveToAnotherTabContainerIfNecessary(event, draggedTab, movingTabs, this._getDropIndex(event));
++        [draggedTab, movingTabs] = gOculatePinnedTabManager.moveToAnotherTabContainerIfNecessary(event, draggedTab, movingTabs, this._getDropIndex(event));
 +      }
        if (draggedTab && dropEffect == "copy") {
          let duplicatedDraggedTab;
@@ -60,12 +60,12 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
 -        let numPinned = gBrowser.pinnedTabCount;
 +        let isPinned = draggedTab?.group ? draggedTab.group.pinned : draggedTab.pinned;
 +        let numPinned = gBrowser._numVisiblePinTabsWithoutCollapsed;
-+        let essential = draggedTab.hasAttribute("zen-essential");
++        let essential = draggedTab.hasAttribute("oculate-essential");
          let tabs = this._tabbrowserTabs.dragAndDropElements.slice(
 -          isPinned ? 0 : numPinned,
 -          isPinned ? numPinned : undefined
-+          isPinned ? (essential ? 0 : gBrowser._numZenEssentials) : numPinned,
-+          isPinned ? (essential ? gBrowser._numZenEssentials : numPinned) : undefined
++          isPinned ? (essential ? 0 : gBrowser._numOculateEssentials) : numPinned,
++          isPinned ? (essential ? gBrowser._numOculateEssentials : numPinned) : undefined
          );
 +        if (tabs.length == 0) {
 +          tabs = [...movingTabs];
@@ -120,7 +120,7 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
  
            let nextItem = this._tabbrowserTabs.dragAndDropElements[newIndex];
            let tabGroup = isTab(nextItem) && nextItem.group;
-+          if (gZenViewSplitter.handleTabDrop(event, urls, replace, inBackground)) return;
++          if (gOculateViewSplitter.handleTabDrop(event, urls, replace, inBackground)) return;
            gBrowser.loadTabs(urls, {
              inBackground,
              replace,
@@ -133,15 +133,15 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
 +        dt.dropEffect == "none" &&
 +        !this._tabbrowserTabs._isCustomizing
 +      ) {
-+        const moved = gZenViewSplitter.moveTabToSplitView(event, draggedTab);
++        const moved = gOculateViewSplitter.moveTabToSplitView(event, draggedTab);
 +        if (moved) {
 +          delete draggedTab._dragData;
 +          return;
 +        }
 +      } else if (dt.mozUserCancelled) {
-+        gZenViewSplitter.onBrowserDragEndToSplit(event, true);
-+        if (gZenViewSplitter._lastOpenedTab) {
-+          gZenViewSplitter._lastOpenedTab._visuallySelected = false;
++        gOculateViewSplitter.onBrowserDragEndToSplit(event, true);
++        if (gOculateViewSplitter._lastOpenedTab) {
++          gOculateViewSplitter._lastOpenedTab._visuallySelected = false;
 +        }
 +      }
  
@@ -205,7 +205,7 @@ index c94f0707b35e31fe92c2c42b3acd2970340b24b4..755706eea418ef167cb7cb218070493d
 +        this.#releaseSpaceInScrolledContent(periphery);
 +      }
 +      group.collapsed = !expand;
-+      gZenFolders.animateGroupMove(group, true);
++      gOculateFolders.animateGroupMove(group, true);
      }
  
      /**

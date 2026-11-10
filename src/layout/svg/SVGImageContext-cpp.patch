@@ -15,14 +15,14 @@ index 4d43db157aa9447105eeb5459cad74de6cef01d6..327d8e4f7e21783824616800fa821218
  namespace mozilla {
  
 +/* static */
-+void SVGImageContext::MaybeStoreZenBoosts(SVGImageContext& aContext,
++void SVGImageContext::MaybeStoreOculateBoosts(SVGImageContext& aContext,
 +                                          const nsPresContext& aPresContext) {
 +  if (dom::Document* doc = aPresContext.Document()) {
 +    if (dom::BrowsingContext* bc = doc->GetBrowsingContext()) {
 +      bc = bc->Top();
-+      aContext.SetZenBoosts(bc->ZenBoostsData(),
-+                            bc->ZenBoostsComplementaryRotation(),
-+                            bc->IsZenBoostsInverted());
++      aContext.SetOculateBoosts(bc->OculateBoostsData(),
++                            bc->OculateBoostsComplementaryRotation(),
++                            bc->IsOculateBoostsInverted());
 +    }
 +  }
 +}
@@ -34,7 +34,7 @@ index 4d43db157aa9447105eeb5459cad74de6cef01d6..327d8e4f7e21783824616800fa821218
      }
    }
  
-+  MaybeStoreZenBoosts(aContext, aPresContext);
++  MaybeStoreOculateBoosts(aContext, aPresContext);
 +
    const nsStyleSVG* style = aStyle.StyleSVG();
    if (!style->ExposesContextProperties()) {

@@ -7,7 +7,7 @@ index 1d28d683eed9dff0cf047fec8da957f92dab8043..42568b78a510b7ea253e85ec098a653a
  archive="$1"
  targetdir="$2"
 -appname="$3"
-+appname="${3:-zen}"
++appname="${3:-oculate}"
  
  if [ -z "$appname" ]; then
    print_usage

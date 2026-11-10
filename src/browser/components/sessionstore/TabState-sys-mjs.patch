@@ -14,26 +14,26 @@ index bb7bd8c7ca88f776188fce64e0c85beb5ceb27a5..bdec77ba26172fe1b41369b1d45d5a6f
        }
      }
  
-+    tabData.zenWorkspace = tab.getAttribute("zen-workspace-id");
-+    tabData.zenSyncId = tab.getAttribute("id");
-+    tabData.zenEssential = tab.getAttribute("zen-essential") === "true";
-+    tabData.pinned = tabData.pinned || tabData.zenEssential;
-+    tabData.zenDefaultUserContextId = tab.getAttribute("zenDefaultUserContextId");
-+    tabData.zenPinnedIcon = tab.getAttribute("zen-pinned-icon");
-+    tabData.zenIsEmpty = tab.hasAttribute("zen-empty-tab");
-+    tabData.zenStaticLabel = tab.zenStaticLabel;
-+    tabData.zenHasStaticIcon = !!tab.zenStaticIcon;
-+    tabData.zenGlanceId = tab.getAttribute("glance-id");
-+    tabData.zenIsGlance = tab.hasAttribute("zen-glance-tab");
-+    tabData._zenPinnedInitialState = tab._zenPinnedInitialState;
-+    tabData._zenIsActiveTab = tab._zenContentsVisible;
-+    tabData.zenLiveFolderItemId = tab.getAttribute("zen-live-folder-item-id");
++    tabData.oculateWorkspace = tab.getAttribute("oculate-workspace-id");
++    tabData.oculateSyncId = tab.getAttribute("id");
++    tabData.oculateEssential = tab.getAttribute("oculate-essential") === "true";
++    tabData.pinned = tabData.pinned || tabData.oculateEssential;
++    tabData.oculateDefaultUserContextId = tab.getAttribute("oculateDefaultUserContextId");
++    tabData.oculatePinnedIcon = tab.getAttribute("oculate-pinned-icon");
++    tabData.oculateIsEmpty = tab.hasAttribute("oculate-empty-tab");
++    tabData.oculateStaticLabel = tab.oculateStaticLabel;
++    tabData.oculateHasStaticIcon = !!tab.oculateStaticIcon;
++    tabData.oculateGlanceId = tab.getAttribute("glance-id");
++    tabData.oculateIsGlance = tab.hasAttribute("oculate-glance-tab");
++    tabData._oculatePinnedInitialState = tab._oculatePinnedInitialState;
++    tabData._oculateIsActiveTab = tab._oculateContentsVisible;
++    tabData.oculateLiveFolderItemId = tab.getAttribute("oculate-live-folder-item-id");
 +
      tabData.searchMode = tab.documentGlobal.gURLBar.getSearchMode(
        browser,
        true
      );
-+    if (tabData.searchMode?.source === lazy.UrlbarShared.RESULT_SOURCE.ZEN_ACTIONS) {
++    if (tabData.searchMode?.source === lazy.UrlbarShared.RESULT_SOURCE.OCULATE_ACTIONS) {
 +      delete tabData.searchMode;
 +    }
  
@@ -43,8 +43,8 @@ index bb7bd8c7ca88f776188fce64e0c85beb5ceb27a5..bdec77ba26172fe1b41369b1d45d5a6f
        tabData.image = tabbrowser.getIcon(tab);
      }
  
-+    if (tab.zenStaticIcon) {
-+      tabData.image = tab.zenStaticIcon;
++    if (tab.oculateStaticIcon) {
++      tabData.image = tab.oculateStaticIcon;
 +    }
 +
      // If there is a userTypedValue set, then either the user has typed something

@@ -1,0 +1,38 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+MOZ_SRC_FILES += [
+  "sections/OculateLibraryBoostsSection.mjs",
+  "sections/OculateLibraryDownloadsSection.mjs",
+  "sections/OculateLibraryHistorySection.mjs",
+  "sections/OculateLibraryMediaSection.mjs",
+  "sections/OculateLibrarySearchSection.mjs",
+  "sections/OculateLibrarySpaceRoutingSection.mjs",
+  "sections/OculateLibrarySpacesSection.mjs",
+
+  "OculateLibrary.mjs",
+  "OculateLibraryDragAndDrop.mjs",
+  "OculateLibraryMediaPreview.mjs",
+  "OculateLibraryUtils.sys.mjs",
+  "OculateLibraryWidget.sys.mjs",
+]
+
+XPIDL_SOURCES += [
+    "nsIOculateLibraryFiles.idl",
+]
+
+EXPORTS.mozilla += [
+    "nsOculateLibraryFiles.h",
+]
+
+SOURCES += [
+    "nsOculateLibraryFiles.cpp",
+]
+
+XPCOM_MANIFESTS += [
+    "components.conf",
+]
+
+FINAL_LIBRARY = "xul"
+XPIDL_MODULE = "oculate_library"

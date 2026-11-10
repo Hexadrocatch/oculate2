@@ -6,7 +6,7 @@ index 73eb08f648d55121a0cd96cd808f932fb14bfee6..efa99861a5da12ad8d0daa2c0eb1473c
  #include "prtime.h"
  #include "prtypes.h"
  #include "xpcpublic.h"
-+#include "mozilla/ZenStyleSheetCache.h"
++#include "mozilla/OculateStyleSheetCache.h"
  
  // clang-format off
  #include "mozilla/Encoding.h"
@@ -16,7 +16,7 @@ index 73eb08f648d55121a0cd96cd808f932fb14bfee6..efa99861a5da12ad8d0daa2c0eb1473c
  
 +  if (IsInChromeDocShell()) {
 +    // The mods sheet is only used in the chrome docshell.
-+    MaybeAppend(zen::ZenStyleSheetCache::Singleton()->GetModsSheet());
++    MaybeAppend(oculate::OculateStyleSheetCache::Singleton()->GetModsSheet());
 +  }
 +
    MaybeAppend(IsInChromeDocShell() ? cache->GetUserChromeSheet()

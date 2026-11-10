@@ -8,7 +8,7 @@ index 3b8782f6fc..a26a684d49 100644
    var win = BrowserWindowTracker.getTopWindow() || window;
 -  win.openDialog("chrome://browser/content/aboutDialog.xhtml", "", features);
 +  win.openDialog(
-+    "chrome://browser/content/zen-components/windows/zen-about.xhtml",
++    "chrome://browser/content/oculate-components/windows/oculate-about.xhtml",
 +    "",
 +    features
 +  );

@@ -6,7 +6,7 @@ index 403401613189ffb758037850dc6bbb1d55f194ab..cad28e245155eb54775e551885532026
          appDirKey = None
          if "appname" in self.mozInfo:
              appDirKey = self.mozInfo["appname"] + "-appdir"
-+            if appDirKey == "zen-appdir":
++            if appDirKey == "oculate-appdir":
 +                # Inherited manifests use firefox-appdir.
 +                appDirKey = "firefox-appdir"
  

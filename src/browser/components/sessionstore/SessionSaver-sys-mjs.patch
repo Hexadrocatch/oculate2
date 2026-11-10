@@ -6,7 +6,7 @@ index 325bd818bd2ed3c80e7c5d9772108e70d1180819..ce897b7661c0876f5d752e22ba3372dd
      "moz-src:///browser/components/sessionstore/SessionStore.sys.mjs",
    sessionStoreLogger:
      "moz-src:///browser/components/sessionstore/SessionLogger.sys.mjs",
-+  ZenSessionStore: "resource:///modules/zen/ZenSessionManager.sys.mjs",
++  OculateSessionStore: "resource:///modules/oculate/OculateSessionManager.sys.mjs",
    // Minimal interval between two save operations (in ms), while the user is
    // active.
    intervalWhileActive: {
@@ -23,7 +23,7 @@ index 325bd818bd2ed3c80e7c5d9772108e70d1180819..ce897b7661c0876f5d752e22ba3372dd
      this.#maybeClearCookiesAndStorage(state);
  
      Glean.sessionRestore.collectData.stopAndAccumulate(timerId);
-+    lazy.ZenSessionStore.saveState(state);
++    lazy.OculateSessionStore.saveState(state);
      return this.#writeState(state);
    }
  

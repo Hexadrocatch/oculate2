@@ -6,7 +6,7 @@ index cab9cabbc9b2bb128a4433eb3dae0b9046d13ded..a71b9d094f67c5d764d43bd87874fc12
  
  @layer tokens-foundation, tokens-browser-theme, tokens-foundation-brand, tokens-foundation-nova, tokens-browser-theme-nova, tokens-foundation-brand-nova, tokens-prefers-contrast, tokens-prefers-contrast-nova, tokens-forced-colors, tokens-forced-colors-nova;
  
-+@import url("chrome://browser/content/zen-styles/zen-theme.css");
++@import url("chrome://browser/content/oculate-styles/oculate-theme.css");
 +
  :root,
  :host(.anonymous-content-host) {
@@ -19,10 +19,10 @@ index cab9cabbc9b2bb128a4433eb3dae0b9046d13ded..a71b9d094f67c5d764d43bd87874fc12
 -    --border-radius-small: 4px;
 -    --border-radius-medium: 8px;
 -    --border-radius-large: 16px;
-+    --border-radius-xsmall: calc(2px * var(--zen-squircle-value));
-+    --border-radius-small: calc(4px * var(--zen-squircle-value));
-+    --border-radius-medium: calc(8px * var(--zen-squircle-value));
-+    --border-radius-large: calc(16px * var(--zen-squircle-value));
++    --border-radius-xsmall: calc(2px * var(--oculate-squircle-value));
++    --border-radius-small: calc(4px * var(--oculate-squircle-value));
++    --border-radius-medium: calc(8px * var(--oculate-squircle-value));
++    --border-radius-large: calc(16px * var(--oculate-squircle-value));
      --border-width: 1px;
  
      /** box-shadow **/
@@ -32,7 +32,7 @@ index cab9cabbc9b2bb128a4433eb3dae0b9046d13ded..a71b9d094f67c5d764d43bd87874fc12
      --panel-border-radius: var(--popup-border-radius);
 -    --panel-box-shadow: 0 0 var(--panel-box-shadow-margin) hsla(0, 0%, 0%, 0.2);
 -    --panel-box-shadow-margin: 4px;
-+    --panel-box-shadow: var(--zen-big-shadow);
++    --panel-box-shadow: var(--oculate-big-shadow);
 +    --panel-box-shadow-margin: 8px;
      --panel-footer-background-color: light-dark(color-mix(in srgb, currentColor 12%, transparent), color-mix(in srgb, currentColor 17%, transparent));
      --panel-footer-text-color: inherit;

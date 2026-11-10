@@ -15,7 +15,7 @@ index 113ea0175abe918c79c53e309f03d84c5e2be0b8..6e097bf9688f6972a807f90e78e0049f
            }
            event.preventDefault();
 +        } else if (!this.input.value && !(event.ctrlKey || event.altKey || event.shiftKey)) {
-+          this.#input.browserWindow.gZenUIManager.enableCommandsMode(event);
++          this.#input.browserWindow.gOculateUIManager.enableCommandsMode(event);
          }
          break;
        }
@@ -23,7 +23,7 @@ index 113ea0175abe918c79c53e309f03d84c5e2be0b8..6e097bf9688f6972a807f90e78e0049f
        }
        reuseEmpty = true;
      }
-+    if (this.#input.hasAttribute?.("zen-newtab")) {
++    if (this.#input.hasAttribute?.("oculate-newtab")) {
 +      where = "tab";
 +      reuseEmpty = true;
 +    }
@@ -36,7 +36,7 @@ index 113ea0175abe918c79c53e309f03d84c5e2be0b8..6e097bf9688f6972a807f90e78e0049f
      }
 +    if (
 +      this.#input.browserWindow?.gBrowser?.selectedTab.hasAttribute(
-+        "zen-empty-tab"
++        "oculate-empty-tab"
 +      )
 +    ) {
 +      // Always open in a new tab if the current tab is our empty tab.

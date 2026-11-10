@@ -7,7 +7,7 @@ index 18bd129c431f565317d7ab38b0c15184341ad0d7..c5906544d8ec9afa0f08e16e5eb7e52c
    }
  
 -  &[pageproxystate="invalid"] {
-+  :root[zen-has-empty-tab='true'] & {
++  :root[oculate-has-empty-tab='true'] & {
      pointer-events: none;
      -moz-user-focus: ignore;
  

@@ -7,11 +7,11 @@ diff --git a/browser/components/urlbar/UrlbarProviderTopSites.sys.mjs b/browser/
      );
 -    sites = sites.slice(0, numTopSites);
 +    const showPinned = Services.prefs.getBoolPref(
-+      "zen.urlbar.show-pinned",
++      "oculate.urlbar.show-pinned",
 +      false
 +    );
 +    const showSponsored = Services.prefs.getBoolPref(
-+      "zen.urlbar.show-sponsored",
++      "oculate.urlbar.show-sponsored",
 +      false
 +    );
 +    sites = sites

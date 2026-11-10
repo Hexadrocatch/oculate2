@@ -10,7 +10,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
 +  "TabRemovedFromEssentials",
 +  "TabMove",
 +  "TabGroupMoved",
-+  "ZenWorkspaceDataChanged",
++  "OculateWorkspaceDataChanged",
  ];
  
  const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -18,8 +18,8 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
    TabStateFlusher:
      "moz-src:///browser/components/sessionstore/TabStateFlusher.sys.mjs",
    setTimeout: "resource://gre/modules/Timer.sys.mjs",
-+  ZenSessionStore: "resource:///modules/zen/ZenSessionManager.sys.mjs",
-+  ZenWindowSync: "resource:///modules/zen/ZenWindowSync.sys.mjs",
++  OculateSessionStore: "resource:///modules/oculate/OculateSessionManager.sys.mjs",
++  OculateWindowSync: "resource:///modules/oculate/OculateWindowSync.sys.mjs",
    blankURI: () => Services.io.newURI("about:blank"),
    gRestoreWindowsToVirtualDesktop: {
      pref: "browser.sessionstore.restore_windows_to_virtual_desktop",
@@ -70,7 +70,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
 +      case "TabAddedToEssentials":
 +      case "TabMove":
 +      case "TabGroupMoved":
-+      case "ZenWorkspaceDataChanged":
++      case "OculateWorkspaceDataChanged":
          this.#saveStateDelayed(win);
          break;
        case "TabGroupCreate":
@@ -78,8 +78,8 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        this.#windows[this.#windowIds.get(aWindow)].isMiniWindow = true;
      }
  
-+    if (aWindow.document.documentElement.hasAttribute("zen-unsynced-window")) {
-+      this.#windows[this.#windowIds.get(aWindow)].isZenUnsynced = true;
++    if (aWindow.document.documentElement.hasAttribute("oculate-unsynced-window")) {
++      this.#windows[this.#windowIds.get(aWindow)].isOculateUnsynced = true;
 +    }
 +
      if (lazy.AIWindow.isAIWindowActiveAndEnabled(aWindow)) {
@@ -89,15 +89,15 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
      let isPrivateWindow = PrivateBrowsingUtils.isWindowPrivate(aWindow);
      let isTaskbarTab = this.#windows[this.#windowIds.get(aWindow)].isTaskbarTab;
      let isMiniWindow = this.#windows[this.#windowIds.get(aWindow)].isMiniWindow;
-+    let isZenUnsynced =
-+      this.#windows[this.#windowIds.get(aWindow)].isZenUnsynced;
++    let isOculateUnsynced =
++      this.#windows[this.#windowIds.get(aWindow)].isOculateUnsynced;
      // A regular window is not a private window, taskbar tab window, mini window
      // or popup window
      let isRegularWindow =
        !isPrivateWindow &&
        !isTaskbarTab &&
        !isMiniWindow &&
-+      !isZenUnsynced &&
++      !isOculateUnsynced &&
        aWindow.toolbar.visible;
  
      // perform additional initialization when the first window is loading
@@ -106,7 +106,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
          lazy.SessionSaver.updateLastSaveTime();
  
 -        if (isPrivateWindow || isTaskbarTab) {
-+        if (isPrivateWindow || isTaskbarTab || aWindow.document.documentElement.hasAttribute("zen-unsynced-window")) {
++        if (isPrivateWindow || isTaskbarTab || aWindow.document.documentElement.hasAttribute("oculate-unsynced-window")) {
            this.#log.debug(
              "initializeWindow, the window is private or a web app. Saving SessionStartup.state for possibly restoring later"
            );
@@ -114,7 +114,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
            null,
            "sessionstore-one-or-no-tab-restored"
          );
-+        lazy.ZenSessionStore.onNewEmptySession(aWindow);
++        lazy.OculateSessionStore.onNewEmptySession(aWindow);
          this.#deferredAllWindowsRestored.resolve();
        }
        // this window was opened by #openWindowWithState
@@ -130,7 +130,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
          }
  
          if (newWindowState) {
-+          lazy.ZenSessionStore.onRestoringClosedWindow(newWindowState);
++          lazy.OculateSessionStore.onRestoringClosedWindow(newWindowState);
            // Ensure that the window state isn't hidden
            this.#restoreCount = 1;
            let state = { windows: [newWindowState] };
@@ -139,7 +139,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        });
        this.#shouldRestoreLastSession = false;
 +    } else if (!aInitialState && isRegularWindow) {
-+      lazy.ZenSessionStore.restoreNewWindow(aWindow, this);
++      lazy.OculateSessionStore.restoreNewWindow(aWindow, this);
      }
  
      if (this.#restoreLastWindow && aWindow.toolbar.visible && !isMiniWindow) {
@@ -148,7 +148,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
      var tabbrowser = aWindow.gBrowser;
  
 -    let browsers = Array.from(tabbrowser.browsers);
-+    let browsers = aWindow.gZenWorkspaces.allUsedBrowsers;
++    let browsers = aWindow.gOculateWorkspaces.allUsedBrowsers;
  
      for (let event of TAB_EVENTS) {
        tabbrowser.tabContainer.removeEventListener(event, this, true);
@@ -169,7 +169,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
 +            !wData.isPrivate &&
 +            !wData.isTaskbarTab &&
 +            !wData.isMiniWindow &&
-+            !wData.isZenUnsynced
++            !wData.isOculateUnsynced
          ).length == 1;
        this.#log.debug(
          `onClose, closing window isLastRegularWindow? ${isLastRegularWindow}`
@@ -179,7 +179,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
          !winData.isTaskbarTab &&
 -        !winData.isMiniWindow
 +        !winData.isMiniWindow &&
-+        !winData.isZenUnsynced
++        !winData.isOculateUnsynced
        ) {
 -        this.#maybeSaveClosedWindow(winData, isLastWindow);
 +        this.#maybeSaveClosedWindow(winData, isLastWindow, isLastRegularWindow);
@@ -190,13 +190,13 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
  
          // Save non-{private, taskbar tabs, mini} windows if they have at
          // least one saveable tab or are the last window.
-+        lazy.ZenWindowSync.on_WindowCloseAndBrowserFlushed(browsers);
++        lazy.OculateWindowSync.on_WindowCloseAndBrowserFlushed(browsers);
          if (
            !winData.isPrivate &&
            !winData.isTaskbarTab &&
 -          !winData.isMiniWindow
 +          !winData.isMiniWindow &&
-+          !winData.isZenUnsynced
++          !winData.isOculateUnsynced
          ) {
 -          this.#maybeSaveClosedWindow(winData, isLastWindow);
 +          this.#maybeSaveClosedWindow(
@@ -220,7 +220,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        // #closedWindows from a previous call to this function.
        let winIndex = this.#closedWindows.indexOf(winData);
        let alreadyStored = winIndex != -1;
-+      lazy.ZenSessionStore.maybeSaveClosedWindow(winData, isLastRegularWindow);
++      lazy.OculateSessionStore.maybeSaveClosedWindow(winData, isLastRegularWindow);
        // If sidebar command is truthy, i.e. sidebar is open, store sidebar settings
        let shouldStore = hasSaveableTabs || isLastWindow;
  
@@ -229,7 +229,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        return;
      }
 -    if (aTab == aWindow.FirefoxViewHandler.tab) {
-+    if (aTab == aWindow.FirefoxViewHandler.tab || aTab.hasAttribute("zen-empty-tab")) {
++    if (aTab == aWindow.FirefoxViewHandler.tab || aTab.hasAttribute("oculate-empty-tab")) {
        return;
      }
  
@@ -239,14 +239,14 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        );
 -      tabState.pinned = false;
 +      tabState.pinned =
-+        newTab.group?.isZenFolder === true &&
-+        Services.prefs.getBoolPref("zen.folders.owned-tabs-in-folder");
-+      tabState.zenEssential = false;
-+      tabState.zenSyncId = null;
-+      tabState.zenIsGlance = false;
-+      tabState.zenGlanceId = null;
-+      tabState.zenHasStaticLabel = false;
-+      tabState.zenWorkspace = aWindow.gZenWorkspaces.activeWorkspace;
++        newTab.group?.isOculateFolder === true &&
++        Services.prefs.getBoolPref("oculate.folders.owned-tabs-in-folder");
++      tabState.oculateEssential = false;
++      tabState.oculateSyncId = null;
++      tabState.oculateIsGlance = false;
++      tabState.oculateGlanceId = null;
++      tabState.oculateHasStaticLabel = false;
++      tabState.oculateWorkspace = aWindow.gOculateWorkspaces.activeWorkspace;
  
        if (inBackground === false) {
          aWindow.gBrowser.selectedTab = newTab;
@@ -254,8 +254,8 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        // Append the tab if we're opening into a different window,
        tabIndex: aSource == aTargetWindow ? pos : Infinity,
        pinned: state.pinned,
-+      essential: state.zenEssential,
-+      zenWorkspaceId: state.zenWorkspace,
++      essential: state.oculateEssential,
++      oculateWorkspaceId: state.oculateWorkspace,
        userContextId: state.userContextId,
        skipLoad: true,
        preferredRemoteType,
@@ -263,11 +263,11 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        if (activePageData.title && activePageData.title != activePageData.url) {
          win.gBrowser.setInitialTabTitle(tab, activePageData.title, {
            isContentTitle: true,
-+          _zenChangeLabelFlag: true,
++          _oculateChangeLabelFlag: true,
          });
        } else {
 -        win.gBrowser.setInitialTabTitle(tab, activePageData.url);
-+        win.gBrowser.setInitialTabTitle(tab, activePageData.url, { _zenChangeLabelFlag: true });
++        win.gBrowser.setInitialTabTitle(tab, activePageData.url, { _oculateChangeLabelFlag: true });
        }
      }
  
@@ -276,7 +276,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
      for (let i = tabbrowser.pinnedTabCount; i < tabbrowser.tabs.length; i++) {
        let tab = tabbrowser.tabs[i];
 -      if (homePages.includes(tab.linkedBrowser.currentURI.spec)) {
-+      if (homePages.includes(tab.linkedBrowser.currentURI.spec) && !tab.hasAttribute("zen-empty-tab")) {
++      if (homePages.includes(tab.linkedBrowser.currentURI.spec) && !tab.hasAttribute("oculate-empty-tab")) {
          removableTabs.push(tab);
        }
      }
@@ -286,7 +286,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
          this.#windows[ix]._restoring ||
 -        this.#windows[ix].isTaskbarTab ||
 +        (this.#windows[ix].isTaskbarTab &&
-+          !this.#windows[ix].isZenUnsynced) ||
++          !this.#windows[ix].isOculateUnsynced) ||
          this.#windows[ix].isMiniWindow
        ) {
          // window data is still in #statesToRestore, or the window isn't saved
@@ -295,13 +295,13 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
  
      let tabbrowser = aWindow.gBrowser;
 -    let tabs = tabbrowser.tabs;
-+    let tabs = aWindow.gZenWorkspaces.allStoredTabs;
++    let tabs = aWindow.gOculateWorkspaces.allStoredTabs;
      /** @type {WindowStateData} */
      let winData = this.#windows[this.#windowIds.get(aWindow)];
      let tabsData = (winData.tabs = []);
  
 +    winData.splitViewData = Cu.cloneInto(
-+      aWindow.gZenViewSplitter?.storeDataForSessionStore(),
++      aWindow.gOculateViewSplitter?.storeDataForSessionStore(),
 +      {}
 +    );
      // update the internal state data for this window
@@ -312,12 +312,12 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
      }
  
 +    winData.folders = Cu.cloneInto(
-+      aWindow.gZenFolders?.storeDataForSessionStore() || [],
++      aWindow.gOculateFolders?.storeDataForSessionStore() || [],
 +      {}
 +    );
-+    winData.activeZenSpace = aWindow.gZenWorkspaces?.activeWorkspace || null;
++    winData.activeOculateSpace = aWindow.gOculateWorkspaces?.activeWorkspace || null;
 +    winData.spaces = Cu.cloneInto(
-+      aWindow.gZenWorkspaces?.getWorkspacesForSessionStore(),
++      aWindow.gOculateWorkspaces?.getWorkspacesForSessionStore(),
 +      {}
 +    );
      // update tab group state for this window
@@ -345,7 +345,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
      if (overwriteTabs) {
        for (let i = tabbrowser.browsers.length - 1; i >= 0; i--) {
          if (!tabbrowser.tabs[i].selected) {
-+          aWindow.gZenWorkspaces._shouldOverrideTabs = true;
++          aWindow.gOculateWorkspaces._shouldOverrideTabs = true;
            tabbrowser.removeTab(tabbrowser.tabs[i]);
          }
        }
@@ -353,10 +353,10 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        this.#prefBranch.getBoolPref("sessionstore.restore_tabs_lazily") &&
        this.#restore_on_demand;
  
-+    if (winData.isZenUnsynced) {
-+      aWindow.document.documentElement.setAttribute("zen-unsynced-window", "true");
++    if (winData.isOculateUnsynced) {
++      aWindow.document.documentElement.setAttribute("oculate-unsynced-window", "true");
 +    }
-+    aWindow.gZenWorkspaces?.restoreWorkspacesFromSessionStore(winData);
++    aWindow.gOculateWorkspaces?.restoreWorkspacesFromSessionStore(winData);
 +
      this.#log.debug(
        `restoreWindow, will restore ${winData.tabs.length} tabs and ${
@@ -365,8 +365,8 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
          savedTabGroup => !openTabGroupIdsInWindow.has(savedTabGroup.id)
        );
      }
-+    aWindow.gZenFolders?.restoreDataFromSessionStore(winData.folders);
-+    aWindow.gZenViewSplitter?.restoreDataFromSessionStore(winData.splitViewData);
++    aWindow.gOculateFolders?.restoreDataFromSessionStore(winData.folders);
++    aWindow.gOculateViewSplitter?.restoreDataFromSessionStore(winData.splitViewData);
  
      // Move the originally open tabs to the end.
      if (initialTabs) {
@@ -374,7 +374,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
      // set smoothScroll back to the original value
      arrowScrollbox.smoothScroll = smoothScroll;
  
-+    aWindow.gZenWorkspaces?.onWindowRestored();
++    aWindow.gOculateWorkspaces?.onWindowRestored();
 +
      Glean.sessionRestore.restoreWindow.stopAndAccumulate(timerId);
    }
@@ -383,24 +383,24 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
  
      // Most of tabData has been restored, now continue with restoring
      // attributes that may trigger external events.
-+    if (tabData.zenEssential) {
-+      tab.setAttribute("zen-essential", "true");
++    if (tabData.oculateEssential) {
++      tab.setAttribute("oculate-essential", "true");
 +      tabData.pinned = true; // Essential tabs are always pinned.
 +    }
-+    if (tabData.zenIsEmpty) {
-+      tab.setAttribute("zen-empty-tab", "true");
++    if (tabData.oculateIsEmpty) {
++      tab.setAttribute("oculate-empty-tab", "true");
 +    }
-+    if (typeof tabData.zenStaticLabel === "string") {
-+      tab.zenStaticLabel = tabData.zenStaticLabel;
++    if (typeof tabData.oculateStaticLabel === "string") {
++      tab.oculateStaticLabel = tabData.oculateStaticLabel;
 +    }
-+    if (tabData.zenHasStaticIcon && tabData.image) {
-+      tab.zenStaticIcon = tabData.image;
++    if (tabData.oculateHasStaticIcon && tabData.image) {
++      tab.oculateStaticIcon = tabData.image;
 +    }
-+    if (tabData.zenDefaultUserContextId) {
-+      tab.setAttribute("zenDefaultUserContextId", true);
++    if (tabData.oculateDefaultUserContextId) {
++      tab.setAttribute("oculateDefaultUserContextId", true);
 +    }
-+    if (tabData.zenWorkspace) {
-+      tab.setAttribute("zen-workspace-id", tabData.zenWorkspace);
++    if (tabData.oculateWorkspace) {
++      tab.setAttribute("oculate-workspace-id", tabData.oculateWorkspace);
 +    }
  
      if (tabData.pinned) {
@@ -409,8 +409,8 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
        lazy.AIWindow.recordOpenWindowTelemetry(trigger);
      }
  
-+    if (aWinData.isZenUnsynced) {
-+      this.#windows[this.#windowIds.get(aWindow)].isZenUnsynced = true;
++    if (aWinData.isOculateUnsynced) {
++      this.#windows[this.#windowIds.get(aWindow)].isOculateUnsynced = true;
 +    }
 +
      let promiseParts = Promise.withResolvers();
@@ -420,7 +420,7 @@ index da2abe1dedd062a8167575623d6c6212de645f23..20637ac4be303cd70e2afa1eb5a931e2
     */
    #isCmdLineEmpty(aWindow, aState) {
      var pinnedOnly =
-+      !Services.prefs.getBoolPref("zen.workspaces.continue-where-left-off") &&
++      !Services.prefs.getBoolPref("oculate.workspaces.continue-where-left-off") &&
        aState.windows &&
        aState.windows.every(win => win.tabs.every(tab => tab.pinned));
  

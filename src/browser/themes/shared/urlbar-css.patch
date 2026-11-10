@@ -192,7 +192,7 @@ index bbd8b165659573824b09966fdd283b61ca6278a8..c0e76a7011c88f6dc19fef38bfefb17d
      mask-image: linear-gradient(to right, transparent var(--urlbar-scheme-size), black calc(var(--urlbar-scheme-size) + 3ch));
    }
 +
-+  #navigator-toolbox[zen-has-implicit-hover="true"] .urlbar:not([focused])[textoverflow="left"] > .urlbar-input-container > .urlbar-input-box > & {
++  #navigator-toolbox[oculate-has-implicit-hover="true"] .urlbar:not([focused])[textoverflow="left"] > .urlbar-input-container > .urlbar-input-box > & {
 +    mask-image: linear-gradient(to right, transparent, black 3ch, black calc(100% - 3ch), transparent);
 +  }
  }

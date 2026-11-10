@@ -1,0 +1,46 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+#include oculate-commands.inc.xhtml
+
+<keyset id="oculateKeyset">
+  <key id="oculate-compact-mode-toggle" key="S" modifiers="accel" command="cmd_toggleCompactModeIgnoreHover"/>
+  <key id="oculate-compact-mode-show-sidebar" key="S" modifiers="accel,alt" command="cmd_oculateCompactModeShowSidebar"/>
+
+#ifdef XP_MACOSX
+#define OCULATE_WORKSPACE_SWITCH_MODIFIER control
+#else
+#define OCULATE_WORKSPACE_SWITCH_MODIFIER alt
+#endif
+#expand  <key id="oculate-workspace-switch-1" key="1" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch1"/>
+#expand  <key id="oculate-workspace-switch-2" key="2" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch2"/>
+#expand  <key id="oculate-workspace-switch-3" key="3" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch3"/>
+#expand  <key id="oculate-workspace-switch-4" key="4" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch4"/>
+#expand  <key id="oculate-workspace-switch-5" key="5" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch5"/>
+#expand  <key id="oculate-workspace-switch-6" key="6" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch6"/>
+#expand  <key id="oculate-workspace-switch-7" key="7" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch7"/>
+#expand  <key id="oculate-workspace-switch-8" key="8" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch8"/>
+#expand  <key id="oculate-workspace-switch-9" key="9" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch9"/>
+#expand  <key id="oculate-workspace-switch-10" key="0" modifiers="__OCULATE_WORKSPACE_SWITCH_MODIFIER__" command="cmd_oculateWorkspaceSwitch10"/>
+  <key id="oculate-workspace-forward" keycode="VK_RIGHT" modifiers="accel,alt" command="cmd_oculateWorkspaceForward"/>
+  <key id="oculate-workspace-backward" keycode="VK_LEFT" modifiers="accel,alt" command="cmd_oculateWorkspaceBackward"/>
+  <key id="oculate-workspace-create" command="cmd_oculateOpenWorkspaceCreation"/>
+  <key id="oculate-close-all-unpinned-tabs" key="K" modifiers="accel,shift" command="cmd_oculateCloseUnpinnedTabs"/>
+
+  <key id="oculate-split-view-grid" key="G" modifiers="accel,alt" command="cmd_oculateSplitViewGrid"/>
+  <key id="oculate-split-view-vertical" key="V" modifiers="accel,alt" command="cmd_oculateSplitViewVertical"/>
+  <key id="oculate-split-view-horizontal" key="H" modifiers="accel,alt" command="cmd_oculateSplitViewHorizontal"/>
+  <key id="oculate-split-view-unsplit" key="U" modifiers="accel,alt" command="cmd_oculateSplitViewUnsplit"/>
+  <key id="oculate-new-empty-split-view" key="*" modifiers="accel,shift" command="cmd_oculateNewEmptySplit"/>
+
+  <key id="oculate-toggle-sidebar" command="cmd_oculateToggleSidebar"/>
+  <key id="oculate-library-toggle" key="L" modifiers="alt,shift" command="cmd_oculateToggleLibrary"/>
+  <key id="oculate-glance-expand" key="O" modifiers="accel" command="cmd_oculateGlanceExpand"/>
+  <key id="oculate-toggle-pin-tab" key="D" modifiers="accel,shift" command="cmd_oculateTogglePinTab"/>
+  <key id="oculate-pinned-tab-reset-shortcut" command="cmd_oculatePinnedTabReset"/>
+  <key id="oculate-duplicate-tab" command="Browser:DuplicateTab"/>
+  <key id="oculate-new-unsynced-window" key="N" modifiers="accel,shift" command="cmd_oculateNewNavigatorUnsynced"/>
+  <key id="oculate-copy-url" key="C" modifiers="accel,shift" command="cmd_oculateCopyCurrentURL"/>
+  <key id="oculate-copy-url-markdown" key="C" modifiers="accel,alt,shift" command="cmd_oculateCopyCurrentURLMarkdown"/>
+</keyset>

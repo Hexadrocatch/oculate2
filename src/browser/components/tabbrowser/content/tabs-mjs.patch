@@ -8,7 +8,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
        "_sidebarPositionStart",
 -      "sidebar.position_start",
 -      true
-+        "zen.tabs.vertical.right-side",
++        "oculate.tabs.vertical.right-side",
 +        true,
 +        null,
 +        newValue => {
@@ -22,7 +22,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
      this.tooltip = "tabbrowser-tab-tooltip";
  
 -    this.tabDragAndDrop = new window.TabDragAndDrop(this);
-+      this.tabDragAndDrop = new window.ZenDragAndDrop(this);
++      this.tabDragAndDrop = new window.OculateDragAndDrop(this);
      this.tabDragAndDrop.init();
    }
  
@@ -31,7 +31,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
      if (
        event.button != 0 ||
 -      event.target != this.arrowScrollbox ||
-+        !event.target.classList.contains("zen-workspace-empty-space") ||
++        !event.target.classList.contains("oculate-workspace-empty-space") ||
        event.composedTarget.localName == "toolbarbutton"
      ) {
        return;
@@ -47,7 +47,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
    }
  
    on_keydown(event) {
-+      if (document.documentElement.getAttribute('zen-renaming-tab') === 'true') {
++      if (document.documentElement.getAttribute('oculate-renaming-tab') === 'true') {
 +        return;
 +      }
      let { altKey, shiftKey } = event;
@@ -58,7 +58,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
  
    get newTabButton() {
 -    return this.querySelector("#tabs-newtab-button");
-+      return gZenWorkspaces.activeWorkspaceStrip.querySelector("#tabs-newtab-button");
++      return gOculateWorkspaces.activeWorkspaceStrip.querySelector("#tabs-newtab-button");
    }
  
    get verticalMode() {
@@ -66,7 +66,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
    }
  
    get overflowing() {
-+      gZenWorkspaces.updateOverflowingTabs();
++      gOculateWorkspaces.updateOverflowingTabs();
      return this.hasAttribute("overflow");
    }
  
@@ -75,7 +75,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
        pinnedChildren.pop();
      }
 -    let unpinnedChildren = Array.from(this.arrowScrollbox.children);
-+    let unpinnedChildren = gZenWorkspaces.tabboxChildren;
++    let unpinnedChildren = gOculateWorkspaces.tabboxChildren;
      // remove arrowScrollbox periphery element.
      unpinnedChildren.pop();
  
@@ -86,7 +86,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
 -      let child = unpinnedChildren[i];
 -      if (isTabGroup(child) || isSplitViewWrapper(child)) {
 -        unpinnedChildren.splice(i, 1, ...child.tabs);
-+    const pinnedTabs = [...gZenWorkspaces.getCurrentEssentialsContainer().children, ...pinnedChildren];
++    const pinnedTabs = [...gOculateWorkspaces.getCurrentEssentialsContainer().children, ...pinnedChildren];
 +    const expandTabs = (tabs) => {
 +      for (let i = tabs.length - 1; i >= 0; i--) {
 +        const tab = tabs[i];
@@ -133,7 +133,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
 -    return /** @type {MozTabbrowserTabGroup[]} */ (
 -      children.filter(node => node.tagName == "tab-group")
 -    );
-+    return gZenWorkspaces.allTabGroups;
++    return gOculateWorkspaces.allTabGroups;
    }
  
    get allSplitViews() {
@@ -144,7 +144,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
 -    let unpinnedChildren = Array.from(this.arrowScrollbox.children);
 -    let pinnedChildren = Array.from(this.pinnedTabsContainer.children);
 +    let elementIndex = 0;
-+    let children = gZenWorkspaces.tabboxChildrenWithoutEmpty;
++    let children = gOculateWorkspaces.tabboxChildrenWithoutEmpty;
  
      let focusableItems = [];
 -    for (let child of pinnedChildren) {
@@ -154,8 +154,8 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
 -    }
 -    for (let child of unpinnedChildren) {
 +    for (let child of [
-+      ...gZenWorkspaces.getCurrentEssentialsContainer().children,
-+      ...(gZenWorkspaces.activeWorkspaceElement?.hasCollapsedPinnedTabs
++      ...gOculateWorkspaces.getCurrentEssentialsContainer().children,
++      ...(gOculateWorkspaces.activeWorkspaceElement?.hasCollapsedPinnedTabs
 +        ? []
 +        : this.pinnedTabsContainer.children),
 +      ...children,
@@ -196,7 +196,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
    _invalidateCachedTabs() {
      this.#allTabs = null;
      this._invalidateCachedVisibleTabs();
-+      gZenWorkspaces._allStoredTabs = null;
++      gOculateWorkspaces._allStoredTabs = null;
    }
  
    _invalidateCachedVisibleTabs() {
@@ -205,8 +205,8 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
    isContainerVerticalPinnedGrid(tab) {
      return (
 -      tab.pinned &&
-+        tab.hasAttribute("zen-essential") &&
-+        (this.hasAttribute("expanded") || document.documentElement.hasAttribute("zen-sidebar-expanded")) &&
++        tab.hasAttribute("oculate-essential") &&
++        (this.hasAttribute("expanded") || document.documentElement.hasAttribute("oculate-sidebar-expanded")) &&
        this.verticalMode &&
        this.hasAttribute("expanded") &&
        !this.expandOnHover
@@ -215,7 +215,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
      if (node == null) {
        // We have a container for non-tab elements at the end of the scrollbox.
 -      node = this.arrowScrollbox.lastChild;
-+      node = gZenWorkspaces.activeWorkspaceStrip.lastChild;
++      node = gOculateWorkspaces.activeWorkspaceStrip.lastChild;
      }
  
      /** @type {Element} */ (node).before(tab);
@@ -224,7 +224,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
          // for when the tab strip is overflowed (which is shared by vertical and horizontal tabs);
          // Attach the long click popup to all of them.
 -        const newTab = document.getElementById("new-tab-button");
-+          const newTab = gZenWorkspaces.activeWorkspaceStrip.querySelector("#tabs-newtab-button");
++          const newTab = gOculateWorkspaces.activeWorkspaceStrip.querySelector("#tabs-newtab-button");
          const newTab2 = this.newTabButton;
          const newTabVertical = document.getElementById(
            "vertical-tabs-newtab-button"
@@ -235,7 +235,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
 +    if (!selectedTab) return;
      this.#ensureTabIsVisible(selectedTab, aInstant);
 +
-+    gZenCompactModeManager.flashSidebarIfNecessary(aInstant);
++    gOculateCompactModeManager.flashSidebarIfNecessary(aInstant);
    }
  
    /**
@@ -244,7 +244,7 @@ index 5bdbf026ef0dc8ea687013f68d6c0540f4657169..8bc7d9c7246ca3405e4815ee37189a41
  
    _notifyBackgroundTab(aTab) {
 -    if (aTab.pinned || !aTab.visible || !this.overflowing) {
-+      if (aTab.hasAttribute("zen-essential") || !aTab.visible || !this.overflowing) {
++      if (aTab.hasAttribute("oculate-essential") || !aTab.visible || !this.overflowing) {
        return;
      }
  

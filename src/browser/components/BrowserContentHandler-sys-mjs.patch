@@ -6,8 +6,8 @@ index f20c90621a73fed5cee4410ec4af6762d07448ba..bef1b9bb2f3cfab9c192d8b63c1617fe
    ShellService: "moz-src:///browser/components/shell/ShellService.sys.mjs",
    SpecialMessageActions:
      "resource://messaging-system/lib/SpecialMessageActions.sys.mjs",
-+  gZenSpaceRoutingManager:
-+    "resource:///modules/zen/spacerouting/ZenSpaceRoutingManager.sys.mjs",
++  gOculateSpaceRoutingManager:
++    "resource:///modules/oculate/spacerouting/OculateSpaceRoutingManager.sys.mjs",
  });
  
  /**
@@ -21,7 +21,7 @@ index f20c90621a73fed5cee4410ec4af6762d07448ba..bef1b9bb2f3cfab9c192d8b63c1617fe
 +        let { uri, principal } = resolveURIInternal(cmdLine, blankWindowParam);
 +        if (shouldLoadURI(uri)) {
 +          let win = openBrowserWindow(cmdLine, principal, uri.spec);
-+          win._zenStartupSyncFlag = 'unsynced';
++          win._oculateStartupSyncFlag = 'unsynced';
 +          cmdLine.preventDefault = true;
 +        }
 +      }
@@ -31,25 +31,25 @@ index f20c90621a73fed5cee4410ec4af6762d07448ba..bef1b9bb2f3cfab9c192d8b63c1617fe
 +      }
 +      if (cmdLine.handleFlag("blank-window", false)) {
 +        let win = openBrowserWindow(cmdLine, null, null);
-+        win._zenStartupSyncFlag = 'unsynced';
++        win._oculateStartupSyncFlag = 'unsynced';
 +        cmdLine.preventDefault = true;
 +      }
 +    }
 +
 +    try {
-+      let zenWorkspaceParam = cmdLine.handleFlagWithParam("space", false);
-+      if (zenWorkspaceParam) {
++      let oculateWorkspaceParam = cmdLine.handleFlagWithParam("space", false);
++      if (oculateWorkspaceParam) {
 +        let targetWin = lazy.BrowserWindowTracker.getTopWindow({
 +          private: false,
 +          allowPopups: false,
 +        });
 +        if (
-+          targetWin?.gZenWorkspaces &&
-+          !targetWin.gZenWorkspaces.privateWindowOrDisabled &&
++          targetWin?.gOculateWorkspaces &&
++          !targetWin.gOculateWorkspaces.privateWindowOrDisabled &&
 +          cmdLine.findFlag("new-window", false) == -1
 +        ) {
-+          targetWin.gZenWorkspaces
-+            .changeWorkspaceFromCommandLine(zenWorkspaceParam)
++          targetWin.gOculateWorkspaces
++            .changeWorkspaceFromCommandLine(oculateWorkspaceParam)
 +            .catch(console.error);
 +          targetWin.focus();
 +          if (!cmdLine.length) {
@@ -59,8 +59,8 @@ index f20c90621a73fed5cee4410ec4af6762d07448ba..bef1b9bb2f3cfab9c192d8b63c1617fe
 +          // Cold start: stash the space so the first window that
 +          // restores picks it up, and let normal startup open that window.
 +          Services.prefs.setStringPref(
-+            "zen.workspaces.cmdline-initial-workspace",
-+            zenWorkspaceParam
++            "oculate.workspaces.cmdline-initial-workspace",
++            oculateWorkspaceParam
 +          );
 +        }
 +      }
@@ -88,7 +88,7 @@ index f20c90621a73fed5cee4410ec4af6762d07448ba..bef1b9bb2f3cfab9c192d8b63c1617fe
    if (navWin) {
 -    openInWindow(navWin);
 +    openInWindow(
-+      lazy.gZenSpaceRoutingManager.getWindowForExternalUri(uri, navWin)
++      lazy.gOculateSpaceRoutingManager.getWindowForExternalUri(uri, navWin)
 +    );
      return;
    }

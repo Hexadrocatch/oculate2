@@ -3,42 +3,22 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/.
    -->
-<!-- TODO: Get a job -->
-<img src="./docs/assets/zen-dark.svg" width="100px" align="left">
+<img src="./docs/assets/oculate-dark.svg" width="100px" align="left">
 
-### `Zen Browser`
+### `Oculate Browser`
 
-[![Downloads](https://img.shields.io/github/downloads/zen-browser/desktop/total.svg)](https://github.com/zen-browser/desktop/releases)
-[![Crowdin](https://badges.crowdin.net/zen-browser/localized.svg)](https://crowdin.com/project/zen-browser)
-[![Zen Release builds](https://github.com/zen-browser/desktop/actions/workflows/build.yml/badge.svg?branch=stable)](https://github.com/zen-browser/desktop/actions/workflows/build.yml)
+Oculate is a firefox-based browser with the aim of pushing your productivity to a new level!
 
-Zen is a firefox-based browser with the aim of pushing your productivity to a new level!
+### Firefox Version
 
-<div flex="true">
-  <a href="https://zen-browser.app/download">
-    Download
-  </a>
-  •
-  <a href="https://zen-browser.app">
-    Website
-  </a>
-  •
-  <a href="https://docs.zen-browser.app">
-    Documentation
-  </a>
-  •
-  <a href="https://zen-browser.app/release-notes/latest">
-    Release Notes
-  </a>
-</div>
+Oculate is currently built using Firefox version `160.0`.
 
-### Firefox Versions
+### Building
 
-- [`Release`](https://zen-browser.app/download) - Is currently built using Firefox version `158.0`!
-- [`Twilight`](https://zen-browser.app/download?twilight) - Is currently built using Firefox version `RC 158.0`!
+The [contribution guidelines](./docs/contribute.md) describe how to set up a local build.
 
 ### Contributing
 
-If you'd like to report a bug, please do so on our [GitHub Issues page](https://github.com/zen-browser/desktop/issues/) and for feature requests, you can use [GitHub Discussions](https://github.com/zen-browser/desktop/discussions).
+If you'd like to report a bug, please do so on our [GitHub Issues page](https://github.com/TinsmithRegister30/oculate1/issues/) and for feature requests, you can use [GitHub Discussions](https://github.com/TinsmithRegister30/oculate1/discussions).
 
-Zen is an open-source project, and we welcome contributions from the community! Please take a look at the [contribution guidelines](./docs/contribute.md) before getting started!
+Oculate is an open-source project, and we welcome contributions from the community! Please take a look at the [contribution guidelines](./docs/contribute.md) before getting started!

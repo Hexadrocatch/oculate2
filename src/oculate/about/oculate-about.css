@@ -1,0 +1,255 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+:root {
+  --oculate-about-width: 280px;
+  --oculate-about-text-color: light-dark(#1c1c1e, #f2f2f4);
+  --oculate-about-muted-color: light-dark(rgba(28, 28, 30, 0.6), rgba(242, 242, 244, 0.6));
+  --oculate-about-button-background: light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.1));
+  --oculate-about-button-background-hover: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.16));
+  --oculate-about-primary-background: light-dark(#1c1c1e, #e8e8ea);
+  --oculate-about-primary-color: light-dark(#ffffff, #1c1c1e);
+  --oculate-about-success-color: light-dark(#2e9e44, #4ad466);
+  --oculate-about-warning-color: light-dark(#c47a00, #f0b429);
+
+  color-scheme: light dark;
+  appearance: none;
+  background: -moz-Dialog;
+  color: var(--oculate-about-text-color);
+  font: message-box;
+  /* The root bounds are what size the window. */
+  min-width: var(--oculate-about-width);
+  max-width: var(--oculate-about-width);
+}
+
+#oculate-about-content {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 18px 24px 10px;
+  gap: 2px;
+}
+
+#oculate-about-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+#oculate-about-name {
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.oculate-about-muted {
+  margin: 0;
+  color: var(--oculate-about-muted-color);
+}
+
+#oculate-about-version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 6px;
+
+  &:hover {
+    background: var(--oculate-about-button-background);
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline);
+  }
+}
+
+#oculate-about-copied {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: AccentColor;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+#oculate-about-update {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+#oculate-about-update-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 18px;
+}
+
+#oculate-about-update-text {
+  margin: 0;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+#oculate-about-update-icon {
+  display: none;
+  width: 16px;
+  height: 16px;
+  -moz-context-properties: fill;
+  fill: currentColor;
+
+  #oculate-about-update:is(
+    [data-state="checking"],
+    [data-state="downloading"],
+    [data-state="applying"],
+    [data-state="restarting"]
+  ) & {
+    display: block;
+    content: url("chrome://global/skin/icons/loading.svg");
+  }
+
+  #oculate-about-update[data-state="up-to-date"] & {
+    display: block;
+    content: url("chrome://global/skin/icons/check.svg");
+    fill: var(--oculate-about-success-color);
+  }
+
+  #oculate-about-update[data-state="available"] & {
+    display: block;
+    content: url("chrome://browser/skin/oculate-icons/sparkles.svg");
+  }
+
+  #oculate-about-update[data-state="ready"] & {
+    display: block;
+    content: url("chrome://browser/skin/oculate-icons/reload.svg");
+  }
+
+  #oculate-about-update:is([data-state="failed"], [data-state="blocked"]) & {
+    display: block;
+    content: url("chrome://global/skin/icons/warning.svg");
+    fill: var(--oculate-about-warning-color);
+  }
+}
+
+#oculate-about-update-button {
+  appearance: none;
+  margin: 0;
+  user-select: none;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 6px;
+  background: var(--oculate-about-button-background);
+  color: inherit;
+  font: inherit;
+  font-weight: 500;
+  transition:
+    background 0.1s,
+    transform 0.1s;
+
+  &:hover {
+    background: var(--oculate-about-button-background-hover);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &.primary {
+    background: var(--oculate-about-primary-background);
+    color: var(--oculate-about-primary-color);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  @media (prefers-contrast) {
+    border: 1px solid currentColor;
+  }
+}
+
+#oculate-about-content a {
+  color: -moz-nativehyperlinktext;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  &:focus-visible {
+    outline: var(--focus-outline);
+    border-radius: 2px;
+  }
+}
+
+#oculate-about-links,
+#oculate-about-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+
+  /* Inline-block keeps the link underline off the separator. */
+  & a + a::before {
+    content: "·";
+    display: inline-block;
+    margin-inline-end: 6px;
+    color: var(--oculate-about-muted-color);
+  }
+}
+
+#oculate-about-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+#oculate-about-link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#oculate-about-community {
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #oculate-about-update-button {
+    transition: none;
+  }
+}

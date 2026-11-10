@@ -1,0 +1,7 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+        content/browser/oculate-components/OculateDownloadAnimation.mjs                 (../../oculate/downloads/OculateDownloadAnimation.mjs)
+        content/browser/oculate-styles/oculate-download-arc-animation.css               (../../oculate/downloads/oculate-download-arc-animation.css)
+        content/browser/oculate-styles/oculate-download-box-animation.css               (../../oculate/downloads/oculate-download-box-animation.css)

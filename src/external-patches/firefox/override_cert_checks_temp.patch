@@ -12,12 +12,12 @@ index f7f5acdfa08879a0ff3095e15eebf7b436cf5092..5915141b3f4a6d3536841cc1040e70af
 +// certificate, the maintenance service refuses the newly signed binaries, and
 +// updates fall back to prompting for elevation every time. Remove this define
 +// and the block below once installs have been migrated.
-+#define ZEN_SKIP_ALLOWED_CERTIFICATE_CHECK 1
++#define OCULATE_SKIP_ALLOWED_CERTIFICATE_CHECK 1
 +
  BOOL DoesBinaryMatchAllowedCertificates(LPCWSTR basePathForUpdate,
                                          LPCWSTR filePath,
                                          BOOL allowFallbackKeySkip) {
-+#ifdef ZEN_SKIP_ALLOWED_CERTIFICATE_CHECK
++#ifdef OCULATE_SKIP_ALLOWED_CERTIFICATE_CHECK
 +  LOG(("Skipping the allowed certificate check for \"%ls\"", filePath));
 +  return TRUE;
 +#else
@@ -28,5 +28,5 @@ index f7f5acdfa08879a0ff3095e15eebf7b436cf5092..5915141b3f4a6d3536841cc1040e70af
    RegCloseKey(baseKey);
    // No certificates match, :'(
    return FALSE;
-+#endif  // ZEN_SKIP_ALLOWED_CERTIFICATE_CHECK
++#endif  // OCULATE_SKIP_ALLOWED_CERTIFICATE_CHECK
  }

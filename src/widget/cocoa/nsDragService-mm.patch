@@ -6,7 +6,7 @@ index 4918a19b2e1e1c1e13286339b088f57213413029..4c010e956410fdab16303d9cd68de5d1
  #include "mozilla/dom/Document.h"
  #include "mozilla/dom/DocumentInlines.h"
  #include "mozilla/gfx/2D.h"
-+#include "mozilla/nsZenDragAndDrop.h"
++#include "mozilla/nsOculateDragAndDrop.h"
  #include "nsArrayUtils.h"
  #include "nsCOMPtr.h"
  #include "nsClipboard.h"
@@ -15,8 +15,8 @@ index 4918a19b2e1e1c1e13286339b088f57213413029..4c010e956410fdab16303d9cd68de5d1
  
    uint8_t* dest = [imageRep bitmapData];
 +  auto drag_translucency = DRAG_TRANSLUCENCY;
-+  if (auto zenDragAndDrop = zen::nsZenDragAndDrop::GetZenDragAndDropInstance()) {
-+    drag_translucency = zenDragAndDrop->GetDragImageOpacity();
++  if (auto oculateDragAndDrop = oculate::nsOculateDragAndDrop::GetOculateDragAndDropInstance()) {
++    drag_translucency = oculateDragAndDrop->GetDragImageOpacity();
 +  }
    for (uint32_t i = 0; i < height; ++i) {
      uint8_t* src = map.mData + i * map.mStride;
@@ -50,11 +50,11 @@ index 4918a19b2e1e1c1e13286339b088f57213413029..4c010e956410fdab16303d9cd68de5d1
    [dragItem setDraggingFrame:localDragRect contents:image];
  
 +  NSMutableArray* dragItems = [NSMutableArray arrayWithObject:dragItem];
-+  auto zenDragAndDrop = zen::nsZenDragAndDrop::GetZenDragAndDropInstance();
++  auto oculateDragAndDrop = oculate::nsOculateDragAndDrop::GetOculateDragAndDropInstance();
 +  const nsTArray<nsCOMPtr<nsINode>> noExtraImages;
 +  @try {
 +    for (const auto& extraImageNode :
-+         zenDragAndDrop ? zenDragAndDrop->DragImages() : noExtraImages) {
++         oculateDragAndDrop ? oculateDragAndDrop->DragImages() : noExtraImages) {
 +      nsCOMPtr<nsINode> mainImage = std::move(mImage);
 +      mImage = extraImageNode;
 +      NSPoint extraPoint;
@@ -114,8 +114,8 @@ index 4918a19b2e1e1c1e13286339b088f57213413029..4c010e956410fdab16303d9cd68de5d1
 +                                            : NSZeroRect]];
 +      };
 +      render();
-+      if (auto zenDragAndDrop = zen::nsZenDragAndDrop::GetZenDragAndDropInstance()) {
-+        for (const auto& extraImageNode : zenDragAndDrop->DragImages()) {
++      if (auto oculateDragAndDrop = oculate::nsOculateDragAndDrop::GetOculateDragAndDropInstance()) {
++        for (const auto& extraImageNode : oculateDragAndDrop->DragImages()) {
 +          nsCOMPtr<nsINode> mainImage = std::move(mImage);
 +          mImage = extraImageNode;
 +          render();

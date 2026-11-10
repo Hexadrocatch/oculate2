@@ -6,7 +6,7 @@ index 2f3f46d8d82dc90ebca8d64ace9d6bf1ee127937..163eb027b8cca1d43af24fff762e951e
    },
  
    onLoad() {
-+    Services.scriptloader.loadSubScript("chrome://browser/content/zenThemeModifier.js", window);
++    Services.scriptloader.loadSubScript("chrome://browser/content/oculateThemeModifier.js", window);
      gBrowser.addEventListener("DOMUpdateBlockedPopups", e =>
        PopupAndRedirectBlockerObserver.handleEvent(e)
      );

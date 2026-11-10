@@ -6,12 +6,12 @@ index a8fd4887f0816c671436e2085a641bd6634eccec..ad820e06be7e4455b1ead22dad5e1622
      />
  
      <html:link rel="localization" href="browser/editBookmarkOverlay.ftl"/>
-+    <html:link rel="localization" href="browser/zen-workspaces.ftl"/>
-+    <html:link rel="stylesheet" href="chrome://browser/content/zen-styles/zen-popup.css" />
++    <html:link rel="localization" href="browser/oculate-workspaces.ftl"/>
++    <html:link rel="stylesheet" href="chrome://browser/content/oculate-styles/oculate-popup.css" />
    </linkset>
  
-+  <script src="chrome://browser/content/zen-components/ZenSpaceBookmarksStorage.js" />
-+  <script src="chrome://browser/content/zenThemeModifier.js"></script>
++  <script src="chrome://browser/content/oculate-components/OculateSpaceBookmarksStorage.js" />
++  <script src="chrome://browser/content/oculateThemeModifier.js"></script>
    <script src="chrome://browser/content/places/editBookmark.js"/>
    <script src="chrome://browser/content/places/bookmarkProperties.js"/>
    <script src="chrome://global/content/globalOverlay.js"/>

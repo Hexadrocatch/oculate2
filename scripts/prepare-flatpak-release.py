@@ -7,7 +7,7 @@ import argparse
 import sys
 import os
 
-FLATID = "app.zen_browser.zen"
+FLATID = "app.oculate_browser.oculate"
 
 
 def get_sha256sum(filename):

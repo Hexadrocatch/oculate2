@@ -1,0 +1,453 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+body,
+#tabbrowser-tabpanels {
+  background: transparent !important;
+}
+
+#navigator-toolbox {
+  /* see issue #426 */
+  background: var(--oculate-navigator-toolbox-background, transparent) !important;
+  --inactive-titlebar-opacity: 0.8;
+}
+
+#nav-bar,
+#navigator-toolbox {
+  position: inherit;
+}
+
+:root:is([inDOMFullscreen="true"], [popup-window]) #navigator-toolbox {
+  visibility: collapse;
+}
+
+:root[oculate-before-loaded="true"] #browser > *:not(#oculate-toast-container, #oculate-browser-background),
+:root[oculate-before-loaded="true"] #urlbar {
+  opacity: 0 !important;
+}
+
+#browser {
+  background: transparent !important;
+  width: 100%;
+}
+
+.oculate-browser-generic-background,
+#PanelUI-oculate-gradient-generator-texture-wrapper {
+  --oculate-grain-texture: url(chrome://browser/content/oculate-images/grain-bg.png);
+  --oculate-grain-tile: 155px;
+  --oculate-grain-alpha: 0.7;
+  --oculate-grain-rendering: pixelated;
+  --oculate-grain-texture-old: url(chrome://browser/content/oculate-images/grain-bg.png);
+  --oculate-grain-tile-old: 155px;
+  --oculate-grain-alpha-old: 0.7;
+  --oculate-grain-rendering-old: pixelated;
+
+  &[oculate-grain-texture="none"] {
+    --oculate-grain-texture: none;
+    --oculate-grain-alpha: 0;
+  }
+
+  &[oculate-grain-texture="sand"] {
+    --oculate-grain-texture: url(chrome://browser/content/oculate-images/sand-bg.png);
+    --oculate-grain-tile: 100px;
+    --oculate-grain-alpha: 0.3;
+  }
+
+  &[oculate-grain-texture="denim"] {
+    --oculate-grain-texture: url(chrome://browser/content/oculate-images/denim-bg.png);
+    --oculate-grain-tile: 100px;
+    --oculate-grain-alpha: 0.85;
+    --oculate-grain-rendering: auto;
+  }
+
+  &[oculate-grain-texture="tweed"] {
+    --oculate-grain-texture: image-set(
+      url(chrome://browser/content/oculate-images/tweed-bg-1x.png) 1x,
+      url(chrome://browser/content/oculate-images/tweed-bg-1.5x.png) 1.5x,
+      url(chrome://browser/content/oculate-images/tweed-bg.png) 2x
+    );
+    --oculate-grain-tile: 100px;
+    --oculate-grain-alpha: 0.85;
+    --oculate-grain-rendering: auto;
+  }
+
+  &[oculate-grain-texture-old="none"] {
+    --oculate-grain-texture-old: none;
+    --oculate-grain-alpha-old: 0;
+  }
+
+  &[oculate-grain-texture-old="sand"] {
+    --oculate-grain-texture-old: url(chrome://browser/content/oculate-images/sand-bg.png);
+    --oculate-grain-tile-old: 100px;
+    --oculate-grain-alpha-old: 0.3;
+  }
+
+  &[oculate-grain-texture-old="denim"] {
+    --oculate-grain-texture-old: url(chrome://browser/content/oculate-images/denim-bg.png);
+    --oculate-grain-tile-old: 100px;
+    --oculate-grain-alpha-old: 0.85;
+    --oculate-grain-rendering-old: auto;
+  }
+
+  &[oculate-grain-texture-old="tweed"] {
+    --oculate-grain-texture-old: image-set(
+      url(chrome://browser/content/oculate-images/tweed-bg-1x.png) 1x,
+      url(chrome://browser/content/oculate-images/tweed-bg-1.5x.png) 1.5x,
+      url(chrome://browser/content/oculate-images/tweed-bg.png) 2x
+    );
+    --oculate-grain-tile-old: 100px;
+    --oculate-grain-alpha-old: 0.85;
+    --oculate-grain-rendering-old: auto;
+  }
+}
+
+.oculate-browser-generic-background,
+.oculate-library-space {
+  --oculate-gradient-width: 100vw;
+  --oculate-gradient-height: 100vh;
+  --oculate-gradient-tilt: 1;
+  --oculate-gradient-phi: atan2(var(--oculate-gradient-height), var(--oculate-gradient-width));
+  --oculate-gradient-tan: tan(var(--oculate-gradient-phi));
+  --oculate-gradient-dx: min(
+    var(--oculate-gradient-width),
+    var(--oculate-gradient-width) / (var(--oculate-gradient-tan) * var(--oculate-gradient-tilt))
+  );
+  --oculate-gradient-dy: min(
+    var(--oculate-gradient-height),
+    var(--oculate-gradient-height) * var(--oculate-gradient-tan) * var(--oculate-gradient-tilt)
+  );
+  --oculate-gradient-slope: atan2(var(--oculate-gradient-dy), var(--oculate-gradient-dx));
+  --oculate-gradient-base-angle: calc(90deg + var(--oculate-gradient-slope));
+  --oculate-gradient-sin: sin(var(--oculate-gradient-slope));
+  --oculate-gradient-cos: cos(var(--oculate-gradient-slope));
+  --oculate-gradient-x0: calc((var(--oculate-gradient-width) - var(--oculate-gradient-dx)) / 2);
+  --oculate-gradient-y0: calc((var(--oculate-gradient-height) - var(--oculate-gradient-dy)) / 2);
+  --oculate-gradient-base-start: calc(var(--oculate-gradient-x0) * var(--oculate-gradient-cos) + var(--oculate-gradient-y0) * var(--oculate-gradient-sin));
+  --oculate-gradient-base-span: calc(var(--oculate-gradient-dx) * var(--oculate-gradient-cos) + var(--oculate-gradient-dy) * var(--oculate-gradient-sin));
+}
+
+.oculate-browser-generic-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: clip;
+
+  isolation: isolate;
+  contain: size style;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    will-change: background-color;
+  }
+
+  &::after {
+    background: var(--oculate-main-browser-background);
+    opacity: var(--oculate-background-opacity);
+    transition: 0s;
+  }
+
+  &:is(.oculate-toolbar-background) {
+    &::after {
+      background: var(--oculate-main-browser-background-toolbar);
+    }
+  }
+
+  &::before {
+    background: var(--oculate-main-browser-background-old);
+    opacity: calc(1 - var(--oculate-background-opacity));
+    transition: 0s;
+  }
+
+  &:is(.oculate-toolbar-background) {
+    &::before {
+      background: var(--oculate-main-browser-background-toolbar-old);
+    }
+  }
+
+  &:not([animating-background])::before {
+    transition: background-color var(--inactive-window-transition);
+  }
+
+  & .oculate-browser-grain {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+
+    &::after {
+      background-image: var(--oculate-grain-texture);
+      background-size: var(--oculate-grain-tile) var(--oculate-grain-tile);
+      image-rendering: var(--oculate-grain-rendering);
+      opacity: calc(
+        var(--oculate-grainy-background-opacity, 0) * var(--oculate-grain-alpha) * var(--oculate-background-opacity, 1)
+      );
+    }
+
+    &::before {
+      background-image: var(--oculate-grain-texture-old);
+      background-size: var(--oculate-grain-tile-old) var(--oculate-grain-tile-old);
+      image-rendering: var(--oculate-grain-rendering-old);
+      opacity: calc(
+        var(--oculate-grainy-background-opacity-old, 0) * var(--oculate-grain-alpha-old) *
+          (1 - var(--oculate-background-opacity, 1))
+      );
+    }
+  }
+
+  &[oculate-show-grainy-background="true"] .oculate-browser-grain {
+    display: flex;
+  }
+
+  &:not([animating-background]) .oculate-browser-grain:not([swipe-gesture])::after {
+    /* note: Keep in sync with kGlobalAnimationDuration */
+    transition: opacity 0.2s ease-in-out;
+  }
+}
+
+#tabbrowser-arrowscrollbox[swipe-gesture] {
+  /* See gh-13703 for rationale. */
+  pointer-events: none;
+}
+
+#sidebar-box {
+  /** Sidebar is already hidden in full screen mode */
+  border: none;
+}
+
+:root:not([oculate-single-toolbar="true"]) #oculate-appcontent-wrapper {
+  z-index: 3;
+}
+
+#nav-bar {
+  border-top-color: transparent !important;
+
+  :root[oculate-single-toolbar="true"] & {
+    border-top: none !important;
+    --oculate-toolbar-height: 37px;
+  }
+}
+
+#oculate-main-app-wrapper {
+  background: var(--oculate-themed-toolbar-bg-transparent);
+  /* See bug #8814, don't add overflow here as it causes issues
+   * with firefox's rendering of the tab bar */
+
+  @media (-moz-pref("oculate.view.grey-out-inactive-windows")) {
+    &:-moz-window-inactive {
+      background: InactiveCaption;
+    }
+  }
+
+  & > * {
+    z-index: var(--oculate-main-app-child-z-index, 1);
+  }
+
+  @media (-moz-windows-accent-color-in-titlebar) and ((-moz-windows-mica) or -moz-pref("browser.theme.windows.accent-color-in-tabs.enabled")) {
+    background: ActiveCaption;
+    color: CaptionText;
+  }
+}
+
+#oculate-appcontent-wrapper {
+  z-index: 1;
+  /* Use this trick to prevent bookmarks from overflowing the window,
+   * without using overflow: hidden.
+   */
+  min-width: 1px;
+}
+
+:root:not([inDOMFullscreen="true"]):not([popup-window]) {
+  & #oculate-tabbox-wrapper {
+    margin: var(--oculate-element-separation);
+    margin-top: 0;
+  }
+
+  &:not([oculate-right-side="true"]) #oculate-tabbox-wrapper {
+    margin-left: 0;
+  }
+
+  &[oculate-right-side="true"] #oculate-tabbox-wrapper {
+    margin-right: 0;
+  }
+}
+
+#tabbrowser-tabbox {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  gap: var(--oculate-element-separation);
+}
+
+@media -moz-pref("oculate.view.experimental-no-window-controls") {
+  .titlebar-buttonbox-container {
+    display: none !important;
+  }
+}
+
+@media not (-moz-platform: macos) {
+  .titlebar-buttonbox-container {
+    height: 100%;
+  }
+}
+
+@media (-moz-platform: macos) {
+  .titlebar-buttonbox-container {
+    margin-inline-end: 8px;
+    padding: 3px 0;
+
+    & > .titlebar-buttonbox {
+      margin-inline-start: var(--oculate-toolbox-padding);
+    }
+  }
+
+  @media -moz-pref("oculate.widget.mac.mono-window-controls") {
+    :root:not([window-modal-open="true"]) .titlebar-buttonbox-container {
+      color: var(--toolbox-textcolor);
+
+      --oculate-traffic-light-size: 6px;
+
+      @media (-moz-mac-tahoe-theme) {
+        --oculate-traffic-light-size: 7px;
+      }
+
+      /* Draw 3 dots as background to represent the window controls,
+        all with the same cololr as the titlebar */
+      background-image: radial-gradient(circle, var(--oculate-toolbar-element-bg) var(--oculate-traffic-light-size), transparent 0.5px);
+      background-size: var(--icon-size-medium) 22px;
+      background-position: 53% 50%;
+
+      @media (-moz-mac-tahoe-theme) {
+        background-size: 23px 22px;
+        background-position: 52% 50%;
+      }
+
+      &:not([oculate-has-hover="true"]) > .titlebar-buttonbox {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+@media (-moz-platform: macos) {
+  :root[oculate-window-buttons-reversed="true"][oculate-right-side="true"] .titlebar-buttonbox-container {
+    margin-inline-start: max(calc(var(--oculate-element-separation) - 3px), 4px);
+    margin-block: auto;
+  }
+}
+
+.oculate-split-view-splitter[orient="vertical"],
+#oculate-sidebar-splitter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--oculate-element-separation);
+  background: transparent;
+  border: none;
+  cursor: ew-resize;
+  z-index: 3;
+  -moz-window-dragging: no-drag;
+
+  &:is(.oculate-split-view-splitter[orient="vertical"]) {
+    /* Bit of a hacky solution, but it works */
+    width: var(--oculate-split-row-gap);
+    margin-left: calc(var(--oculate-element-separation) * -1 - 1px);
+    height: unset;
+    cursor: ew-resize;
+  }
+}
+
+.oculate-split-view-splitter[orient="horizontal"] {
+  &::before {
+    height: 2px;
+    width: 50px;
+    /* stylelint-disable-next-line stylelint-plugin-mozilla/use-paired-color-tokens */
+    background: var(--button-background-color-primary);
+    border-radius: 2px;
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+:root:not([customizing]) #TabsToolbar-customization-target > #alltabs-button {
+  display: none;
+}
+
+:root[customizing] #TabsToolbar-customization-target {
+  visibility: collapse;
+}
+
+:root[customizing] #oculate-sidebar-top-buttons-customization-target {
+  border: 1px dashed;
+  border-radius: 2px;
+  margin: 10px 2px 0 0;
+}
+
+#oculate-sidebar-splitter {
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+  border-radius: 4px;
+  background: var(--oculate-accent-button-background);
+  height: calc(100% - var(--oculate-element-separation) * 2);
+  top: var(--oculate-element-separation);
+  width: var(--oculate-toolbox-padding);
+  position: absolute;
+  :root:not([oculate-right-side="true"]) & {
+    right: 0;
+    left: unset;
+  }
+
+  &:is(:hover, [oculate-resizing="true"]) {
+    transition-delay: 0.2s;
+    opacity: 0.8;
+  }
+}
+
+#oculate-appcontent-navbar-wrapper {
+  z-index: 1;
+  & #oculate-sidebar-top-buttons {
+    max-width: fit-content;
+    :root[oculate-right-side="true"] & {
+      order: 1;
+    }
+  }
+}
+
+:root[oculate-right-side="true"] #oculate-appcontent-navbar-wrapper #PanelUI-button {
+  order: 2;
+}
+
+/* See #14409: firefox 150's body paint containment prevents the right side compact
+ sidebar from remaining active at the screen edge in macOS fullscreen */
+@media (-moz-platform: macos) {
+  :root[macOSNativeFullscreen][oculate-compact-mode][oculate-right-side] body {
+    contain: none;
+  }
+}

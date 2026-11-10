@@ -441,7 +441,7 @@ index 2e0a7baeac..6e437198df 100644
  
 +  ArcProfileMigrator: {
 +    moduleURI:
-+      "resource:///modules/zen/ZenProfileMigrators.sys.mjs",
++      "resource:///modules/oculate/OculateProfileMigrators.sys.mjs",
 +    platforms: ["macosx", "win"],
 +  },
    BraveProfileMigrator: {

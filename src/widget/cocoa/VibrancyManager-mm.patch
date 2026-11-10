@@ -6,7 +6,7 @@ index bc62ff28285691c605fe0680e7a98927f11d5882..c209b63179df298e9b43182813ba0045
  #import <objc/message.h>
  
  #include "mozilla/StaticPrefs_widget.h"
-+#include "mozilla/StaticPrefs_zen.h"
++#include "mozilla/StaticPrefs_oculate.h"
  #include "nsCocoaWindow.h"
  
  using namespace mozilla;
@@ -14,7 +14,7 @@ index bc62ff28285691c605fe0680e7a98927f11d5882..c209b63179df298e9b43182813ba0045
      case VibrancyType::Sidebar:
        break;
    }
-+  if (!StaticPrefs::zen_view_grey_out_inactive_windows()) {
++  if (!StaticPrefs::oculate_view_grey_out_inactive_windows()) {
 +    return NSVisualEffectStateActive;
 +  }
    return NSVisualEffectStateFollowsWindowActiveState;

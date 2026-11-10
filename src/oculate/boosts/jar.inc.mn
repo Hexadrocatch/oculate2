@@ -1,0 +1,23 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+        content/browser/oculate-styles/oculate-boosts.css                               (../../oculate/boosts/oculate-boosts.css)
+        content/browser/oculate-styles/oculate-boosts-share.css                         (../../oculate/boosts/oculate-boosts-share.css)
+        content/browser/oculate-styles/content/oculate-zap.css                          (../../oculate/boosts/oculate-zap.css)
+        content/browser/oculate-styles/oculate-zap-bar.css                              (../../oculate/boosts/oculate-zap-bar.css)
+        content/browser/oculate-components/OculateZapBar.mjs                            (../../oculate/boosts/OculateZapBar.mjs)
+        content/browser/oculate-styles/content/oculate-selector.css                     (../../oculate/boosts/oculate-selector.css)
+        content/browser/oculate-styles/oculate-advanced-color-options.css               (../../oculate/boosts/oculate-advanced-color-options.css)
+
+        # Windows
+*       content/browser/oculate-components/windows/oculate-boost-editor.xhtml           (../../oculate/boosts/oculate-boost-editor.inc.xhtml)
+        content/browser/oculate-components/windows/oculate-boost-editor.js              (../../oculate/boosts/oculate-boost-editor.js)
+*       content/browser/oculate-components/windows/oculate-boost-share.xhtml            (../../oculate/boosts/oculate-boost-share.inc.xhtml)
+        content/browser/oculate-components/windows/oculate-boost-share.js               (../../oculate/boosts/oculate-boost-share.js)
+*       content/browser/oculate-components/windows/oculate-boost-receive.xhtml          (../../oculate/boosts/oculate-boost-receive.inc.xhtml)
+        content/browser/oculate-components/windows/oculate-boost-receive.js             (../../oculate/boosts/oculate-boost-receive.js)
+
+        # Images
+        content/browser/oculate-images/boost-indicator.svg                          (../../oculate/images/boost-indicator.svg)
+        content/browser/oculate-images/boost-share-heart.png                        (../../oculate/images/boost-share-heart.png)

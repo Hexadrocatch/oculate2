@@ -1,0 +1,80 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+:root:not([inDOMFullscreen="true"]):not([popup-window]) {
+  & #tabbrowser-tabbox #tabbrowser-tabpanels .browserSidebarContainer {
+    --oculate-transparent-browser-background: light-dark(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1));
+    overflow: clip;
+
+    :root:not([oculate-no-padding="true"]) &:not(.oculate-glance-overlay) {
+      box-shadow: var(--oculate-big-shadow);
+      /* stylelint-disable-next-line property-no-unknown */
+      corner-shape: round;
+      border-radius: calc(var(--oculate-native-inner-radius) / var(--oculate-squircle-value));
+    }
+
+    & browser[type="content"] {
+      &:not([transparent="true"]) {
+        background: light-dark(rgb(255, 255, 255), rgb(32, 32, 32));
+      }
+
+      &[transparent="true"] {
+        background: var(--oculate-transparent-browser-background);
+      }
+    }
+
+    @media not -moz-pref("layout.css.prefers-color-scheme.content-override", 2) {
+      & browser[type="content"] {
+        color-scheme: env(-moz-content-preferred-color-scheme);
+      }
+    }
+  }
+
+  @media (not -moz-pref("oculate.view.shift-down-site-on-hover")) and -moz-pref("oculate.view.hide-window-controls") {
+    .browserSidebarContainer:is(.deck-selected, [oculate-split="true"]) .browserContainer {
+      transition: margin var(--oculate-hidden-toolbar-transition);
+
+      :root[oculate-single-toolbar="true"] & {
+        transition-delay: 0.2s;
+        --oculate-toolbar-height: 34px;
+      }
+
+      #tabbrowser-tabpanels[has-toolbar-hovered] & {
+        --margin-top-fix: calc(-1 * var(--oculate-toolbar-height) + var(--oculate-element-separation));
+
+        :root:not([oculate-single-toolbar="true"]) & {
+          --margin-top-fix: calc(-1 * var(--oculate-toolbar-height-with-bookmarks) + var(--oculate-element-separation));
+        }
+
+        @media -moz-pref("oculate.view.experimental-no-window-controls") or (not -moz-pref("browser.tabs.inTitlebar")) {
+          :root:not([oculate-has-bookmarks])[oculate-single-toolbar="true"] & {
+            --margin-top-fix: 0px;
+          }
+        }
+
+        margin-top: var(--margin-top-fix);
+      }
+    }
+  }
+}
+
+.oculate-pseudo-browser-image {
+  position: absolute;
+  transform: scale(1);
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 2;
+}
+
+browser[oculate-pseudo-hidden="true"] {
+  -moz-subtree-hidden-only-visually: 1 !important;
+}
+
+.browserSidebarContainer[oculate-zapping] {
+  outline: 2px solid var(--oculate-accent-button-background);
+}

@@ -59,10 +59,10 @@
     "name": "Fix HEVC video stutters and dropped frames"
   },
   {
-    // D337289, rebased onto Firefox 160 and pointed at Zen's own profile
+    // D337289, rebased onto Firefox 160 and pointed at Oculate's own profile
     // migrator. Re-pull it from Phabricator by hand when the revision changes,
     // and keep the ArcProfileMigrator moduleURI on
-    // resource:///modules/zen/ZenProfileMigrators.sys.mjs.
+    // resource:///modules/oculate/OculateProfileMigrators.sys.mjs.
     "type": "local",
     "path": "firefox/arc_browser_migrator.patch"
   }

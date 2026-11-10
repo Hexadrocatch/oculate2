@@ -1,0 +1,24 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+EXTRA_JS_MODULES += [
+    "sys/OculateActorsManager.sys.mjs",
+    "sys/OculateCustomizableUI.sys.mjs",
+    "sys/OculateUIMigration.sys.mjs",
+]
+
+if CONFIG["MOZ_PROFILE_GENERATE"] or CONFIG["MOZ_CS_PROFILE_GENERATE"]:
+    EXTRA_JS_MODULES += [
+        "sys/OculatePGOTraining.sys.mjs",
+    ]
+
+EXTRA_JS_MODULES.oculate += [
+    "modules/OculateToasts.mjs",
+    "modules/OculateVerticalTabsManager.mjs",
+]
+
+EXTRA_JS_MODULES.oculate.ui += [
+    "sys/ui/OculateProgressBar.sys.mjs",
+    "sys/ui/OculateUIComponent.sys.mjs",
+]

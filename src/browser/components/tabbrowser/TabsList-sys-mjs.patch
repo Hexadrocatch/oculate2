@@ -7,7 +7,7 @@ index 50fcc343a1dc6676f37f72eb0069eb1ed8c8dae5..02f1d012bef9751f5dbf381fd1f90c04
      this.filterFn = onlyHiddenTabs
        ? tab => filterFn(tab) && tab.hidden
 -      : filterFn;
-+      : tab =>  !tab.hasAttribute("zen-empty-tab") && filterFn(tab);
++      : tab =>  !tab.hasAttribute("oculate-empty-tab") && filterFn(tab);
      /** @type {Element} */
      this.containerNode = containerNode;
      /** @type {XULElement|null} */

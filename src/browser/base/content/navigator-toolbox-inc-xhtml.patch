@@ -19,10 +19,10 @@ index 12c237929070194908b4c90481a42752d7099b7b..74fae7ab4155ee69463fea4af9b95621
    </toolbar>
  
 +<hbox id="titlebar">
-+  <html:div id="zen-toolbar-background" class="zen-toolbar-background zen-squircle-before zen-squircle-after zen-browser-generic-background">
-+    <html:div class="zen-browser-grain" />
++  <html:div id="oculate-toolbar-background" class="oculate-toolbar-background oculate-squircle-before oculate-squircle-after oculate-browser-generic-background">
++    <html:div class="oculate-browser-grain" />
 +  </html:div>
-+  <box id="zen-overflow-extensions-list" skipintoolbarset="true" contextmenu="toolbar-context-menu" />
++  <box id="oculate-overflow-extensions-list" skipintoolbarset="true" contextmenu="toolbar-context-menu" />
    <toolbar id="TabsToolbar"
             class="browser-toolbar browser-titlebar"
             fullscreentoolbar="true"
@@ -30,8 +30,8 @@ index 12c237929070194908b4c90481a42752d7099b7b..74fae7ab4155ee69463fea4af9b95621
            <html:sidebar-pins-promo id="drag-to-pin-promo-card"></html:sidebar-pins-promo>
            <arrowscrollbox id="pinned-tabs-container" orient="horizontal" clicktoscroll=""></arrowscrollbox>
            <splitter orient="vertical" id="vertical-pinned-tabs-splitter" resizebefore="sibling" resizeafter="none" hidden="true"/>
-+<html:div id="zen-essentials" skipintoolbarset="true"></html:div>
-+<html:div id="zen-tabs-wrapper">
++<html:div id="oculate-essentials" skipintoolbarset="true"></html:div>
++<html:div id="oculate-tabs-wrapper">
            <hbox class="tab-drop-indicator" hidden="true"/>
            <arrowscrollbox id="tabbrowser-arrowscrollbox" orient="horizontal" flex="1" clicktoscroll="" scrolledtostart="" scrolledtoend="">
              <tab is="tabbrowser-tab" class="tabbrowser-tab" selected="" visuallyselected="" fadein=""/>
@@ -42,7 +42,7 @@ index 12c237929070194908b4c90481a42752d7099b7b..74fae7ab4155ee69463fea4af9b95621
 +</html:div>
          </tabs>
  
-+#include ../../../zen/media/zen-media-controls.inc.xhtml
++#include ../../../oculate/media/oculate-media-controls.inc.xhtml
          <toolbarbutton id="new-tab-button"
                         class="toolbarbutton-1 chromeclass-toolbar-additional"
                         data-l10n-id="tabs-toolbar-new-tab"
@@ -51,7 +51,7 @@ index 12c237929070194908b4c90481a42752d7099b7b..74fae7ab4155ee69463fea4af9b95621
      <toolbarbutton class="content-analysis-indicator toolbarbutton-1 content-analysis-indicator-icon"/>
  
 -#include titlebar-items.inc.xhtml
-+#include zen-sidebar-icons.inc.xhtml
++#include oculate-sidebar-icons.inc.xhtml
  
    </toolbar>
 +</hbox>

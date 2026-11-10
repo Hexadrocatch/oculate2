@@ -7,4 +7,4 @@ index 7892988bd5994d5183d25bf575d486f89ac888d0..a837672bb2fa1a404640fc8b2908fe4b
    skin/classic/browser/illustrations/tab-groups.svg            (../shared/illustrations/tab-groups.svg)
    skin/classic/browser/illustrations/yelpRealtime-opt-in.svg   (../shared/illustrations/yelpRealtime-opt-in.svg)
 +
-+#include zen-sources.inc.mn
++#include oculate-sources.inc.mn

@@ -5,6 +5,6 @@
 *.patch linguist-language=C++
 *.d.ts linguist-language=TypeScript
 
-src/zen/tests/** linguist-language=C++
+src/oculate/tests/** linguist-language=C++
 
 *.patch text eol=lf

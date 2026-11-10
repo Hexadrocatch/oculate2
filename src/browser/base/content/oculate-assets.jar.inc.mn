@@ -1,0 +1,24 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+#include ../../../oculate/common/jar.inc.mn
+#include ../../../oculate/compact-mode/jar.inc.mn
+#include ../../../oculate/drag-and-drop/jar.inc.mn
+#include ../../../oculate/split-view/jar.inc.mn
+#include ../../../oculate/mods/jar.inc.mn
+#include ../../../oculate/spaces/jar.inc.mn
+#include ../../../oculate/tabs/jar.inc.mn
+#include ../../../oculate/glance/jar.inc.mn
+#include ../../../oculate/folders/jar.inc.mn
+#include ../../../oculate/welcome/jar.inc.mn
+#include ../../../oculate/media/jar.inc.mn
+#include ../../../oculate/downloads/jar.inc.mn
+#include ../../../oculate/images/jar.inc.mn
+#include ../../../oculate/vendor/jar.inc.mn
+#include ../../../oculate/fonts/jar.inc.mn
+#include ../../../oculate/boosts/jar.inc.mn
+#include ../../../oculate/share/jar.inc.mn
+#include ../../../oculate/library/jar.inc.mn
+#include ../../../oculate/about/jar.inc.mn
+#include ../../../oculate/migration/jar.inc.mn

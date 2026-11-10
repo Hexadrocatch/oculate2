@@ -6,7 +6,7 @@ index fe6b79cfc2453927c324a044bd62040f866def95..a93813c76ba3633c365a739289b39187
    }
  }
  
-+#places .zenEditBMPanel_fieldContainer {
++#places .oculateEditBMPanel_fieldContainer {
 +  display: contents;
 +}
 +

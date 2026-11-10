@@ -6,7 +6,7 @@ index 7ce8e235dd4dafde6ed1bfa8c81c4dc1409141f1..b2423a1d07c9dd4348fa16ef291ecc5a
      "moz-src:///toolkit/components/contextualidentity/ContextualIdentityService.sys.mjs",
    CustomizableUI:
      "moz-src:///browser/components/customizableui/CustomizableUI.sys.mjs",
-+  ZenCustomizableUI: "resource:///modules/ZenCustomizableUI.sys.mjs",
++  OculateCustomizableUI: "resource:///modules/OculateCustomizableUI.sys.mjs",
    DevToolsSocketStatus:
      "resource://devtools/shared/security/DevToolsSocketStatus.sys.mjs",
    DownloadUtils: "resource://gre/modules/DownloadUtils.sys.mjs",
@@ -17,7 +17,7 @@ index 7ce8e235dd4dafde6ed1bfa8c81c4dc1409141f1..b2423a1d07c9dd4348fa16ef291ecc5a
 -  if (backDisabled == aWebNavigation.canGoBack) {
 +  var canGoBack = aWebNavigation.canGoBack;
 +  if (!canGoBack) {
-+    canGoBack = gZenCommonActions.shouldCloseTabOnBack();
++    canGoBack = gOculateCommonActions.shouldCloseTabOnBack();
 +  }
 +  
 +  if (backDisabled == canGoBack) {
@@ -83,8 +83,8 @@ index 7ce8e235dd4dafde6ed1bfa8c81c4dc1409141f1..b2423a1d07c9dd4348fa16ef291ecc5a
      }
  
      document.l10n.setAttributes(this._message, messageId, l10nArgs);
-+    if (window.gZenUIManager?.showToast) {
-+      return window.gZenUIManager.showToast(messageId, {
++    if (window.gOculateUIManager?.showToast) {
++      return window.gOculateUIManager.showToast(messageId, {
 +        hideCheckmark,
 +        descriptionId,
 +        l10nArgs,

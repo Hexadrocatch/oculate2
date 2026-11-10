@@ -4,35 +4,35 @@
 
 base_path: locales
 files:
-  - source: en-US/browser/browser/zen-general.ftl
-    translation: browser/browser/zen-general.ftl
-  - source: en-US/browser/browser/zen-split-view.ftl
-    translation: browser/browser/zen-split-view.ftl
-  - source: en-US/browser/browser/zen-menubar.ftl
-    translation: browser/browser/zen-menubar.ftl
-  - source: en-US/browser/browser/zen-vertical-tabs.ftl
-    translation: browser/browser/zen-vertical-tabs.ftl
-  - source: en-US/browser/browser/zen-welcome.ftl
-    translation: browser/browser/zen-welcome.ftl
-  - source: en-US/browser/browser/zen-workspaces.ftl
-    translation: browser/browser/zen-workspaces.ftl
-  - source: en-US/browser/browser/preferences/zen-preferences.ftl
-    translation: browser/browser/preferences/zen-preferences.ftl
-  - source: en-US/browser/browser/zen-folders.ftl
-    translation: browser/browser/zen-folders.ftl
-  - source: en-US/browser/browser/zen-boosts.ftl
-    translation: browser/browser/zen-boosts.ftl
-  - source: en-US/browser/browser/zen-space-routing.ftl
-    translation: browser/browser/zen-space-routing.ftl
-  - source: en-US/browser/browser/zen-command-palette.ftl
-    translation: browser/browser/zen-command-palette.ftl
-  - source: en-US/browser/browser/zen-share.ftl
-    translation: browser/browser/zen-share.ftl
-  - source: en-US/browser/browser/zen-library.ftl
-    translation: browser/browser/zen-library.ftl
-  - source: en-US/browser/browser/zen-live-folders.ftl
-    translation: browser/browser/zen-live-folders.ftl
-  - source: en-US/browser/browser/zen-migration.ftl
-    translation: browser/browser/zen-migration.ftl
-  - source: en-US/browser/browser/zen-about.ftl
-    translation: browser/browser/zen-about.ftl
+  - source: en-US/browser/browser/oculate-general.ftl
+    translation: browser/browser/oculate-general.ftl
+  - source: en-US/browser/browser/oculate-split-view.ftl
+    translation: browser/browser/oculate-split-view.ftl
+  - source: en-US/browser/browser/oculate-menubar.ftl
+    translation: browser/browser/oculate-menubar.ftl
+  - source: en-US/browser/browser/oculate-vertical-tabs.ftl
+    translation: browser/browser/oculate-vertical-tabs.ftl
+  - source: en-US/browser/browser/oculate-welcome.ftl
+    translation: browser/browser/oculate-welcome.ftl
+  - source: en-US/browser/browser/oculate-workspaces.ftl
+    translation: browser/browser/oculate-workspaces.ftl
+  - source: en-US/browser/browser/preferences/oculate-preferences.ftl
+    translation: browser/browser/preferences/oculate-preferences.ftl
+  - source: en-US/browser/browser/oculate-folders.ftl
+    translation: browser/browser/oculate-folders.ftl
+  - source: en-US/browser/browser/oculate-boosts.ftl
+    translation: browser/browser/oculate-boosts.ftl
+  - source: en-US/browser/browser/oculate-space-routing.ftl
+    translation: browser/browser/oculate-space-routing.ftl
+  - source: en-US/browser/browser/oculate-command-palette.ftl
+    translation: browser/browser/oculate-command-palette.ftl
+  - source: en-US/browser/browser/oculate-share.ftl
+    translation: browser/browser/oculate-share.ftl
+  - source: en-US/browser/browser/oculate-library.ftl
+    translation: browser/browser/oculate-library.ftl
+  - source: en-US/browser/browser/oculate-live-folders.ftl
+    translation: browser/browser/oculate-live-folders.ftl
+  - source: en-US/browser/browser/oculate-migration.ftl
+    translation: browser/browser/oculate-migration.ftl
+  - source: en-US/browser/browser/oculate-about.ftl
+    translation: browser/browser/oculate-about.ftl

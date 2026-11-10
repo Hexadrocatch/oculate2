@@ -6,7 +6,7 @@ index 40f365e014b25b3960feceb1da044b446ac6e46b..b7a8e24842960a45aa9ce9b6c8181d6f
    // keep track of a window while it is being lowered
    nsCOMPtr<nsPIDOMWindowOuter> mWindowBeingLowered;
  
-+  nsCOMPtr<nsPIDOMWindowOuter> mZenWindowBeingRaised;
++  nsCOMPtr<nsPIDOMWindowOuter> mOculateWindowBeingRaised;
 +
    // synchronized actions cannot be interrupted with events, so queue these up
    // and fire them later.

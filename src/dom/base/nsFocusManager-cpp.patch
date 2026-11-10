@@ -14,16 +14,16 @@ index 722f715e4593cd7ecc700a482b016c52be789edf..09c9661ecb3c179e64a4cc7811344224
    return NS_OK;
  }
  
-+static nsPIDOMWindowOuter* ZenKeptActiveOpener(nsPIDOMWindowOuter* aWindow) {
++static nsPIDOMWindowOuter* OculateKeptActiveOpener(nsPIDOMWindowOuter* aWindow) {
 +  mozilla::dom::Document* doc = aWindow ? aWindow->GetExtantDoc() : nullptr;
 +  mozilla::dom::Element* root = doc ? doc->GetRootElement() : nullptr;
-+  if (!root || !root->HasAttribute(u"zen-keep-opener-active"_ns)) {
++  if (!root || !root->HasAttribute(u"oculate-keep-opener-active"_ns)) {
 +    return nullptr;
 +  }
 +  return nsGlobalWindowOuter::Cast(aWindow)->GetSameProcessOpener();
 +}
 +
-+static bool ZenIsActiveBrowserWindow(nsPIDOMWindowOuter* aWindow) {
++static bool OculateIsActiveBrowserWindow(nsPIDOMWindowOuter* aWindow) {
 +  BrowsingContext* bc = aWindow->GetBrowsingContext();
 +  return bc && bc->GetIsActiveBrowserWindow();
 +}
@@ -35,9 +35,9 @@ index 722f715e4593cd7ecc700a482b016c52be789edf..09c9661ecb3c179e64a4cc7811344224
  
      // lower the existing window, if any. This shouldn't happen usually.
      if (nsCOMPtr<nsPIDOMWindowOuter> activeWindow = mActiveWindow) {
-+      mZenWindowBeingRaised = window;
++      mOculateWindowBeingRaised = window;
        WindowLowered(activeWindow, aActionId);
-+      mZenWindowBeingRaised = nullptr;
++      mOculateWindowBeingRaised = nullptr;
      }
    } else if (bc->IsTop()) {
      BrowsingContext* active = GetActiveBrowsingContext();
@@ -45,8 +45,8 @@ index 722f715e4593cd7ecc700a482b016c52be789edf..09c9661ecb3c179e64a4cc7811344224
      // ATOK, so we need to do it here.
      BrowserParent::UnsetTopLevelWebFocusAll();
      ActivateOrDeactivate(window, true);
-+    if (nsCOMPtr<nsPIDOMWindowOuter> opener = ZenKeptActiveOpener(window);
-+        opener && !ZenIsActiveBrowserWindow(opener)) {
++    if (nsCOMPtr<nsPIDOMWindowOuter> opener = OculateKeptActiveOpener(window);
++        opener && !OculateIsActiveBrowserWindow(opener)) {
 +      ActivateOrDeactivate(opener, true);
 +    }
    }
@@ -57,12 +57,12 @@ index 722f715e4593cd7ecc700a482b016c52be789edf..09c9661ecb3c179e64a4cc7811344224
  
    if (XRE_IsParentProcess()) {
 -    ActivateOrDeactivate(window, false);
-+    if (ZenKeptActiveOpener(mZenWindowBeingRaised) != window) {
++    if (OculateKeptActiveOpener(mOculateWindowBeingRaised) != window) {
 +      ActivateOrDeactivate(window, false);
 +    }
-+    if (nsCOMPtr<nsPIDOMWindowOuter> opener = ZenKeptActiveOpener(window);
-+        opener && opener != mZenWindowBeingRaised &&
-+        ZenIsActiveBrowserWindow(opener)) {
++    if (nsCOMPtr<nsPIDOMWindowOuter> opener = OculateKeptActiveOpener(window);
++        opener && opener != mOculateWindowBeingRaised &&
++        OculateIsActiveBrowserWindow(opener)) {
 +      ActivateOrDeactivate(opener, false);
 +    }
    }

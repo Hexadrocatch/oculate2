@@ -1,0 +1,50 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+<toolbar id="oculate-media-controls-toolbar"
+  class="browser-toolbar customization-target oculate-sidebar-toolbar"
+  context="toolbar-context-menu"
+  mode="icons"
+  fullscreentoolbar="true"
+  hidden="true">
+  <html:template id="oculate-media-card-template">
+    <toolbaritem class="oculate-media-card">
+      <vbox class="oculate-media-main-vbox">
+        <vbox>
+          <hbox class="oculate-media-info-container show-on-hover">
+            <vbox class="oculate-media-info-vbox">
+              <label class="oculate-media-title" fadein="true"/>
+              <label class="oculate-media-artist" fadein="true"/>
+            </vbox>
+            <hbox class="oculate-media-buttons-hbox">
+              <toolbarbutton class="oculate-media-pip-button toolbarbutton-1" />
+              <toolbarbutton class="oculate-media-close-button toolbarbutton-1" />
+            </hbox>
+          </hbox>
+          <hbox class="oculate-media-progress-hbox show-on-hover">
+            <label class="oculate-media-current-time">0:00</label>
+            <html:input type="range" class="oculate-media-progress-bar"
+              value="0" min="0" max="100" step="0.1"/>
+            <label class="oculate-media-duration">0:00</label>
+          </hbox>
+        </vbox>
+        <hbox class="oculate-media-controls-hbox">
+          <toolbarbutton class="oculate-media-focus-button toolbarbutton-1">
+            <box class="oculate-media-notes"/>
+          </toolbarbutton>
+          <hbox class="oculate-media-playback-buttons">
+            <toolbarbutton class="oculate-media-previoustrack-button toolbarbutton-1" />
+            <toolbarbutton class="oculate-media-playpause-button toolbarbutton-1" />
+            <toolbarbutton class="oculate-media-nexttrack-button toolbarbutton-1" />
+          </hbox>
+          <toolbarbutton class="oculate-media-mute-button toolbarbutton-1" />
+          <hbox class="media-device-buttons">
+            <toolbarbutton class="oculate-media-mute-mic-button toolbarbutton-1" />
+            <toolbarbutton class="oculate-media-mute-camera-button toolbarbutton-1" />
+          </hbox>
+        </hbox>
+      </vbox>
+    </toolbaritem>
+  </html:template>
+</toolbar>

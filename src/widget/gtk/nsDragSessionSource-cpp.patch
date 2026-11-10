@@ -6,7 +6,7 @@ index a5f67d700f8c80d513f08cc25405b57cf28a2a9a..58186470bcbb7b1eda34ee20a19e29d5
  #include "mozilla/Services.h"
  #include "mozilla/StaticPrefs_widget.h"
  #include "mozilla/WidgetUtilsGtk.h"
-+#include "mozilla/nsZenDragAndDrop.h"
++#include "mozilla/nsOculateDragAndDrop.h"
  #include "nsAppShell.h"
  #include "nsArrayUtils.h"
  #include "nsCRT.h"
@@ -15,8 +15,8 @@ index a5f67d700f8c80d513f08cc25405b57cf28a2a9a..58186470bcbb7b1eda34ee20a19e29d5
    if (!dt) return false;
  
 +  auto drag_translucency = DRAG_IMAGE_ALPHA_LEVEL;
-+  if (auto zenDragAndDrop = zen::nsZenDragAndDrop::GetZenDragAndDropInstance()) {
-+    drag_translucency = zenDragAndDrop->GetDragImageOpacity();
++  if (auto oculateDragAndDrop = oculate::nsOculateDragAndDrop::GetOculateDragAndDropInstance()) {
++    drag_translucency = oculateDragAndDrop->GetDragImageOpacity();
 +  }
    dt->ClearRect(Rect(0, 0, dragRect.width, dragRect.height));
    dt->DrawSurface(

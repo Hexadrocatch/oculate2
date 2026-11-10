@@ -1,0 +1,24 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.splitView.enable-tab-drop
+  value: true
+
+- name: oculate.splitView.enable-tab-click-split
+  value: true
+
+- name: oculate.splitView.min-resize-width
+  value: 7
+
+- name: oculate.splitView.rearrange-hover-size
+  value: 24
+
+- name: oculate.splitView.enable-drag-over-split
+  value: true
+
+- name: oculate.splitView.drag-over-split-delayMC
+  value: 500
+
+- name: oculate.splitView.drag-over-split-threshold
+  value: 40

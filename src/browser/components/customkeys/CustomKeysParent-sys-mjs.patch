@@ -9,8 +9,8 @@ index 3a3b05e5eecf89193be8931b77a2b8eb5b6271b7..ff432faa81ce172575f3e53e6ee4309f
 +const lazy = {};
 +
 +ChromeUtils.defineESModuleGetters(lazy, {
-+  ZenKeyboardShortcuts:
-+    "resource:///modules/zen/kbs/ZenKeyboardShortcuts.sys.mjs",
++  OculateKeyboardShortcuts:
++    "resource:///modules/oculate/kbs/OculateKeyboardShortcuts.sys.mjs",
 +});
 +
  const KEY_NAMES_TO_CODES = {
@@ -21,7 +21,7 @@ index 3a3b05e5eecf89193be8931b77a2b8eb5b6271b7..ff432faa81ce172575f3e53e6ee4309f
        }
        case "CustomKeys:GetKeys": {
 -        return this.getKeys();
-+        return lazy.ZenKeyboardShortcuts.addKeys(this, this.getKeys());
++        return lazy.OculateKeyboardShortcuts.addKeys(this, this.getKeys());
        }
        case "CustomKeys:ResetAll": {
          return CustomKeys.resetAll();

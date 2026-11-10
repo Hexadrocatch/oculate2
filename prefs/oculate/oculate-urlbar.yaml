@@ -1,0 +1,52 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- name: oculate.urlbar.replace-newtab
+  value: true
+
+- name: oculate.urlbar.show-protections-icon
+  value: false
+
+- name: oculate.urlbar.show-contextual-id
+  value: false
+
+- name: oculate.urlbar.behavior
+  value: floating-on-type
+
+- name: oculate.urlbar.wait-to-clear
+  value: 45000
+
+- name: oculate.urlbar.show-domain-only-in-sidebar
+  value: true
+
+- name: oculate.urlbar.hide-one-offs
+  value: true
+
+# Control Top Sites shortcuts in the URL bar independently of about:newtab.
+- name: oculate.urlbar.show-sponsored
+  value: false
+
+- name: oculate.urlbar.show-pinned
+  value: "@cond"
+  condition: "!@IS_TWILIGHT@"
+
+- name: oculate.urlbar.enable-overrides
+  value: false
+
+- name: oculate.urlbar.single-toolbar-show-copy-url
+  value: true
+
+- name: oculate.urlbar.show-pip-button
+  value: false
+
+- name: oculate.urlbar.open-on-startup
+  value: true
+
+# Mark: Oculate suggestions controls
+
+- name: oculate.urlbar.suggestions.quick-actions
+  value: true
+
+- name: browser.urlbar.shortcuts.workspaces
+  value: true

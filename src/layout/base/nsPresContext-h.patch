@@ -6,21 +6,21 @@ index dd13711ab28e0f43f2a0e4f5e9a9794c3eb4e206..e404bd2f10e7e92bf193b5f692e673ba
     */
    void SetColorSchemeOverride(mozilla::dom::PrefersColorSchemeOverride);
  
-+  // Zen boosts override. SVG images render in their own document, which has no
++  // Oculate boosts override. SVG images render in their own document, which has no
 +  // BrowsingContext to carry the page's boost, so the host propagates it here.
-+  void SetZenBoostsOverride(nscolor aAccent, float aComplementaryRotation,
++  void SetOculateBoostsOverride(nscolor aAccent, float aComplementaryRotation,
 +                            bool aInverted) {
-+    mZenBoostsOverrideAccent = aAccent;
-+    mZenBoostsOverrideComplementaryRotation = aComplementaryRotation;
-+    mZenBoostsOverrideInverted = aInverted;
-+    mHasZenBoostsOverride = true;
++    mOculateBoostsOverrideAccent = aAccent;
++    mOculateBoostsOverrideComplementaryRotation = aComplementaryRotation;
++    mOculateBoostsOverrideInverted = aInverted;
++    mHasOculateBoostsOverride = true;
 +  }
-+  bool HasZenBoostsOverride() const { return mHasZenBoostsOverride; }
-+  nscolor ZenBoostsOverrideAccent() const { return mZenBoostsOverrideAccent; }
-+  float ZenBoostsOverrideComplementaryRotation() const {
-+    return mZenBoostsOverrideComplementaryRotation;
++  bool HasOculateBoostsOverride() const { return mHasOculateBoostsOverride; }
++  nscolor OculateBoostsOverrideAccent() const { return mOculateBoostsOverrideAccent; }
++  float OculateBoostsOverrideComplementaryRotation() const {
++    return mOculateBoostsOverrideComplementaryRotation;
 +  }
-+  bool ZenBoostsOverrideInverted() const { return mZenBoostsOverrideInverted; }
++  bool OculateBoostsOverrideInverted() const { return mOculateBoostsOverrideInverted; }
 +
    /**
     * Sets the effective link parameters overrides, and invalidate stuff as
@@ -29,10 +29,10 @@ index dd13711ab28e0f43f2a0e4f5e9a9794c3eb4e206..e404bd2f10e7e92bf193b5f692e673ba
    mozilla::StyleLinkParameters mLinkParameters;
    nsMargin mEmbedderScrollbarInset;
  
-+  nscolor mZenBoostsOverrideAccent = 0;
-+  float mZenBoostsOverrideComplementaryRotation = 0.0f;
-+  bool mZenBoostsOverrideInverted = false;
-+  bool mHasZenBoostsOverride = false;
++  nscolor mOculateBoostsOverrideAccent = 0;
++  float mOculateBoostsOverrideComplementaryRotation = 0.0f;
++  bool mOculateBoostsOverrideInverted = false;
++  bool mHasOculateBoostsOverride = false;
 +
   protected:
    virtual ~nsPresContext();

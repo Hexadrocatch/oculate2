@@ -9,7 +9,7 @@ index c87bd45858c9f10a64551cf5a5572c0ceb5507d0..9788c776740a637b3687643137cba61f
 -      showTabStripItems && toolbarItem.parentElement.id == "vertical-tabs";
 -
 +      showTabStripItems && toolbarItem.parentElement.id == "TabsToolbar-customization-target";
-+    document.getElementById("zen-toolbar-context-set-profile-separator").hidden = !isVerticalTabStripMenu;
++    document.getElementById("oculate-toolbar-context-set-profile-separator").hidden = !isVerticalTabStripMenu;
      if (aInsertPoint) {
        aInsertPoint.hidden = isVerticalTabStripMenu;
      }

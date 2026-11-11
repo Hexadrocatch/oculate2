@@ -861,7 +861,32 @@
     }
 
     /**
-     * Whether a drop lands before (vs after) an element, from how far down its
+     * Whether items stack top to bottom rather than side by side.
+     */
+    get _stacksVertically() {
+      return this._tabbrowserTabs.verticalMode;
+    }
+
+    /**
+     * How far along an element the pointer sits in the stacking direction,
+     * from 0 at its leading edge to 1 at its trailing one.
+     *
+     * @param {DragEvent} event
+     * @param {DOMRect} rect - The element's bounds
+     * @returns {number}
+     */
+    _dragProgress(event, rect) {
+      if (this._stacksVertically) {
+        return (event.clientY - rect.top) / rect.height;
+      }
+      const offset = this._rtlMode
+        ? rect.right - event.clientX
+        : event.clientX - rect.left;
+      return offset / rect.width;
+    }
+
+    /**
+     * Whether a drop lands before (vs after) an element, from how far along its
      * box the pointer sits and the move-over threshold pref.
      *
      * @param {DragEvent} event
@@ -873,7 +898,7 @@
         Services.prefs.getIntPref(
           "browser.tabs.dragDrop.moveOverThresholdPercent"
         ) / 100;
-      return (event.clientY - rect.top) / rect.height <= threshold;
+      return this._dragProgress(event, rect) <= threshold;
     }
 
     /**
@@ -893,6 +918,7 @@
       }
       indicator.setAttribute("orientation", "horizontal");
       const style = indicator.style;
+      style.removeProperty("left");
       const vars = {
         "--indicator-left": `${left}px`,
         "--indicator-width": `${width}px`,
@@ -1365,8 +1391,13 @@
           return;
         }
         this.#isAnimatingTabMove = true;
-        const animateElement = (ele, translateY) => {
-          ele.style.transform = `translateY(${translateY}px)`;
+        const vertical = this._stacksVertically;
+        const axis = vertical ? "y" : "x";
+        const size = vertical ? "height" : "width";
+        const transform = vertical ? "translateY" : "translateX";
+        const direction = !vertical && this._rtlMode ? -1 : 1;
+        const animateElement = (ele, translate) => {
+          ele.style.transform = `${transform}(${translate}px)`;
           let animateInternal = resolve => {
             const clearStyles = () => {
               ele.style.transform = "";
@@ -1380,7 +1411,7 @@
             gOculateUIManager
               .elementAnimate(
                 ele,
-                { y: [translateY, 0] },
+                { [axis]: [translate, 0] },
                 { duration: 100, easing: "ease-out" }
               )
               .then(() => {
@@ -1400,6 +1431,7 @@
         };
         const items = this._tabbrowserTabs.ariaFocusableItems;
         let rect = window.windowUtils.getBoundsWithoutFlushing(draggedTab);
+        const span = rect[size] * direction;
         let focusableDropElement = gBrowser.isTabGroup(dropElement)
           ? dropElement.labelElement
           : dropElement;
@@ -1430,39 +1462,39 @@
           }
         }
         let extraTranslate = 0;
-        let translateY =
+        let translate =
           focusableDraggedTab.elementIndex > focusableDropElement.elementIndex
-            ? -rect.height
-            : rect.height;
-        translateY *= movingTabs.length;
+            ? -span
+            : span;
+        translate *= movingTabs.length;
         if (draggedTab.pinned != dropElement.pinned) {
           const shiftableItems = this.#dragShiftableItems;
           for (let item of shiftableItems) {
             // We also need to animate these shiftable items and add it to the extraTranslate
             // so the dragged tab ends up in the right position.
             let itemRect = window.windowUtils.getBoundsWithoutFlushing(item);
-            extraTranslate += itemRect.height;
-            animateElement(item, translateY);
+            extraTranslate += itemRect[size] * direction;
+            animateElement(item, translate);
           }
         }
         // Animate tabs in between moving out of the way
         for (let item of tabsInBetween) {
           const element = elementToMove(item);
           if (element) {
-            animateElement(element, translateY);
+            animateElement(element, translate);
           }
         }
-        let draggedTabTranslateY =
+        let draggedTabTranslate =
           focusableDraggedTab.elementIndex > focusableDropElement.elementIndex
-            ? rect.height * tabsInBetween.length
-            : -rect.height * tabsInBetween.length;
-        draggedTabTranslateY +=
+            ? span * tabsInBetween.length
+            : -span * tabsInBetween.length;
+        draggedTabTranslate +=
           extraTranslate *
           (focusableDraggedTab.elementIndex > focusableDropElement.elementIndex
             ? 1
             : -1);
         draggedTab.style.zIndex = "9";
-        animateElement(draggedTab, draggedTabTranslateY);
+        animateElement(draggedTab, draggedTabTranslate);
       } catch (e) {
         console.error(e);
       }
@@ -1545,6 +1577,10 @@
       this.#dragOverBackground.id = "oculate-dragover-background";
       this.#dragOverBackground.style.height = `${rect.height - margin * 2}px`;
       this.#dragOverBackground.style.top = `${rect.top + margin}px`;
+      if (!this._stacksVertically) {
+        this.#dragOverBackground.style.width = `${rect.width - margin * 2}px`;
+        this.#dragOverBackground.style.left = `${rect.left + margin}px`;
+      }
       gNavToolbox.appendChild(this.#dragOverBackground);
       this.#lastDropTarget = element;
       return true;
@@ -1595,6 +1631,38 @@
     }
 
     // eslint-disable-next-line complexity
+    /**
+     * Lays the shared drop indicator on the edge of a strip item where the
+     * drop would land, across the direction the tabs are laid out in.
+     *
+     * @param {DOMRect} rect - The item's bounds
+     * @param {boolean} dropBefore - Whether the drop lands before the item
+     * @param {number} separation - Inset from the item's sides, in px
+     * @returns {boolean} Whether the indicator moved
+     */
+    #placeStripDropIndicator(rect, dropBefore, separation) {
+      const indicator = gOculatePinnedTabManager.dragIndicator;
+      const style = indicator.style;
+      if (this._stacksVertically) {
+        const top = Math.round(dropBefore ? rect.top : rect.top + rect.height);
+        const moved = style.getPropertyValue("--indicator-top") !== `${top}px`;
+        this._placeDropIndicator({
+          left: rect.left + separation / 2,
+          width: rect.width - separation,
+          top,
+        });
+        return moved;
+      }
+      const onLeft = dropBefore != this._rtlMode;
+      const left = `${Math.round(onLeft ? rect.left : rect.right) - 1}px`;
+      const moved = style.left !== left;
+      indicator.setAttribute("orientation", "vertical");
+      style.setProperty("--indicator-top", `${rect.top + separation / 2}px`);
+      style.setProperty("--indicator-height", `${rect.height - separation}px`);
+      style.left = left;
+      return moved;
+    }
+
     #applyDragoverIndicator(event, dropElement, movingTabs, draggedTab) {
       // Doesn't show indicator when dragOverSplit
       if (this.#dragOverSplit.canDrop) {
@@ -1617,6 +1685,10 @@
         );
         if (
           event.target.classList.contains("oculate-workspace-empty-space") ||
+          (!this._stacksVertically &&
+            event.target.classList.contains(
+              "oculate-workspace-normal-tabs-section"
+            )) ||
           hoveringPeriphery
         ) {
           let lastTab = gBrowser.tabs.at(-1);
@@ -1672,7 +1744,7 @@
           movingTabs
         ) || !isOculateFolder;
       let rect = window.windowUtils.getBoundsWithoutFlushing(dropElement);
-      const overlapPercent = (event.clientY - rect.top) / rect.height;
+      const overlapPercent = this._dragProgress(event, rect);
       // We wan't to leave a small threshold (20% for example) so we can drag tabs below and above
       // a folder label without dragging into the folder.
       let threshold =
@@ -1719,16 +1791,9 @@
         }
         dropBefore =
           !showIndicatorUnderNewTabButton && this._dropsBefore(event, rect);
-        const top = Math.round(dropBefore ? rect.top : rect.top + rect.height);
-        const indicatorStyle = gOculatePinnedTabManager.dragIndicator.style;
-        if (indicatorStyle.getPropertyValue("--indicator-top") !== `${top}px`) {
+        if (this.#placeStripDropIndicator(rect, dropBefore, separation)) {
           shouldPlayHapticFeedback = true;
         }
-        this._placeDropIndicator({
-          left: rect.left + separation / 2,
-          width: rect.width - separation,
-          top,
-        });
         this.#removeDragOverBackground();
         if (!isTab(dropElement) && dropElement?.parentElement?.isOculateFolder) {
           dropElement = dropElement.parentElement;

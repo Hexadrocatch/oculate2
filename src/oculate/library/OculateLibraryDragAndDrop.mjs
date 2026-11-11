@@ -16,6 +16,10 @@ export class OculateLibraryDragAndDrop extends window.OculateDragAndDrop {
     this.#section = section;
   }
 
+  get _stacksVertically() {
+    return true;
+  }
+
   _targetForDrop(element) {
     return this.#section.realElementFor(element) ?? element;
   }

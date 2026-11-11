@@ -1,0 +1,223 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+@media not -moz-pref("oculate.tabs.vertical") {
+  #main-window {
+    & #browser {
+      flex-direction: column;
+    }
+
+    & #oculate-sidebar-splitter {
+      display: none;
+    }
+
+    & #navigator-toolbox {
+      --oculate-tab-strip-height: 44px;
+      --tab-min-width: 76px;
+      --oculate-tab-max-width: 225px;
+
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      padding-bottom: 0;
+
+      & #titlebar {
+        flex-direction: row;
+        align-items: center;
+        height: var(--oculate-tab-strip-height);
+        min-width: 0;
+      }
+
+      /* These carry a XUL flex attribute, which author styles cannot override,
+       * so their size is capped instead. */
+      & #oculate-sidebar-top-buttons,
+      & #oculate-sidebar-foot-buttons,
+      & .oculate-current-workspace-indicator {
+        width: auto;
+        min-width: 0;
+        max-width: fit-content;
+      }
+
+      & #oculate-sidebar-top-buttons,
+      & #oculate-sidebar-foot-buttons {
+        height: 100%;
+        align-items: center;
+      }
+
+      & #TabsToolbar,
+      & #TabsToolbar > .toolbar-items,
+      & #TabsToolbar-customization-target,
+      & #tabbrowser-tabs,
+      & #oculate-tabs-wrapper,
+      & #tabbrowser-arrowscrollbox {
+        flex: 1 !important;
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        min-width: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      & #TabsToolbar {
+        gap: 4px;
+      }
+
+      & #oculate-tabs-wrapper {
+        display: flex;
+        position: relative;
+        overflow: clip;
+      }
+
+      & #oculate-essentials {
+        --tab-min-height: 36px;
+
+        display: flex;
+        flex: none;
+        align-items: center;
+        height: 100%;
+        min-width: 0;
+        margin: 0;
+      }
+
+      & .oculate-essentials-container:not([hidden="true"]) {
+        position: static;
+        grid-template-columns: none;
+        grid-auto-columns: var(--tab-min-height);
+        grid-auto-flow: column;
+        align-items: center;
+        gap: 2px;
+        width: auto;
+        min-width: 0;
+        padding: 0;
+        overflow: visible;
+
+        &:not(:empty) {
+          margin-inline-end: 4px;
+        }
+      }
+
+      & oculate-workspace {
+        top: 0;
+        left: 0;
+        /* The essentials sit beside the tabs here, not above them. */
+        padding-top: 0 !important;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+
+      & .oculate-current-workspace-indicator {
+        padding: 0 8px;
+      }
+
+      & .oculate-current-workspace-indicator-name {
+        max-width: 120px;
+      }
+
+      & .workspace-arrowscrollbox {
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        min-width: 0;
+        height: 100%;
+
+        &[overflowing] {
+          &::part(scrollbox) {
+            overflow: hidden;
+            padding-block-end: 0;
+          }
+
+          &::part(scrollbutton-up),
+          &::part(scrollbutton-down) {
+            display: flex;
+          }
+
+          &::before,
+          &::after {
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            height: auto;
+          }
+
+          &::after {
+            left: auto;
+            right: 0;
+          }
+        }
+      }
+
+      & .oculate-workspace-tabs-section:not(.oculate-current-workspace-indicator, .oculate-essentials-container) {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        min-width: 0;
+        height: 100%;
+        padding: 0;
+      }
+
+      & .oculate-workspace-normal-tabs-section {
+        flex: 1;
+      }
+
+      & .oculate-workspace-pinned-tabs-section {
+        flex: none;
+      }
+
+      & .pinned-tabs-container-separator {
+        width: 1px;
+        height: 20px;
+        margin-inline: 6px;
+        background: var(--oculate-colors-border);
+
+        & > * {
+          display: none;
+        }
+
+        .oculate-workspace-pinned-tabs-section[hide-separator] & {
+          display: none;
+        }
+      }
+
+      & .tabbrowser-tab {
+        flex: 100 100 0;
+        min-width: var(--tab-min-width);
+        max-width: var(--oculate-tab-max-width);
+
+        &[pinned],
+        &[oculate-essential="true"] {
+          flex: none;
+          width: var(--tab-min-height);
+          min-width: var(--tab-min-height);
+        }
+      }
+
+      & #tabbrowser-arrowscrollbox-periphery > #tabs-newtab-button {
+        width: var(--tab-min-height) !important;
+        min-width: var(--tab-min-height);
+        height: var(--tab-min-height);
+        padding: 0;
+
+        & .toolbarbutton-text,
+        & .oculate-newtab-sublabel-anchor {
+          display: none !important;
+        }
+      }
+
+      & .oculate-workspace-empty-space,
+      & .oculate-workspace-scroll-to-tab {
+        display: none;
+      }
+    }
+
+    & #oculate-tabbox-wrapper {
+      margin-inline-start: var(--oculate-element-separation);
+    }
+  }
+}

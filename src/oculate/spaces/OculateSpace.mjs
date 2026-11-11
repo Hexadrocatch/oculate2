@@ -167,6 +167,9 @@ export class nsOculateWorkspace extends MozXULElement {
     this.initializeAttributeInheritance();
 
     this.scrollbox = this.querySelector("arrowscrollbox");
+    if (!Services.prefs.getBoolPref("oculate.tabs.vertical", true)) {
+      this.scrollbox.setAttribute("orient", "horizontal");
+    }
     this.scrollbox.smoothScroll = Services.prefs.getBoolPref(
       "oculate.startup.smooth-scroll-in-tabs",
       false

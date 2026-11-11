@@ -3,7 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 - name: oculate.tabs.vertical
-  value: true
+  value: false
 
 - name: oculate.tabs.vertical.right-side
   value: false

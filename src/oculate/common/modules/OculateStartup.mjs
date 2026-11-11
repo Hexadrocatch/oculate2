@@ -107,7 +107,7 @@ class OculateStartup {
       this.closeWatermark();
       document
         .getElementById("tabbrowser-arrowscrollbox")
-        .setAttribute("orient", "vertical");
+        .setAttribute("orient", gBrowser.tabContainer.getAttribute("orient"));
       this.isReady = true;
       this.#initialized.resolve();
 

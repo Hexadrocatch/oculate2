@@ -6,3 +6,4 @@
         content/browser/oculate-components/OculateEssentialsPromo.mjs                   (../../oculate/tabs/OculateEssentialsPromo.mjs)
 *       content/browser/oculate-styles/oculate-tabs.css                                 (../../oculate/tabs/oculate-tabs.css)
         content/browser/oculate-styles/oculate-tabs/vertical-tabs.css                   (../../oculate/tabs/oculate-tabs/vertical-tabs.css)
+        content/browser/oculate-styles/oculate-tabs/horizontal-tabs.css                 (../../oculate/tabs/oculate-tabs/horizontal-tabs.css)

@@ -35,7 +35,7 @@
   type: static
 
 - name: oculate.view.show-newtab-button-top
-  value: true
+  value: false
 
 - name: oculate.view.show-scroll-to-selected-tab
   value: true

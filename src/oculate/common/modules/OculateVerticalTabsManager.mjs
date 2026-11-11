@@ -147,6 +147,19 @@ window.gOculateVerticalTabsManager = {
     );
   },
 
+  /**
+   * The size and trailing margin an item collapses along while it animates,
+   * which follow the direction the tabs are laid out in.
+   */
+  get _itemCollapseAxis() {
+    if (this._prefsVerticalTabs) {
+      return { size: "height", margin: "marginBottom", name: "margin-bottom" };
+    }
+    return window.RTL_UI
+      ? { size: "width", margin: "marginLeft", name: "margin-left" }
+      : { size: "width", margin: "marginRight", name: "margin-right" };
+  },
+
   animateItemOpen(aItem) {
     if (!this._canAnimateItemOpen(aItem)) {
       return;
@@ -158,20 +171,21 @@ window.gOculateVerticalTabsManager = {
     };
 
     try {
-      const itemSize = aItem.getBoundingClientRect().height;
+      const axis = this._itemCollapseAxis;
+      const itemSize = aItem.getBoundingClientRect()[axis.size];
       const transform = `-${itemSize}px`;
-      const marginBottom = isLastItem() ? ["0px", "0px"] : [transform, "0px"];
+      const margin = isLastItem() ? ["0px", "0px"] : [transform, "0px"];
       // Hold the collapsed start state now so the item doesn't take its space
       // for a frame, then start once its destination is settled.
-      aItem.style.marginBottom = marginBottom[0];
+      aItem.style[axis.margin] = margin[0];
       aItem.style.opacity = "0";
       window.requestAnimationFrame(() => {
         if (!this._canAnimateItemOpen(aItem)) {
-          aItem.style.removeProperty("margin-bottom");
+          aItem.style.removeProperty(axis.name);
           aItem.style.removeProperty("opacity");
           return;
         }
-        this._startItemOpenAnimation(aItem, marginBottom);
+        this._startItemOpenAnimation(aItem, axis, margin);
       });
     } catch (e) {
       console.error(e);
@@ -180,9 +194,10 @@ window.gOculateVerticalTabsManager = {
 
   /**
    * @param {Element} aItem
-   * @param {string[]} marginBottom Keyframes collapsing the item's space.
+   * @param {object} axis The axis the item collapses along.
+   * @param {string[]} margin Keyframes collapsing the item's space.
    */
-  _startItemOpenAnimation(aItem, marginBottom) {
+  _startItemOpenAnimation(aItem, axis, margin) {
     try {
       gOculateUIManager.motion
         .animate(
@@ -190,7 +205,7 @@ window.gOculateVerticalTabsManager = {
           {
             opacity: [0, 1],
             transform: ["scale(0.95)", "scale(1)"],
-            marginBottom,
+            [axis.margin]: margin,
           },
           {
             duration: 0.12,
@@ -202,7 +217,7 @@ window.gOculateVerticalTabsManager = {
           console.error(err);
         })
         .finally(() => {
-          aItem.style.removeProperty("margin-bottom");
+          aItem.style.removeProperty(axis.name);
           aItem.style.removeProperty("transform");
           aItem.style.removeProperty("opacity");
         });
@@ -221,7 +236,8 @@ window.gOculateVerticalTabsManager = {
     ) {
       return Promise.resolve();
     }
-    const height = window.windowUtils.getBoundsWithoutFlushing(aItem).height;
+    const axis = this._itemCollapseAxis;
+    const size = window.windowUtils.getBoundsWithoutFlushing(aItem)[axis.size];
     const visibleItems = gBrowser.tabContainer.ariaFocusableItems;
     const isLastItem = visibleItems[visibleItems.length - 1] === aItem;
     return gOculateUIManager.motion.animate(
@@ -232,7 +248,7 @@ window.gOculateVerticalTabsManager = {
         ...(isLastItem
           ? {}
           : {
-              marginBottom: [`0px`, `-${height}px`],
+              [axis.margin]: [`0px`, `-${size}px`],
             }),
       },
       {
@@ -414,29 +430,29 @@ window.gOculateVerticalTabsManager = {
       const topButtons = document.getElementById("oculate-sidebar-top-buttons");
       const isCompactMode =
         gOculateCompactModeManager.preference && !forCustomizableMode;
-      const isVerticalTabs = this._prefsVerticalTabs || forCustomizableMode;
+      const isVerticalTabs = this._prefsVerticalTabs;
       const isSidebarExpanded = this._prefsSidebarExpanded || !isVerticalTabs;
       const isRightSide = this._prefsRightSide && isVerticalTabs;
       const isSingleToolbar =
-        ((this._prefsUseSingleToolbar && isVerticalTabs && isSidebarExpanded) ||
-          !isVerticalTabs) &&
+        this._prefsUseSingleToolbar &&
+        isVerticalTabs &&
+        isSidebarExpanded &&
         !forCustomizableMode &&
         !this.hidesTabsToolbar;
       const titlebar = document.getElementById("titlebar");
 
-      gBrowser.tabContainer.setAttribute(
-        "orient",
-        isVerticalTabs ? "vertical" : "horizontal"
-      );
-      gBrowser.tabContainer.arrowScrollbox.setAttribute(
-        "orient",
-        isVerticalTabs ? "vertical" : "horizontal"
-      );
-      // on purpose, we set the orient to horizontal, because the arrowScrollbox is vertical
+      const orient = isVerticalTabs ? "vertical" : "horizontal";
+      gBrowser.tabContainer.setAttribute("orient", orient);
+      gBrowser.tabContainer.arrowScrollbox.setAttribute("orient", orient);
       gBrowser.tabContainer.arrowScrollbox.scrollbox.setAttribute(
         "orient",
-        isVerticalTabs ? "vertical" : "horizontal"
+        orient
       );
+      for (const scrollbox of document.querySelectorAll(
+        "#tabbrowser-arrowscrollbox, .workspace-arrowscrollbox"
+      )) {
+        scrollbox.setAttribute("orient", orient);
+      }
 
       const buttonsTarget = document.getElementById(
         "oculate-sidebar-top-buttons-customization-target"
@@ -655,6 +671,16 @@ window.gOculateVerticalTabsManager = {
 
       if (shouldHide) {
         appContentNavbarContaienr.append(windowButtons);
+      }
+
+      if (!isVerticalTabs) {
+        // The tab strip is the title bar, so the window controls sit at its ends.
+        titlebar.prepend(topButtons);
+        if (this.isWindowsStyledButtons) {
+          document.getElementById("TabsToolbar").append(windowButtons);
+        } else {
+          topButtons.prepend(windowButtons);
+        }
       }
 
       if (

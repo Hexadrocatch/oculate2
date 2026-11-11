@@ -1,12 +1,12 @@
 diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
-index b96e9d02beda72c92c295a2799c851b94945ada6..db79081c6d1bbdf78a38a6cc13494476827bf0d1 100644
+index 17f9237d1f0536e74f20fbec8950693b9508d5c9..c0c5f0af72062fa180874056ad844edb44e068ed 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -20580,6 +20580,7 @@
+@@ -17783,6 +17783,7 @@
+   value: 5
    mirror: always
- #endif
  
 +#include oculate-static-prefs.inc
  #---------------------------------------------------------------------------
- # Prefs starting with "zoom."
+ # Prefs starting with "page_load."
  #---------------------------------------------------------------------------

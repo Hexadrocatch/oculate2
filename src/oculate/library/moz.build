@@ -3,6 +3,11 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 MOZ_SRC_FILES += [
+  "OculateLibrary.mjs",
+  "OculateLibraryDragAndDrop.mjs",
+  "OculateLibraryMediaPreview.mjs",
+  "OculateLibraryUtils.sys.mjs",
+  "OculateLibraryWidget.sys.mjs",
   "sections/OculateLibraryBoostsSection.mjs",
   "sections/OculateLibraryDownloadsSection.mjs",
   "sections/OculateLibraryHistorySection.mjs",
@@ -10,12 +15,6 @@ MOZ_SRC_FILES += [
   "sections/OculateLibrarySearchSection.mjs",
   "sections/OculateLibrarySpaceRoutingSection.mjs",
   "sections/OculateLibrarySpacesSection.mjs",
-
-  "OculateLibrary.mjs",
-  "OculateLibraryDragAndDrop.mjs",
-  "OculateLibraryMediaPreview.mjs",
-  "OculateLibraryUtils.sys.mjs",
-  "OculateLibraryWidget.sys.mjs",
 ]
 
 XPIDL_SOURCES += [
